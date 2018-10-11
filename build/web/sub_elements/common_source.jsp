@@ -5,14 +5,8 @@
 --%>
 
 <%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="CSS/general_elements.css" type="text/css">
-        <link rel="stylesheet" href="CSS/login.css" type="text/css">
-        <script type="text/javascript" src="js/jquery-3.3.1.js"></script>
-    </head>
-    <body>
-    </body>
-</html>
+
+<link rel="stylesheet" href="CSS/general_elements.css" type="text/css">
+<link rel="stylesheet" href="CSS/login.css" type="text/css">
+<script type="text/javascript" src="js/jquery-3.3.1.js"></script>
+

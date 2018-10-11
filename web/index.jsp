@@ -58,10 +58,10 @@
                             </span>
                             <n1>Fast Track</n1>
                         </div>
-                        <p style="margin-top: 20px; background: #FFFFFF">
+                        <p style="margin: 15px;background: #FFFFFF">
                             Login is required for more </br>Y-P-D self service! 
                         </p>
-                        <p style="margin-top: 10px"> 
+                        <p style="margin-top: 30px"> 
                             <a href="login.jsp">
                                 <span class="icon-doctor"> </span> 
                                 Login 
