@@ -1,0 +1,213 @@
+/* 
+    Created on : 2018-9-29, 15:05:21
+    Author     : Yi Qiu
+*/
+
+.background{
+    width: 100%;
+    height:500px;
+    background:url(../PIC/hospital-readmission.jpg);
+    background-size: contain;
+}
+
+.newsDisplay{
+    margin: 0px auto;
+    width: 1300px;
+    height: 500px;
+    background-color:#000000;
+    background-color:rgba(0,0,0,0.1);
+
+}
+
+.mainPicSlider{
+    background: white;
+    float: left;
+    margin: 78px 17px 22px 9%;
+    width: 700px;
+    height:350px;
+    border:solid 2px #e1e1e1;
+}
+
+.login-box{
+    background: white;
+    float:left; 
+    margin: 78px 6% 22px 17px;
+    width: 305px;
+    height:350px;
+    border:solid 2px #e1e1e1;
+}
+
+.login-box p{
+    line-height: 65px;
+    margin: 3.5rem 40px;
+    background: #e1e1e1;
+    text-align: center;
+}
+
+.login-box a{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bolder;
+    text-decoration: none;
+    color: #505759;
+    background: inherit;
+}
+
+.icon-user{
+    display: inline-block; 
+    vertical-align: middle;
+    width: 30px;
+    height: 30px;
+    background: url(../PIC/syringe.png) no-repeat;
+}
+
+.icon-doctor{
+    display: inline-block;
+    vertical-align: middle;
+    width: 30px;
+    height: 30px;
+    background: url(../PIC/doctor.png) no-repeat;
+}
+
+.login-title{
+    height: 40px;
+    border-bottom: 1px solid #e1e1e1;
+    background: #f8f8f8;
+}
+
+.login-title n1{
+    color: gray;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 40px;
+    margin-left: 5px;
+    background: inherit;
+}
+
+.disPlayA{
+    display: block;
+    width: 24px;
+    height: 24px;
+    margin: 7px auto;
+    text-rendering:auto;
+    text-align: center;
+    background: url(../PIC/power-button.png) no-repeat;
+}
+
+.info{
+    background-color: #323030;
+    border-top-style: solid;
+    border-top-color: black;
+    border-top-width: 5px;
+    background: white;
+    height: 400px;
+    min-width: 1300px;	
+}
+
+.info_main{
+    width: 1300px;
+    height: 400px;
+    background:inherit;
+    margin: 0 auto;
+}
+
+.icon{
+    float: left;
+    height: 40px;
+    width: 40px;
+    min-width: 13px;
+    border-right: 1px solid #dadada;
+    line-height: 20px;
+    background: #f8f8f8;
+}
+
+.scroll_pic{
+    width: 600px;
+    height: 250px;
+    background: inherit;
+    overflow: hidden;
+    position: relative;
+    border: 2px solid #e1e1e1;
+    margin-left: 50px;
+    margin-top: 35px;
+}
+
+.ul_pic{
+    width: 4000px;
+    padding: 0;
+    margin: 0;
+    transition: all 2s;
+}
+
+.li_img{
+    list-style: none;
+    width: 600px;
+    float: left;
+}
+
+.scroll_btn{
+    float: left;
+    border-radius: 100px;
+    background-color: #e8e8e8;
+    width: 60px;
+    height: 10px;
+    margin-left: 10px;
+    margin-top: 20px;
+}
+
+.arrows span{
+    position: absolute;
+    width: 32px;
+    height:32px;
+    z-index: 9999;
+    display: block;
+    margin-top:108px; 
+    background-color:rgba(0,0,0,0);
+}
+
+.arrow_left{
+    margin-left: 20px;
+    background: url(../PIC/chevron-sign-left.png) no-repeat;
+}
+
+.arrow_left:hover{
+    background: url(../PIC/chevron-sign-left-hover.png) no-repeat;
+}
+
+.arrow_right{
+    margin-left: 548px;
+    background: url(../PIC/chevron-sign-to-right-hover.png) no-repeat;
+}
+
+.arrow_right:hover{
+    background: url(../PIC/chevron-sign-to-right.png) no-repeat;
+}
+
+.intro_textbox{
+    float: left;
+    width: 350px;
+    height: 300px;
+    margin-top: 50px;
+    margin-left: 4%;
+    background: inherit;
+    text-align: center;
+}
+
+.intro_textbox p{
+    width: 250px;
+    height: 150px;
+    margin-top: 25px;
+    margin-left: 15%;
+    background: inherit;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bolder;
+}
+
+.intro_icon{
+    display: block;
+    width: 64px;
+    height: 64px;
+    margin-top: 30px;
+    margin-left: 30%;
+    background: inherit;
+}

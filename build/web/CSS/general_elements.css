@@ -1,0 +1,64 @@
+/* 
+    Created on : 2018-9-29, 15:27:43
+    Author     : Yi Qiu
+*/
+*{
+    margin: 0px;
+}
+
+.mainMenu{
+    min-width: 1300px;
+    background-color: white;
+    width: auto;
+    height: 85px;
+    line-height: 50px;
+    list-style: none;	
+    box-shadow: 5px 5px 1px #888888;
+    z-index:999;
+    position: relative;
+}
+
+.mainMenu ul{
+    list-style: none;
+}
+.mainMenu li{
+    float: right;
+    width: 110px;
+    margin-left:1px;
+}
+.mainMenu a{
+    display: block;
+    height: 85px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    color: #373737;
+    text-decoration: none;
+    line-height: 80px;
+}
+
+.mainMenu a:link{
+    font-weight: bold;
+    background: url(../PIC/play-button.png) white no-repeat 5px 32px; 
+}
+
+.mainMenu a:visited{
+    font-weight: bold;
+    background: url(../PIC/play-button.png) white no-repeat 5px 32px; 
+}
+
+.mainMenu a:hover{
+    color:#FFFFFF;
+    font-weight:bold;
+    background: url(../PIC/play-button-hover.png) black no-repeat 5px 32px;;
+}
+
+.fUrl{
+    background-color: #323030;
+    border-top-style: solid;
+    border-top-color: gray;
+    border-top-width: 5px;
+    width: 100%;
+    min-width: 1300px;
+    height: 100px;
+}
