@@ -51,24 +51,30 @@
                         </div>
                     </div>
                     <div class="login-box">
+                        <% if(log == false){ %>
                         <div class="login-title">
                             <span class="icon">
                                 <i class="disPlayA"></i>
                             </span>
                             <n1>Fast Track</n1>
                         </div>
-                        <p> 
-                            <a href="login.jsp">
-                                <span class="icon-user"></span>
-                                User
-                            </a>
+                        <p style="margin-top: 20px; background: #FFFFFF">
+                            Login is required for more </br>Y-P-D self service! 
                         </p>
-                        <p> 
+                        <p style="margin-top: 10px"> 
                             <a href="login.jsp">
                                 <span class="icon-doctor"> </span> 
-                                Doctor 
+                                Login 
                             </a>
                         </p>
+                        <%}else{%>   
+                        <div class="login-title">
+                            <span class="icon">
+                                <i class="disPlayA"></i>
+                            </span>
+                            <n1>Dashboard</n1>
+                        </div>
+                        <%}%>
                     </div>
                 </div>
             </div>
