@@ -19,6 +19,7 @@ public class User {
     private int contact;
     private String email;
     private boolean gender;
+    private boolean banned;
     
     public User(){
         this.uuid = null;
@@ -34,7 +35,7 @@ public class User {
         this.contact = _contact;
         this.email = _email;
         this.gender = _gender;
-         
+        this.banned = false;        
     }
     public String getUuid(){
         return uuid;
@@ -103,5 +104,13 @@ public class User {
     }
     public void setGender(boolean _gender){
         this.gender = _gender;
+    }
+    
+    public boolean getBanned(){
+        return this.banned;
+    }
+    
+    public void setBanned(Boolean _banned){
+        this.banned = _banned;
     }
 }

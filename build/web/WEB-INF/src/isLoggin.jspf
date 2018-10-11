@@ -1,0 +1,11 @@
+<%--<%@include file = "WEB-INF/src/AccOperation/isLoggin.jspf" %>--%>
+<%@ page pageEncoding="UTF-8" %>
+<%
+    Boolean result = (Boolean) session.getAttribute("result");
+    //out.print(result);
+    if (result != null) {
+        if (!result) {
+            response.sendRedirect("index.jsp");
+        }        
+    }
+%>
