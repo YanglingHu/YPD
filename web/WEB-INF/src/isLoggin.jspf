@@ -1,11 +1,18 @@
-<%--<%@include file = "WEB-INF/src/AccOperation/isLoggin.jspf" %>--%>
+<%--
+    <%@include file = "WEB-INF/src/AccOperation/isLoggin.jspf" %>
+
+    Will be called to check if there is a user
+    If there is no user logged-in, webpage will be redirect to the login.jsp
+--%>
+If there is
+
 <%@ page pageEncoding="UTF-8" %>
 <%
     Boolean result = (Boolean) session.getAttribute("result");
     //out.print(result);
     if (result != null) {
         if (!result) {
-            response.sendRedirect("index.jsp");
+            response.sendRedirect("login.jsp");
         }        
     }
 %>

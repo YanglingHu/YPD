@@ -1,47 +1,110 @@
 package DatabaseOperation;
 
-
-
+/**
+ * This is a databaseinterface that allow progarm to modify and get data from
+ * mySQL database.
+ *
+ * @date lastUpdate: 2018/10/16
+ * @author Yi Qiu
+ */
 
 import Class.User;
 import com.sun.rowset.CachedRowSetImpl;
 import java.sql.*;
 import javax.sql.rowset.CachedRowSet;
 
-/**
- *
- * @author Yi Qiu
- */
 public class DatabaseInterface {
 
     // JDBC Tpye = MySQL
     private static final String DRIVER_TYPE = "com.mysql.cj.jdbc.Driver";
+    private static final String PASS = "Himeasan";
     // DataBase URL.
     private static final String URL = "jdbc:mysql://127.0.0.1:3306/ypd?serverTimezone=EST";
 
     //Admin's Username & Password for database.
     private static final String USER = "root";
-    private static final String PASS = "Himeasan";
-    //local connection(Not using)
-    private Connection con = null;
-    private Statement stmt = null;
-
+    /**
+     * Remove a user from database, using the uuid to target the user data.
+     *
+     * @param _user A user object that will be deleted.
+     * @return boolean value that tells either success or fail.
+     */
+    public static boolean deleteUserFromDB(User _user) {
+        
+        Statement stmt = null; //A SQL statement will be created.
+        ResultSet rs = null; //Result returned from the SQL database.
+        Connection conn; //A database connection object.
+        String sql = "delete from user where UUID=" + _user.getUuid();
+        try {
+            Class.forName(DRIVER_TYPE);
+            // Open a new connection.
+            conn = DriverManager.getConnection(URL, USER, PASS);
+            // Creating a new statement.
+            stmt = conn.createStatement();
+            // Delete a target user in database..
+            stmt.executeUpdate(sql);
+            conn.close();
+            stmt.close();
+            return true;
+        } catch (SQLException se) {
+            System.out.println("Operation failed:");
+            return false;
+//            se.printStackTrace();
+        } catch (ClassNotFoundException cnfe) {
+            // Deal with Class.forName error.
+            System.out.println("Can't find a driver class, loading failed.");
+            return false;
+//            cnfe.printStackTrace();
+        }
+        
+    }
     /**
      *
-     * @param args
+     * @param _UUID
+     * @return
      * @throws SQLException
      */
-    public static void main(String[] args) throws SQLException {
-
+    public static User getTargetUser(String _UUID) throws SQLException {
+        Statement stmt = null; //A SQL statement will be created.
+        ResultSet rs = null; //Result returned from the SQL database.
+        User user = new User(); //A temp User object.
+        Connection conn; //A database connection object.
+        String sql = "SELECT UUID, username, password, userType FROM user where UUID=" + _UUID; //A string that will be used to general SQL statement.
+        try {
+            Class.forName(DRIVER_TYPE);
+            // Open a new connection.
+            conn = DriverManager.getConnection(URL, USER, PASS);
+            // Creating a new statement.
+            stmt = conn.createStatement();
+            //returning result from database.
+            rs = stmt.executeQuery(sql);
+            //Release all sql relavant.
+            user = new User(rs.getString("UUID"), rs.getString("username"), rs.getString("password"), rs.getInt("userType"),
+                    rs.getString("name"), rs.getInt("age"), rs.getInt("contact"), rs.getString("email"), rs.getBoolean("gender"));
+            
+            rs.close();
+            conn.close();
+            stmt.close();
+        } catch (SQLException se) {
+            System.out.println("Connection error:");
+//            se.printStackTrace();
+return null;
+        } catch (ClassNotFoundException cnfe) {
+            // Deal with Class.forName error.
+            System.out.println("Can't find a driver class, loading failed.");
+//            cnfe.printStackTrace();
+return null;
+        }
+        System.out.println("getDataSet() method: Successed!");
         
-//        CachedRowSet crs = getUserDataSet();
-//        deBug(crs);
-        
+        return user;
     }
 
     /**
+     * get a copy of user resultset from the database,in form of a CachedRowSet.
      *
-     * @return @throws SQLException
+     * @return a CachedRowSet contains all users in the database.
+     * @throws SQLException
      */
     public static CachedRowSet getUserDataSet() throws SQLException {
         Statement stmt = null;
@@ -75,16 +138,17 @@ public class DatabaseInterface {
         System.out.println("getDataSet() method: Successed!");
         return crs;
     }
-
+    
     /**
+     * Add a new user to database.
      *
-     * @param _UUID
-     * @return
+     * @param _user A user object that is ready to be added into database.
+     * @return boolean value that tells either success or fail.
      */
     public static boolean newUserToDB(User _user) {
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-        Connection conn;
+        PreparedStatement stmt = null;//A SQL prepared statement will be created.
+        ResultSet rs = null; //Result returned from the SQL database.
+        Connection conn; //A database connection object.
         String sql = "insert into user (UUID,username,password,userType,name,age,contact,email,gender,banned) values (?,?,?,?,?,?,?,?,?,?)";
         try {
             Class.forName(DRIVER_TYPE);
@@ -121,14 +185,15 @@ public class DatabaseInterface {
     }
 
     /**
+     * Update the info changed of a user.
      *
-     * @param _UUID
-     * @return
+     * @param _user A user object that is ready to update.
+     * @return boolean value that tells either success or fail.
      */
     public static boolean updateUserInfo(User _user) {
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-        Connection conn;
+        PreparedStatement stmt = null;//A SQL prepared statement will be created.
+        ResultSet rs = null; //Result returned from the SQL database.
+        Connection conn; //A database connection object.
         String sql = "update user set username=? ,password=?,userTpye=?,name=?,age=?,contact=?,email=?,gender=? where UUID=?";
         try {
             Class.forName(DRIVER_TYPE);
@@ -160,107 +225,11 @@ public class DatabaseInterface {
 //            cnfe.printStackTrace();
             return false;
         }
-        
-    }
-
-    /**
-     *
-     * @param _UUID
-     * @return
-     */
-    public static boolean deleteUserFromDB(User _user) {
-        Statement stmt = null;
-        ResultSet rs = null;
-        Connection conn;
-        String sql = "delete from user where UUID=" + _user.getUuid();
-        try {
-            Class.forName(DRIVER_TYPE);
-            // Open a new connection.
-            conn = DriverManager.getConnection(URL, USER, PASS);
-            // Creating a new statement.
-            stmt = conn.createStatement();
-            // Delete a target user in database..
-            stmt.executeUpdate(sql);
-            conn.close();
-            stmt.close();
-            return true;
-        } catch (SQLException se) {
-            System.out.println("Operation failed:");
-            return false;
-//            se.printStackTrace();
-        } catch (ClassNotFoundException cnfe) {
-            // Deal with Class.forName error.
-            System.out.println("Can't find a driver class, loading failed.");
-            return false;
-//            cnfe.printStackTrace();
-        }
 
     }
 
-    /**
-     *
-     * @param _crs
-     * @throws SQLException
-     */
-    public static void deBug(CachedRowSet _crs) throws SQLException {
-        CachedRowSet crs = _crs;
-        while (crs.next()) {
-            // Return the key data.
-            int uuid = crs.getInt("UUID");
-            String username = crs.getString("username");
-            String password = crs.getString("password");
-            int ut = crs.getInt("userType");
+    //local connection(Not using).
+    private Connection CON = null;
+    private Statement STMT = null;
 
-            // Output the debug
-            System.out.print("UUID: " + uuid);
-            System.out.print(", username: " + username);
-            System.out.print(", password: " + password);
-            System.out.print(", usertype: " + ut);
-            System.out.print("\n");
-        }
-        crs.close();
-        System.out.print("End");
-    }
-    
-    /**
-     *
-     * @param _UUID 
-     * @return
-     * @throws SQLException
-     */
-    public static User getTargetUser(String _UUID) throws SQLException {
-        Statement stmt = null;
-        ResultSet rs = null;
-        User user = new User();
-        Connection conn;
-        String sql = "SELECT UUID, username, password, userType FROM user where UUID=" + _UUID;
-        try {
-            Class.forName(DRIVER_TYPE);
-            // Open a new connection.
-            conn = DriverManager.getConnection(URL, USER, PASS);
-            // Creating a new statement.
-            stmt = conn.createStatement();
-            //returning result from database.
-            rs = stmt.executeQuery(sql);
-            //Release all sql relavant.
-            user = new User(rs.getString("UUID"),rs.getString("username"),rs.getString("password"),rs.getInt("userType"),
-                    rs.getString("name"),rs.getInt("age"),rs.getInt("contact"),rs.getString("email"),rs.getBoolean("gender"));
-                    
-            rs.close();
-            conn.close();
-            stmt.close();
-        } catch (SQLException se) {
-            System.out.println("Connection error:");
-//            se.printStackTrace();
-            return null;
-        } catch (ClassNotFoundException cnfe) {
-            // Deal with Class.forName error.
-            System.out.println("Can't find a driver class, loading failed.");
-//            cnfe.printStackTrace();
-            return null;
-        }
-        System.out.println("getDataSet() method: Successed!");
-           
-        return user;
-    }
 }

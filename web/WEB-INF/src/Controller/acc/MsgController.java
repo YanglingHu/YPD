@@ -1,7 +1,12 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Controller.acc;
 
-import Model.acc.AccProc;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,27 +15,28 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Yi Qiu
+ * @author Administrator
  */
-@WebServlet(name = "AccController", urlPatterns = {"/LogOut"})
-public class AccController extends HttpServlet {
+@WebServlet(name = "MsgController", urlPatterns = {"/MsgController"})
+public class MsgController extends HttpServlet {
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * This is a empty method that do not do anything.
+     * Handles the HTTP <code>GET</code> method.
      *
-     * @param _request Http request.
-     * @param _response Http response.
+     * @param _request servlet request
+     * @param _response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     @Override
     protected void doGet(HttpServletRequest _request, HttpServletResponse _response)
             throws ServletException, IOException {
-
+        doPost(_request, _response);
     }
 
     /**
-     * Function for users to logoff their account.
+     * Handles the HTTP <code>POST</code> method.
      *
      * @param _request servlet request
      * @param _response servlet response
@@ -42,36 +48,18 @@ public class AccController extends HttpServlet {
             throws ServletException, IOException {
 
         String cases = _request.getParameter("method");
-        
+
         if (cases == null || cases.trim().isEmpty()) {
             throw new IOException("Empty method parameter.");
         } else {
             switch (cases) {
+                case "delete":
 
-                case "Update":
-                    AccProc.updateInfo(_request, _response);
+                case "sent":
 
-                case "Logoff":
-                    AccProc.logOut(_request, _response);
-
-                case "SignIn":
-                    AccProc.signIn(_request, _response);
-
-                case "SignUp":
-                    AccProc.signUp(_request, _response);
-
-                case "Blacklist":
-                    AccProc.banUser(_request, _response);
-
-                case "deBacklist":
-                    AccProc.activateUser(_request, _response);
-
-                case "Remove":
-                    AccProc.deleteUser(_request, _response);
-
+                case "get":
             }
         }
-
     }
 
     /**
@@ -81,7 +69,7 @@ public class AccController extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Logoff";
-    }
+        return "Short description";
+    }// </editor-fold>
 
 }
