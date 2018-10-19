@@ -11,91 +11,114 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sql.rowset.CachedRowSet;
 
+/**
+ *
+ * @author Administrator
+ */
 public class DBoperation {
 
-    public boolean newObjToDB(Object _obj) throws IllegalArgumentException, IllegalAccessException, ClassNotFoundException {
-        MySQLstmt stmt;
-        try {
-            stmt = new MySQLstmt();
-            stmt.load(objToMap(_obj));
-            stmt.insertNew(Dictionary.TABLE_1);
-            stmt.release();
+    //
+    public MySQLstmt stmt;
 
-            return true;
-        } catch (SQLException ex) {
-            return false;
-        }
-
+    /**
+     *
+     * @param stmt
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
+    public DBoperation(MySQLstmt stmt) throws SQLException, ClassNotFoundException {
+        this.stmt = new MySQLstmt();
     }
 
-    public boolean updataObj(Object _obj, String _uuid) throws IllegalArgumentException, IllegalAccessException, ClassNotFoundException {
-        MySQLstmt stmt;
-        try {
-            stmt = new MySQLstmt();
-            stmt.load(objToMap(_obj));
-            stmt.updateObject(_uuid, Dictionary.TABLE_1);
-            stmt.release();
-            return true;
-        } catch (SQLException ex) {
-            return false;
-        }
-    }    
-        
-    public boolean updataObj(Object _obj) throws IllegalArgumentException, IllegalAccessException, ClassNotFoundException {
-        MySQLstmt stmt;
-        try {
-            stmt = new MySQLstmt();
-            stmt.load(objToMap(_obj));
-            stmt.updateObject(Dictionary.TABLE_1);
-            stmt.release();
-            return true;
-        } catch (SQLException ex) {
-            return false;
-        }
+    /**
+     *
+     * @param _obj
+     * @return
+     * @throws IllegalArgumentException
+     * @throws IllegalAccessException
+     */
+    public boolean newObjToDB(Object _obj) throws IllegalArgumentException, IllegalAccessException {
+        stmt.load(objToMap(_obj));
+        return stmt.insertNew(Dictionary.TABLE_1);
     }
 
-    public boolean deleteObj(String _uuid) throws ClassNotFoundException {
-        MySQLstmt stmt;
-        try {
-            stmt = new MySQLstmt();
-            stmt.deleteUserFromDB(_uuid);
-            stmt.release();
-            return true;
-        } catch (SQLException ex) {
-            return false;
-        }
-
+    /**
+     *
+     * @param _obj
+     * @param _uuid
+     * @return
+     * @throws IllegalArgumentException
+     * @throws IllegalAccessException
+     */
+    public boolean updataObj(Object _obj, String _uuid) throws IllegalArgumentException, IllegalAccessException {
+        stmt.load(objToMap(_obj));
+        return stmt.updateObject(_uuid, Dictionary.TABLE_1);
     }
 
-    public CachedRowSet getTargetObj(Object _dummyObject, String _uuid) throws ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-        MySQLstmt stmt;
+    /**
+     *
+     * @param _obj
+     * @return
+     * @throws IllegalArgumentException
+     * @throws IllegalAccessException
+     */
+    public boolean updataObj(Object _obj) throws IllegalArgumentException, IllegalAccessException{
+        stmt.load(objToMap(_obj));
+        return stmt.updateObject(Dictionary.TABLE_1);
+    }
+
+    /**
+     *
+     * @param _uuid
+     * @return
+     */
+    public boolean deleteObj(String _uuid) {
+        return stmt.deleteUserFromDB(_uuid);
+    }
+
+    /**
+     *
+     * @param _dummyObject
+     * @param _uuid
+     * @return
+     * @throws IllegalArgumentException
+     * @throws IllegalAccessException
+     */
+    public CachedRowSet getTargetObj(Object _dummyObject, String _uuid) throws IllegalArgumentException, IllegalAccessException {
         CachedRowSet crs;
-        try {
-            stmt = new MySQLstmt();
-            stmt.load(objToMap(_dummyObject));
-            crs = stmt.getTargetData(_uuid, Dictionary.TABLE_1);
-            stmt.release();
-
-            return crs;
-        } catch (SQLException ex) {
-            return null;
-        }
+        stmt.load(objToMap(_dummyObject));
+        crs = stmt.getTargetData(_uuid, Dictionary.TABLE_1);
+        return crs;
     }
 
-    public CachedRowSet getAll(Object _dummyObject) throws ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-        MySQLstmt stmt;
-        try {
-            stmt = new MySQLstmt();
-            stmt.load(objToMap(_dummyObject));
-            CachedRowSet set = stmt.getUserDataSet(Dictionary.TABLE_1);
-            stmt.release();
-            return set;
-        } catch (SQLException ex) {
-            return null;
-        }
-
+    /**
+     *
+     * @param _dummyObject
+     * @return
+     * @throws IllegalArgumentException
+     * @throws IllegalAccessException
+     */
+    public CachedRowSet getAll(Object _dummyObject) throws IllegalArgumentException, IllegalAccessException {
+        stmt.load(objToMap(_dummyObject));
+        CachedRowSet set = stmt.getUserDataSet(Dictionary.TABLE_1);
+        return set;
     }
 
+    /**
+     *
+     * @throws SQLException
+     */
+    public void close() throws SQLException {
+        stmt.release();
+    }
+
+    /**
+     *
+     * @param _obj
+     * @return
+     * @throws IllegalArgumentException
+     * @throws IllegalAccessException
+     */
     public Map<String, String> objToMap(Object _obj) throws IllegalArgumentException, IllegalAccessException {
         Map<String, String> map = new HashMap<>();
         Class obj = _obj.getClass();
