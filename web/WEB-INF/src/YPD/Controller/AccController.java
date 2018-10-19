@@ -1,4 +1,4 @@
-package YPD.Controller.acc;
+package YPD.Controller;
 
 import YPD.Model.acc.AccProc;
 import java.io.IOException;
