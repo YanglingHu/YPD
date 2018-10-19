@@ -1,4 +1,4 @@
-package Model.MsgExchg;
+package YPD.Model.MsgExchg;
 
 /**
  * This is a messege-exchange model that contains the necessary method for the

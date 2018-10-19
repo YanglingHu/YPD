@@ -1,6 +1,6 @@
-package Controller.acc;
+package YPD.Controller.acc;
 
-import Model.acc.AccProc;
+import YPD.Model.acc.AccProc;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -42,32 +42,32 @@ public class AccController extends HttpServlet {
             throws ServletException, IOException {
 
         String cases = _request.getParameter("method");
-        
+        AccProc accProc = new AccProc();
         if (cases == null || cases.trim().isEmpty()) {
             throw new IOException("Empty method parameter.");
         } else {
             switch (cases) {
 
                 case "Update":
-                    AccProc.updateInfo(_request, _response);
+                    accProc.updateInfo(_request, _response);
 
                 case "Logoff":
-                    AccProc.logOut(_request, _response);
+                    accProc.logOut(_request, _response);
 
                 case "SignIn":
-                    AccProc.signIn(_request, _response);
+                    accProc.signIn(_request, _response);
 
                 case "SignUp":
-                    AccProc.signUp(_request, _response);
+                    accProc.signUp(_request, _response);
 
                 case "Blacklist":
-                    AccProc.banUser(_request, _response);
+                    accProc.banUser(_request, _response);
 
                 case "deBacklist":
-                    AccProc.activateUser(_request, _response);
+                    accProc.activateUser(_request, _response);
 
                 case "Remove":
-                    AccProc.deleteUser(_request, _response);
+                    accProc.deleteUser(_request, _response);
 
             }
         }

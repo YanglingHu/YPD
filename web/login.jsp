@@ -25,7 +25,7 @@
                             <label for="tab-radio-1" class="tab-handler tab-handler-1">SignIn</label>
                             <div class="tab-content tab-content-1">
                                 <td align="center">
-                                    <form action="AccController" method="SignIn">
+                                    <form action="AccController?method=signIn" method="Post">
                                         <b>Username：</b></br>
                                         <input name="username" type="text"><p>
                                             <b>Password：</b></br>
@@ -42,7 +42,7 @@
                             <label for="tab-radio-2" class="tab-handler tab-handler-2">SignUp</label>
                             <div class="tab-content tab-content-2">
                                 <td align="center">
-                                    <form action="AccController" method="SignUp">
+                                    <form action="AccController?method=SignUp" method="Post">
                                         <b>OnlineID：</b></br>
                                         <input name="id" type="text"><p>
                                             <b>Username：</b></br>
