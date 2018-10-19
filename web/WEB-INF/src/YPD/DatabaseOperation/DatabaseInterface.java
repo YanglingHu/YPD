@@ -12,15 +12,19 @@ import javax.sql.rowset.CachedRowSet;
  */
 public interface DatabaseInterface {
 
-    public abstract int insertNew(Map<String,String> _map, String _destination);
+    public abstract Boolean insertNew(String _destination);
 
     public abstract CachedRowSet getUserDataSet(String _destination);
 
-    public abstract Boolean updateObject(Map<String,String> _map, String _uuid, String _destination);
+    public abstract Boolean updateObject(String _uuid, String _destination);
+    
+    public abstract Boolean updateObject(String _destination);
 
     public abstract Boolean deleteUserFromDB(String _uuid);
     
-    public abstract Boolean getTargetUser(String _uuid);
+    public abstract Boolean deleteUserFromDB();
+    
+    public abstract Object getTargetData(String _uuid);
     
 
 }

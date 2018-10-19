@@ -37,6 +37,17 @@ public class User {
         this.gender = _gender;
         this.banned = false;        
     }
+    
+    public User(String _uuid,String _username,String _password,int _usertype, String _name){
+        this.uuid = _uuid;
+        this.username = _username;
+        this.password = _password;
+        this.usertype = _usertype;
+        this.name = _name;
+        this.email = "";
+        this.banned = false;        
+    }
+    
     public String getUuid(){
         return uuid;
        
