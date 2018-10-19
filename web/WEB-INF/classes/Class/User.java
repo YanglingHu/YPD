@@ -18,14 +18,14 @@ public class User {
     private int age;
     private int contact;
     private String email;
-    private boolean gender;
-    private boolean banned;
+    private int gender;
+    private int banned;
     
     public User(){
         this.uuid = null;
     }
     
-    public User(String _uuid,String _username,String _password,int _usertype, String _name,int _age,int _contact,String _email,boolean _gender){
+    public User(String _uuid,String _username,String _password,int _usertype, String _name,int _age,int _contact,String _email,int _gender){
         this.uuid = _uuid;
         this.username = _username;
         this.password = _password;
@@ -35,7 +35,7 @@ public class User {
         this.contact = _contact;
         this.email = _email;
         this.gender = _gender;
-        this.banned = false;        
+        this.banned = 0;        
     }
     
     public User(String _uuid,String _username,String _password,int _usertype, String _name){
@@ -45,7 +45,7 @@ public class User {
         this.usertype = _usertype;
         this.name = _name;
         this.email = "";
-        this.banned = false;        
+        this.banned = 0;        
     }
     
     public String getUuid(){
@@ -109,19 +109,19 @@ public class User {
         this.email = _email;
     }
     
-     public boolean getGender(){
+     public int getGender(){
         return gender;
        
     }
-    public void setGender(boolean _gender){
+    public void setGender(int _gender){
         this.gender = _gender;
     }
     
-    public boolean getBanned(){
+    public int getBanned(){
         return this.banned;
     }
     
-    public void setBanned(Boolean _banned){
+    public void setBanned(int _banned){
         this.banned = _banned;
     }
 }

@@ -28,9 +28,9 @@ public class AccProc {
      * @return is the activation process success or failed.
      */
     public boolean activateUser(HttpServletRequest _request, HttpServletResponse _response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, ClassNotFoundException {
         User user = (User)_request.getAttribute("user");
-        user.setBanned(false);
+        user.setBanned(0);
         DBoperation opr = new DBoperation();
         try {
             return opr.updataObj(user,user.getUuid());
@@ -52,10 +52,10 @@ public class AccProc {
      * @return is the ban process success or failed.
      */
     public static boolean banUser(HttpServletRequest _request, HttpServletResponse _response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, ClassNotFoundException {
         
         User user = (User)_request.getAttribute("user");
-        user.setBanned(true);
+        user.setBanned(1);
         DBoperation opr = new DBoperation();
         try {
             return opr.updataObj(user, user.getUuid());
@@ -78,7 +78,7 @@ public class AccProc {
      * @return is the delete process success or failed.
      */
     public static boolean deleteUser(HttpServletRequest _request, HttpServletResponse _response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, ClassNotFoundException {
         
         User user = (User)_request.getAttribute("user");
         DBoperation opr = new DBoperation();
@@ -98,14 +98,14 @@ public class AccProc {
      * @return a cookie array that has cookies in it.
      * @throws UnsupportedEncodingException
      */
-    public static Cookie[] generateCookies(String _name, String _url) throws UnsupportedEncodingException {
+    public static Cookie[] generateCookies(String _name, String _uuid) throws UnsupportedEncodingException {
         
         // Generate two cookies.
         Cookie name = new Cookie("name", URLEncoder.encode(_name, "utf-8"));
-        Cookie url = new Cookie("name", URLEncoder.encode(_url, "utf-8"));
+        Cookie uuid = new Cookie("uuid", URLEncoder.encode(_uuid, "utf-8"));
         name.setMaxAge(60 * 60 * 168);
-        url.setMaxAge(60 * 60 * 168);
-        Cookie[] cookie = {name, url};
+        uuid.setMaxAge(60 * 60 * 168);
+        Cookie[] cookie = {name, uuid};
         return cookie;
     }
 
@@ -133,16 +133,17 @@ public class AccProc {
      * @return is the getData process success or failed.
      */
     public static ArrayList getUserSet(HttpServletRequest _request, HttpServletResponse _response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
         ArrayList list = new ArrayList();
+        User user = new User();
         CachedRowSet crs;
         DBoperation opr = new DBoperation();
         try {
-            crs = opr.getAll();
+            crs = opr.getAll(user);
             while(crs.next()){
                 list.add(new User(crs.getString("UUID"),crs.getString("username"),crs.getString("password"),
                         crs.getInt("userType"),crs.getString("name"),crs.getInt("age"),crs.getInt("contact"),
-                        crs.getString("email"),crs.getBoolean("gender")));
+                        crs.getString("email"),crs.getInt("gender")));
             }
             crs.close();
         } catch (SQLException ex) {
@@ -232,7 +233,7 @@ public class AccProc {
      * @throws IOException if an I/O error occurs
      */
     public static void updateInfo(HttpServletRequest _request, HttpServletResponse _response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, ClassNotFoundException {
         
         try {
             // Get updated user input.
@@ -242,7 +243,7 @@ public class AccProc {
             // Initialize local User class.
             User user = new User();
             // Load old information to local User class.
-            user = (User)opr.getTargetObj(_request.getParameter("uuid"));
+            user = (User)opr.getTargetObj(user,_request.getParameter("uuid"));
             // Update.
             user.setName(_request.getParameter("f_name") + " " + _request.getParameter("l_name"));
             user.setEmail(_request.getParameter("email"));

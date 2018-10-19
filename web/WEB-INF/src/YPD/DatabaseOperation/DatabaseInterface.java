@@ -24,7 +24,7 @@ public interface DatabaseInterface {
     
     public abstract Boolean deleteUserFromDB();
     
-    public abstract Object getTargetData(String _uuid);
+    public abstract CachedRowSet getTargetData(String _uuid, String _destination);
     
 
 }

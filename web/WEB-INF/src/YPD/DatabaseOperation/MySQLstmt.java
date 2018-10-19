@@ -31,7 +31,7 @@ public class MySQLstmt implements DatabaseInterface{
      *
      * @throws SQLException
      */
-    public MySQLstmt() throws SQLException{
+    public MySQLstmt() throws SQLException, ClassNotFoundException{
         this.setConnection();
     }
     
@@ -58,14 +58,15 @@ public class MySQLstmt implements DatabaseInterface{
     @Override
     public Boolean insertNew(String _destination) {
         String head = "INSERT INTO " + _destination + "(";
-        String tail = "VALUES (";
+        String tail = "VALUES(";
         for(int i = 0; i < this.NAME.length; i++){
             head +=  " `" + this.NAME[i] + "`, ";
             tail += " '" + this.VALUE[i] + "', ";            
         }
         head = head.substring(0, head.length() - 2) + ")";
         tail = tail.substring(0, tail.length() - 2) + ")";
-        return this.update(head + tail);
+        String sql = head + tail;
+        return update(head + tail);
     }
 
     /**
@@ -75,8 +76,8 @@ public class MySQLstmt implements DatabaseInterface{
      */
     @Override
     public Boolean deleteUserFromDB(String _uuid) {
-        String sql = "delete from user where UUID=" + _uuid;
-        return this.update(sql);
+        String sql = "delete from User where uuid='" + _uuid + "'";
+        return update(sql);
     }
     
     /**
@@ -85,24 +86,32 @@ public class MySQLstmt implements DatabaseInterface{
      */
     @Override
     public Boolean deleteUserFromDB() {
-        String sql = "delete from user where UUID=" + this.map.get("uuid");
-        return this.update(sql);
+        String sql = "delete from user where uuid='" + this.map.get("uuid") + "'";
+        return update(sql);
     }
 
     /**
      *
      * @param _uuid
+     * @param _destination
      * @return
      */
     @Override
-    public Object getTargetData(String _uuid) {
-        String head = "SELECT ";
-        for(int i = 0; i < this.NAME.length; i++){
-            head +=  this.NAME[i] + ", ";        
+    public CachedRowSet getTargetData(String _uuid, String _destination) {
+        try {
+            String head = "SELECT ";
+            for(int i = 0; i < this.NAME.length; i++){        
+                head +=  this.NAME[i] + ", ";
+            }
+            head = head.substring(0, head.length() - 2);
+            String tail = " FROM " + _destination + " WHERE uuid='" + _uuid + "'";
+            CachedRowSet crs = new CachedRowSetImpl();
+            crs.populate(read(head + tail));
+            return crs;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return null;
         }
-        head = head.substring(0, head.length() - 2);
-        String tail = " FROM user where UUID=" + _uuid;
-        return this.read(head + tail);
     }
 
     /**
@@ -117,14 +126,15 @@ public class MySQLstmt implements DatabaseInterface{
             head +=  this.NAME[i] + ", ";        
         }
         head = head.substring(0, head.length() - 2);    
-        String tail = "FROM " + _destination;
+        String tail = " FROM " + _destination;        
         CachedRowSet crs;
         try {
             crs = new CachedRowSetImpl();
-            ResultSet rs = (ResultSet)this.read(head + tail);
+            ResultSet rs = read(head + tail);
             crs.populate(rs);
             return crs;
         } catch (SQLException ex) {
+            System.out.println(ex);
             return null;
         }
         
@@ -134,9 +144,10 @@ public class MySQLstmt implements DatabaseInterface{
      * 
      * @throws SQLException 
      */
-    private void setConnection() throws SQLException{
+    private void setConnection() throws SQLException, ClassNotFoundException{
+        Class.forName(Dictionary.DRIVER_TYPE);
         this.CON = DriverManager.getConnection(Dictionary.URL, Dictionary.USER, Dictionary.PASS);
-        this.STMT = this.CON.createStatement();
+        this.STMT = CON.createStatement();
     }            
     
     /**
@@ -158,11 +169,12 @@ public class MySQLstmt implements DatabaseInterface{
      */
     private boolean update(String _sql){
         try {
-            this.STMT.executeUpdate(_sql);
+            STMT.executeUpdate(_sql);
             return true;
         } catch (SQLException ex) {
+            System.out.println(ex);
             return false;
-        }        
+        }       
     }
     
     /**
@@ -171,10 +183,11 @@ public class MySQLstmt implements DatabaseInterface{
      * @param _sql
      * @return 
      */
-    private Object read(String _sql){
+    private ResultSet read(String _sql){
         try {           
-            return this.STMT.executeQuery(_sql);
+            return STMT.executeQuery(_sql);
         } catch (SQLException ex) {
+            System.out.println(ex);
             return null;
         }        
     }
@@ -182,12 +195,18 @@ public class MySQLstmt implements DatabaseInterface{
     /**
      *
      * @param _uuid
-     * @param _table
+     * @param _destination
      * @return
      */
     @Override
-    public Boolean updateObject(String _uuid, String _table) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Boolean updateObject(String _uuid, String _destination) {
+        String sql = "UPDATE " + _destination + " SET ";
+        for(int i = 0; i < this.NAME.length; i++){
+            sql +=  this.NAME[i] + "='" + this.VALUE[i] + "', ";        
+        }
+        sql = sql.substring(0, sql.length() - 2); 
+        sql += " WHERE uuid='" + _uuid + "'";
+        return update(sql);
     }
 
     /**
@@ -197,7 +216,13 @@ public class MySQLstmt implements DatabaseInterface{
      */
     @Override
     public Boolean updateObject(String _destination) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "UPDATE " + _destination + " SET ";
+        for(int i = 0; i < this.NAME.length; i++){
+            sql +=  this.NAME[i] + "='" + this.VALUE[i] + "', ";        
+        }
+        sql = sql.substring(0, sql.length() - 2); 
+        sql += " WHERE uuid='" + this.map.get("uuid") + "'";
+        return update(sql);
     }
 
 }

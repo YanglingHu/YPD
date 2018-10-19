@@ -13,7 +13,7 @@ import javax.sql.rowset.CachedRowSet;
 
 public class DBoperation {
 
-    public boolean newObjToDB(Object _obj) throws IllegalArgumentException, IllegalAccessException {
+    public boolean newObjToDB(Object _obj) throws IllegalArgumentException, IllegalAccessException, ClassNotFoundException {
         MySQLstmt stmt;
         try {
             stmt = new MySQLstmt();
@@ -28,7 +28,7 @@ public class DBoperation {
 
     }
 
-    public boolean updataObj(Object _obj, String _uuid) throws IllegalArgumentException, IllegalAccessException {
+    public boolean updataObj(Object _obj, String _uuid) throws IllegalArgumentException, IllegalAccessException, ClassNotFoundException {
         MySQLstmt stmt;
         try {
             stmt = new MySQLstmt();
@@ -39,10 +39,22 @@ public class DBoperation {
         } catch (SQLException ex) {
             return false;
         }
-
+    }    
+        
+    public boolean updataObj(Object _obj) throws IllegalArgumentException, IllegalAccessException, ClassNotFoundException {
+        MySQLstmt stmt;
+        try {
+            stmt = new MySQLstmt();
+            stmt.load(objToMap(_obj));
+            stmt.updateObject(Dictionary.TABLE_1);
+            stmt.release();
+            return true;
+        } catch (SQLException ex) {
+            return false;
+        }
     }
 
-    public boolean deleteObj(String _uuid) {
+    public boolean deleteObj(String _uuid) throws ClassNotFoundException {
         MySQLstmt stmt;
         try {
             stmt = new MySQLstmt();
@@ -55,23 +67,26 @@ public class DBoperation {
 
     }
 
-    public Object getTargetObj(String _uuid) {
+    public CachedRowSet getTargetObj(Object _dummyObject, String _uuid) throws ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
         MySQLstmt stmt;
+        CachedRowSet crs;
         try {
             stmt = new MySQLstmt();
-            Object obj = stmt.getTargetData(_uuid);
+            stmt.load(objToMap(_dummyObject));
+            crs = stmt.getTargetData(_uuid, Dictionary.TABLE_1);
             stmt.release();
 
-            return obj;
+            return crs;
         } catch (SQLException ex) {
             return null;
         }
     }
 
-    public CachedRowSet getAll() {
+    public CachedRowSet getAll(Object _dummyObject) throws ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
         MySQLstmt stmt;
         try {
             stmt = new MySQLstmt();
+            stmt.load(objToMap(_dummyObject));
             CachedRowSet set = stmt.getUserDataSet(Dictionary.TABLE_1);
             stmt.release();
             return set;
