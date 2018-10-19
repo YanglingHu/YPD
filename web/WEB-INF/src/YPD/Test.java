@@ -19,10 +19,10 @@ import javax.sql.rowset.CachedRowSet;
  * @author Yi Qiu
  */
 public class Test {    
-
-    public static void main(String[] arg) throws IllegalArgumentException, IllegalAccessException, SQLException, ClassNotFoundException{
-        DBoperation db = new DBoperation();
-        User user = new User(AccProc.getUID(),"name","pass",0,"Yi");
+    public static User user = new User(AccProc.getUID(),"name","pass",0,"Yi");
+    public static DBoperation db = new DBoperation();
+    
+    public static void main(String[] arg) throws IllegalArgumentException, IllegalAccessException, SQLException, ClassNotFoundException{        
         db.newObjToDB(user);
         CachedRowSet set = db.getAll(user);
         printResult(set);
@@ -30,8 +30,8 @@ public class Test {
         db.updataObj(user);
         set = db.getAll(user);
         printResult(set); 
-//        set = db.getTargetObj(user,user.getUuid());
-//        printResult(set);         
+        set = db.getTargetObj(user,user.getUuid());
+        printResult(set);         
         db.deleteObj(user.getUuid());
         set = db.getAll(user);
         printResult(set); 
