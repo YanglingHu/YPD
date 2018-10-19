@@ -27,11 +27,18 @@ public class AccProc {
      * @throws IOException if an I/O error occurs
      * @return is the activation process success or failed.
      */
+    private DBoperation opr;
+
+    public AccProc() throws SQLException, ClassNotFoundException {
+        this.opr = new DBoperation();
+    }
+    
+    
+    
     public boolean activateUser(HttpServletRequest _request, HttpServletResponse _response)
-            throws ServletException, IOException, ClassNotFoundException {
+            throws ServletException, IOException {
         User user = (User)_request.getAttribute("user");
         user.setBanned(0);
-        DBoperation opr = new DBoperation();
         try {
             return opr.updataObj(user,user.getUuid());
         } catch (IllegalArgumentException ex) {
@@ -51,12 +58,12 @@ public class AccProc {
      * @throws IOException if an I/O error occurs
      * @return is the ban process success or failed.
      */
-    public static boolean banUser(HttpServletRequest _request, HttpServletResponse _response)
-            throws ServletException, IOException, ClassNotFoundException {
+    public boolean banUser(HttpServletRequest _request, HttpServletResponse _response)
+            throws ServletException, IOException {
         
         User user = (User)_request.getAttribute("user");
         user.setBanned(1);
-        DBoperation opr = new DBoperation();
+
         try {
             return opr.updataObj(user, user.getUuid());
         } catch (IllegalArgumentException ex) {
@@ -77,11 +84,11 @@ public class AccProc {
      * @throws IOException if an I/O error occurs
      * @return is the delete process success or failed.
      */
-    public static boolean deleteUser(HttpServletRequest _request, HttpServletResponse _response)
-            throws ServletException, IOException, ClassNotFoundException {
+    public boolean deleteUser(HttpServletRequest _request, HttpServletResponse _response)
+            throws ServletException, IOException {
         
         User user = (User)_request.getAttribute("user");
-        DBoperation opr = new DBoperation();
+
         try {
             return opr.deleteObj(user.getUuid());
         } catch (IllegalArgumentException ex) {
@@ -132,12 +139,12 @@ public class AccProc {
      * @throws IOException if an I/O error occurs
      * @return is the getData process success or failed.
      */
-    public static ArrayList getUserSet(HttpServletRequest _request, HttpServletResponse _response)
-            throws ServletException, IOException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+    public ArrayList getUserSet(HttpServletRequest _request, HttpServletResponse _response)
+            throws ServletException, IOException, IllegalArgumentException, IllegalAccessException{
         ArrayList list = new ArrayList();
         User user = new User();
         CachedRowSet crs;
-        DBoperation opr = new DBoperation();
+
         try {
             crs = opr.getAll(user);
             while(crs.next()){
@@ -232,14 +239,13 @@ public class AccProc {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    public static void updateInfo(HttpServletRequest _request, HttpServletResponse _response)
-            throws ServletException, IOException, ClassNotFoundException {
+    public void updateInfo(HttpServletRequest _request, HttpServletResponse _response)
+            throws ServletException, IOException {
         
         try {
             // Get updated user input.
             int age = Integer.parseInt(_request.getParameter("age"));
             int contact = Integer.parseInt(_request.getParameter("contact"));
-            DBoperation opr = new DBoperation();
             // Initialize local User class.
             User user = new User();
             // Load old information to local User class.
@@ -260,6 +266,10 @@ public class AccProc {
         } catch (IllegalAccessException ex) {
             _response.sendRedirect("fail.jsp");
         }
+    }
+    
+    public void close() throws SQLException{
+        opr.close();
     }
     
 }

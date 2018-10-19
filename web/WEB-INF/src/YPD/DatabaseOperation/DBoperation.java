@@ -18,7 +18,7 @@ import javax.sql.rowset.CachedRowSet;
 public class DBoperation {
 
     //
-    public MySQLstmt stmt;
+    private MySQLstmt stmt;
 
     /**
      *
@@ -26,7 +26,7 @@ public class DBoperation {
      * @throws SQLException
      * @throws ClassNotFoundException
      */
-    public DBoperation(MySQLstmt stmt) throws SQLException, ClassNotFoundException {
+    public DBoperation() throws SQLException, ClassNotFoundException {
         this.stmt = new MySQLstmt();
     }
 

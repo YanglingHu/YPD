@@ -2,6 +2,9 @@ package YPD.Controller;
 
 import YPD.Model.acc.AccProc;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -41,35 +44,42 @@ public class AccController extends HttpServlet {
     protected void doPost(HttpServletRequest _request, HttpServletResponse _response)
             throws ServletException, IOException {
 
-        String cases = _request.getParameter("method");
-        AccProc accProc = new AccProc();
-        if (cases == null || cases.trim().isEmpty()) {
-            throw new IOException("Empty method parameter.");
-        } else {
-            switch (cases) {
-
-                case "Update":
-                    accProc.updateInfo(_request, _response);
-
-                case "Logoff":
-                    accProc.logOut(_request, _response);
-
-                case "SignIn":
-                    accProc.signIn(_request, _response);
-
-                case "SignUp":
-                    accProc.signUp(_request, _response);
-
-                case "Blacklist":
-                    accProc.banUser(_request, _response);
-
-                case "deBacklist":
-                    accProc.activateUser(_request, _response);
-
-                case "Remove":
-                    accProc.deleteUser(_request, _response);
-
+        try {
+            String cases = _request.getParameter("method");
+            AccProc accProc = new AccProc();
+            if (cases == null || cases.trim().isEmpty()) {
+                throw new IOException("Empty method parameter.");
+            } else {
+                switch (cases) {
+                    
+                    case "Update":
+                        accProc.updateInfo(_request, _response);
+                        
+                    case "Logoff":
+                        accProc.logOut(_request, _response);
+                        
+                    case "SignIn":
+                        accProc.signIn(_request, _response);
+                        
+                    case "SignUp":
+                        accProc.signUp(_request, _response);
+                        
+                    case "Blacklist":
+                        accProc.banUser(_request, _response);
+                        
+                    case "deBacklist":
+                        accProc.activateUser(_request, _response);
+                        
+                    case "Remove":
+                        accProc.deleteUser(_request, _response);
+                        
+                }
             }
+            accProc.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AccController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
