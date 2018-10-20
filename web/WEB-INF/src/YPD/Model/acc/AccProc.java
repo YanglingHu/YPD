@@ -5,6 +5,7 @@ package YPD.Model.acc;
  */
 import Class.User;
 import YPD.DatabaseOperation.DBoperation;
+import YPD.Dic.Dictionary;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import javax.sql.rowset.CachedRowSet;
@@ -90,7 +91,7 @@ public class AccProc {
         User user = (User)_request.getAttribute("user");
 
         try {
-            return opr.deleteObj(user.getUuid());
+            return opr.deleteObj(user.getUuid(),Dictionary.TABLE_1);
         } catch (IllegalArgumentException ex) {
             return false;
         }
@@ -146,7 +147,7 @@ public class AccProc {
         CachedRowSet crs;
 
         try {
-            crs = opr.getAll(user);
+            crs = opr.getAll(user,Dictionary.TABLE_1);
             while(crs.next()){
                 list.add(new User(crs.getString("UUID"),crs.getString("username"),crs.getString("password"),
                         crs.getInt("userType"),crs.getString("name"),crs.getInt("age"),crs.getInt("contact"),
@@ -249,7 +250,7 @@ public class AccProc {
             // Initialize local User class.
             User user = new User();
             // Load old information to local User class.
-            user = (User)opr.getTargetObj(user,_request.getParameter("uuid"));
+            user = (User)opr.getTargetObj(user,_request.getParameter("uuid"),Dictionary.TABLE_1);
             // Update.
             user.setName(_request.getParameter("f_name") + " " + _request.getParameter("l_name"));
             user.setEmail(_request.getParameter("email"));

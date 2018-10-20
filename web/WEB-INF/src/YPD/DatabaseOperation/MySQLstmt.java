@@ -34,6 +34,10 @@ public class MySQLstmt implements DatabaseInterface{
     public MySQLstmt() throws SQLException, ClassNotFoundException{
         this.setConnection();
     }
+
+    public String[] getNAME() {
+        return this.NAME;
+    }
     
     /**
      *
@@ -75,8 +79,8 @@ public class MySQLstmt implements DatabaseInterface{
      * @return
      */
     @Override
-    public Boolean deleteUserFromDB(String _uuid) {
-        String sql = "delete from User where uuid='" + _uuid + "'";
+    public Boolean deleteUserFromDB(String _uuid, String _destination) {
+        String sql = "delete from" + _destination + " where uuid='" + _uuid + "'";
         return update(sql);
     }
     
@@ -85,8 +89,8 @@ public class MySQLstmt implements DatabaseInterface{
      * @return
      */
     @Override
-    public Boolean deleteUserFromDB() {
-        String sql = "delete from user where uuid='" + this.map.get("uuid") + "'";
+    public Boolean deleteUserFromDB(String _destination) {
+        String sql = "delete from" + _destination + " where uuid='" + this.map.get("uuid") + "'";
         return update(sql);
     }
 

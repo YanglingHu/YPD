@@ -5,10 +5,13 @@
  */
 package YPD;
 
+import Class.Msg;
 import Class.User;
 import YPD.DatabaseOperation.DBoperation;
+import YPD.Dic.Dictionary;
 import YPD.Model.acc.AccProc;
 import static YPD.Model.acc.AccProc.getUID;
+import java.lang.reflect.*;
 import java.sql.*;
 import java.util.*;
 import javax.sql.rowset.CachedRowSet;
@@ -19,23 +22,11 @@ import javax.sql.rowset.CachedRowSet;
  * @author Yi Qiu
  */
 public class Test {    
-    public static User user = new User(AccProc.getUID(),"name","pass",0,"Yi");
     
-    public static void main(String[] arg) throws IllegalArgumentException, IllegalAccessException, SQLException, ClassNotFoundException{   
-        DBoperation db = new DBoperation();
-        db.newObjToDB(user);
-        CachedRowSet set = db.getAll(user);
-        printResult(set);
-        user.setAge(18);
-        db.updataObj(user);
-        set = db.getAll(user);
-        printResult(set); 
-        set = db.getTargetObj(user,user.getUuid());
-        printResult(set);         
-        db.deleteObj(user.getUuid());
-        set = db.getAll(user);
-        printResult(set); 
-        db.close();
+    public static void main(String[] arg) throws SQLException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException, NoSuchFieldException, InstantiationException {   
+
+//        testCase1();
+        testCase2();
 
     }
     
@@ -47,5 +38,40 @@ public class Test {
                     + " Age: " + _set.getInt("age") + " name: " + _set.getString("name");
             System.out.println(s);
         }        
+    }
+    
+    public static void testCase1() throws SQLException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException{
+        User user = new User(AccProc.getUID(),"name","pass",0,"Yi");
+        DBoperation db = new DBoperation();
+        db.newObjToDB(user,Dictionary.TABLE_1);
+        CachedRowSet set = db.getAll(user,Dictionary.TABLE_1);
+        printResult(set);
+//        user.setAge(18);
+//        db.updataObj(user,Dictionary.TABLE_1);
+//        set = db.getAll(user,Dictionary.TABLE_1);
+//        printResult(set); 
+//        set = db.getTargetObj(user,user.getUuid(),Dictionary.TABLE_1);
+//        printResult(set);         
+//        db.deleteObj(user.getUuid(),Dictionary.TABLE_1);
+//        set = db.getAll(user,Dictionary.TABLE_1);
+//        printResult(set); 
+        db.close();        
+    }
+    
+    public static void testCase2() throws NoSuchFieldException, ClassNotFoundException, SQLException,
+            IllegalArgumentException, IllegalAccessException, InstantiationException{
+        User user = new User();
+        DBoperation db = new DBoperation();
+        CachedRowSet set = db.getAll(user,Dictionary.TABLE_1);
+        ArrayList arr = db.restoreToObj(set, user);
+        User[] userlist = new User[arr.size()];
+        for(int i = 0 ;i < arr.size();i++){
+            userlist[i] = (User)arr.get(i);
+        }
+        
+        for(User u : userlist){
+            System.out.println(u.toString());
+        }
+        db.close();
     }
 }

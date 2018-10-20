@@ -13,4 +13,7 @@ public class Dictionary {
     //Admin's Username & Password for database.
     public static final String USER = "root";
     public static final String TABLE_1 = "User";
+    public static final String TABLE_2 = "Msg";
+    public static final String INT = "int";
+    public static final String STRING = "class java.lang.String";
 }

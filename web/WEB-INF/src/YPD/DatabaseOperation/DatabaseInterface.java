@@ -20,9 +20,9 @@ public interface DatabaseInterface {
     
     public abstract Boolean updateObject(String _destination);
 
-    public abstract Boolean deleteUserFromDB(String _uuid);
+    public abstract Boolean deleteUserFromDB(String _uuid, String _destination);
     
-    public abstract Boolean deleteUserFromDB();
+    public abstract Boolean deleteUserFromDB(String _destination);
     
     public abstract CachedRowSet getTargetData(String _uuid, String _destination);
     

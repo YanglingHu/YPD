@@ -37,9 +37,9 @@ public class DBoperation {
      * @throws IllegalArgumentException
      * @throws IllegalAccessException
      */
-    public boolean newObjToDB(Object _obj) throws IllegalArgumentException, IllegalAccessException {
+    public boolean newObjToDB(Object _obj, String _destination) throws IllegalArgumentException, IllegalAccessException {
         stmt.load(objToMap(_obj));
-        return stmt.insertNew(Dictionary.TABLE_1);
+        return stmt.insertNew(_destination);
     }
 
     /**
@@ -50,9 +50,9 @@ public class DBoperation {
      * @throws IllegalArgumentException
      * @throws IllegalAccessException
      */
-    public boolean updataObj(Object _obj, String _uuid) throws IllegalArgumentException, IllegalAccessException {
+    public boolean updataObj(Object _obj, String _uuid, String _destination) throws IllegalArgumentException, IllegalAccessException {
         stmt.load(objToMap(_obj));
-        return stmt.updateObject(_uuid, Dictionary.TABLE_1);
+        return stmt.updateObject(_uuid, _destination);
     }
 
     /**
@@ -62,9 +62,9 @@ public class DBoperation {
      * @throws IllegalArgumentException
      * @throws IllegalAccessException
      */
-    public boolean updataObj(Object _obj) throws IllegalArgumentException, IllegalAccessException{
+    public boolean updataObj(Object _obj, String _destination) throws IllegalArgumentException, IllegalAccessException{
         stmt.load(objToMap(_obj));
-        return stmt.updateObject(Dictionary.TABLE_1);
+        return stmt.updateObject(_destination);
     }
 
     /**
@@ -72,7 +72,7 @@ public class DBoperation {
      * @param _uuid
      * @return
      */
-    public boolean deleteObj(String _uuid) {
+    public boolean deleteObj(String _uuid, String _destination) {
         return stmt.deleteUserFromDB(_uuid);
     }
 
@@ -84,10 +84,10 @@ public class DBoperation {
      * @throws IllegalArgumentException
      * @throws IllegalAccessException
      */
-    public CachedRowSet getTargetObj(Object _dummyObject, String _uuid) throws IllegalArgumentException, IllegalAccessException {
+    public CachedRowSet getTargetObj(Object _dummyObject, String _uuid, String _destination) throws IllegalArgumentException, IllegalAccessException {
         CachedRowSet crs;
         stmt.load(objToMap(_dummyObject));
-        crs = stmt.getTargetData(_uuid, Dictionary.TABLE_1);
+        crs = stmt.getTargetData(_uuid, _destination);
         return crs;
     }
 
@@ -98,9 +98,9 @@ public class DBoperation {
      * @throws IllegalArgumentException
      * @throws IllegalAccessException
      */
-    public CachedRowSet getAll(Object _dummyObject) throws IllegalArgumentException, IllegalAccessException {
+    public CachedRowSet getAll(Object _dummyObject, String _destination) throws IllegalArgumentException, IllegalAccessException {
         stmt.load(objToMap(_dummyObject));
-        CachedRowSet set = stmt.getUserDataSet(Dictionary.TABLE_1);
+        CachedRowSet set = stmt.getUserDataSet(_destination);
         return set;
     }
 
@@ -126,10 +126,42 @@ public class DBoperation {
         Field.setAccessible(fields, true);
         for (int i = 0; i < fields.length; i++) {
             if (Modifier.isPrivate(fields[i].getModifiers())) {
-                map.put(fields[i].getName(), fields[i].get(_obj).toString());
+                if(fields[i].get(_obj)!= null){
+                    map.put(fields[i].getName(), fields[i].get(_obj).toString());
+                }else{
+                    map.put(fields[i].getName(), "");
+                }          
             }
         }
         Field.setAccessible(fields, false);
         return map;
+    }
+    
+    public ArrayList restoreToObj(CachedRowSet _crs, Object _dummyObj) throws SQLException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException, InstantiationException{
+        ArrayList obj = new ArrayList<Object>();
+//        String[] name = stmt.getNAME();
+        String cases; 
+        Class c = _dummyObj.getClass();
+        Field[] f = c.getDeclaredFields();
+        Field.setAccessible(f, true);
+        while(_crs.next()){
+            User temp = (User)c.newInstance();
+            for(Field t : f){
+                cases = t.getType().toString();
+                //So far only support two datatype. But can add any case of datatype to it. 
+                switch(cases){
+                    case Dictionary.INT:
+                        t.set(temp, _crs.getInt(t.getName()));
+                        break;
+                    case Dictionary.STRING:  
+                        t.set(temp, _crs.getString(t.getName()));
+                        break;
+                }                
+            }
+            obj.add(temp);
+        }
+        Field.setAccessible(f, false);
+        
+        return obj;
     }
 }

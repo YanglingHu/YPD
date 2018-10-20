@@ -5,14 +5,16 @@
  */
 package Class;
 
+import java.util.UUID;
+
 /**
  *
  * @author Administrator
  */
 public class User {
     private String uuid;
-    private String username;
-    private String password;
+    private String username = "";
+    private String password = "";
     private int usertype;
     private String name;
     private int age;
@@ -22,7 +24,7 @@ public class User {
     private int banned;
     
     public User(){
-        this.uuid = null;
+        this.uuid = null;          
     }
     
     public User(String _uuid,String _username,String _password,int _usertype, String _name,int _age,int _contact,String _email,int _gender){
@@ -124,4 +126,11 @@ public class User {
     public void setBanned(int _banned){
         this.banned = _banned;
     }
+
+    @Override
+    public String toString() {
+        return "User{" + "uuid=" + uuid + ", username=" + username + ", password=" + password + ", usertype=" + usertype + ", name=" + name + ", age=" + age + ", contact=" + contact + ", email=" + email + ", gender=" + gender + ", banned=" + banned + '}';
+    }
+    
+    
 }
