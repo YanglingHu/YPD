@@ -26,13 +26,13 @@
                             <div class="tab-content tab-content-1">
                                 <td align="center">
                                     <form action="AccController?method=signIn" method="Post">
-                                        <b>Username：</b></br>
-                                        <input name="username" type="text"><p>
+                                            <b>Username：</b></br>
+                                        <input id="username-i" type="text" /><p>
                                             <b>Password：</b></br>
-                                        <input name="password" type="password" ><p>
+                                        <input id="password-i" type="password" /><p>
                                             </br>
                                         <p align="center">
-                                            <input type="submit" value="SignIn">
+                                            <input type="button" value="SignIn" onclick="signIn()">
                                         </p>
                                     </form>
                                 </td>
@@ -43,17 +43,17 @@
                             <div class="tab-content tab-content-2">
                                 <td align="center">
                                     <form action="AccController?method=SignUp" method="Post">
-                                        <b>OnlineID：</b></br>
-                                        <input name="id" type="text"><p>
+                                            <b>OnlineID：</b></br>
+                                        <input id="id-u" type="text" /><p>
                                             <b>Username：</b></br>
-                                        <input name="username" type="text"><p>
+                                        <input id="username-u" type="text" /><p>
                                             <b>Password：</b></br>
-                                        <input name="password" type="password" ><p>
+                                        <input id="password-u" type="password"/><p>
                                             <b>Check-pw：</b></br>
-                                        <input name="repasswd" type="password"><p>
+                                        <input id="repasswd" type="password" /><p>
                                             </br>
                                         <p align="center">
-                                            <input type="submit" value="SignUp">
+                                            <input type="button" value="SignUp" onclick="signUp()">
                                         </p>
                                     </form>
                                 </td>
@@ -63,5 +63,6 @@
                 </div>
             </div>
         <jsp:include page="sub_elements/footer.jsp"></jsp:include>
+        <script src="js/action.js" ></script>
     </body>
 </html>

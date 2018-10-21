@@ -5,17 +5,19 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 
 /**
  *
  * @author Yi Qiu
  */
-@WebServlet(name = "AccController", urlPatterns = {"/LogOut"})
+@WebServlet(name = "AccController", urlPatterns = {"/AccController"})
 public class AccController extends HttpServlet {
 
     /**
@@ -29,7 +31,7 @@ public class AccController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest _request, HttpServletResponse _response)
             throws ServletException, IOException {
-
+        doPost(_request, _response);
     }
 
     /**
@@ -51,28 +53,52 @@ public class AccController extends HttpServlet {
                 throw new IOException("Empty method parameter.");
             } else {
                 switch (cases) {
-                    
+
                     case "Update":
                         accProc.updateInfo(_request, _response);
-                        
+                        break;
                     case "Logoff":
                         accProc.logOut(_request, _response);
-                        
+                        break;
                     case "SignIn":
                         accProc.signIn(_request, _response);
-                        
+                        break;
                     case "SignUp":
                         accProc.signUp(_request, _response);
-                        
+                        break;
                     case "Blacklist":
-                        accProc.banUser(_request, _response);
-                        
-                    case "deBacklist":
-                        accProc.activateUser(_request, _response);
-                        
-                    case "Remove":
-                        accProc.deleteUser(_request, _response);
-                        
+                        if(accProc.banUser(_request, _response)){
+                            _response.sendRedirect("Manager.jsp");
+                        }
+                        break;
+                    case "Activate":
+                        if(accProc.activateUser(_request, _response)){
+                            _response.sendRedirect("Manager.jsp");
+                        }
+                        break;
+                    case "Remove": {
+                        try {
+                            if(accProc.deleteUser(_request, _response)){
+                                 _response.sendRedirect("Manager.jsp");
+                            }
+                        } catch (IllegalAccessException ex) {
+
+                        }
+                    }
+                         break;
+                    case "UserSet": {
+                        try {
+                            HttpSession session = _request.getSession();
+                            session.setAttribute(cases, accProc.getUserSet(_request, _response));
+                            _response.sendRedirect("Manager.jsp");
+                        } catch (IllegalArgumentException ex) {
+
+                        } catch (IllegalAccessException ex) {
+
+                        }
+                    }
+                        break;
+
                 }
             }
             accProc.close();
@@ -92,6 +118,10 @@ public class AccController extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Logoff";
+    }
+
+    private void refreshAtr() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

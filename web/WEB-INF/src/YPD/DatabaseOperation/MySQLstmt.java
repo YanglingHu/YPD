@@ -80,7 +80,7 @@ public class MySQLstmt implements DatabaseInterface{
      */
     @Override
     public Boolean deleteUserFromDB(String _uuid, String _destination) {
-        String sql = "delete from" + _destination + " where uuid='" + _uuid + "'";
+        String sql = "delete from " + _destination + " where uuid='" + _uuid + "'";
         return update(sql);
     }
     
@@ -90,7 +90,7 @@ public class MySQLstmt implements DatabaseInterface{
      */
     @Override
     public Boolean deleteUserFromDB(String _destination) {
-        String sql = "delete from" + _destination + " where uuid='" + this.map.get("uuid") + "'";
+        String sql = "delete from " + _destination + " where uuid='" + this.map.get("uuid") + "'";
         return update(sql);
     }
 

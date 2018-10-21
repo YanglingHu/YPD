@@ -73,7 +73,7 @@ public class DBoperation {
      * @return
      */
     public boolean deleteObj(String _uuid, String _destination) {
-        return stmt.deleteUserFromDB(_uuid);
+        return stmt.deleteUserFromDB(_uuid, _destination);
     }
 
     /**

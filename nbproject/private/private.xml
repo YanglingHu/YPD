@@ -7,13 +7,13 @@
             <file>file:/C:/Users/Administrator/Documents/NetBeansProjects/YPD/web/WEB-INF/src/YPD/Model/acc/AccProc.java</file>
             <file>file:/C:/Users/Administrator/Documents/NetBeansProjects/YPD/web/WEB-INF/src/YPD/DatabaseOperation/DBoperation.java</file>
             <file>file:/C:/Users/Administrator/Documents/NetBeansProjects/YPD/web/WEB-INF/src/YPD/DatabaseOperation/MySQLstmt.java</file>
+            <file>file:/C:/Users/Administrator/Documents/NetBeansProjects/YPD/web/js/mng.js</file>
             <file>file:/C:/Users/Administrator/Documents/NetBeansProjects/YPD/web/WEB-INF/src/YPD/Controller/AccController.java</file>
             <file>file:/C:/Users/Administrator/Documents/NetBeansProjects/YPD/web/WEB-INF/src/isLoggin.jspf</file>
             <file>file:/C:/Users/Administrator/Documents/NetBeansProjects/YPD/web/WEB-INF/src/YPD/DatabaseOperation/DatabaseInterface.java</file>
-            <file>file:/C:/Users/Administrator/Documents/NetBeansProjects/YPD/web/WEB-INF/src/YPD/Dic/Dictionary.java</file>
-            <file>file:/C:/Users/Administrator/Documents/NetBeansProjects/YPD/web/WEB-INF/classes/Class/User.java</file>
+            <file>file:/C:/Users/Administrator/Documents/NetBeansProjects/YPD/web/WEB-INF/src/YPD/Model/server/Session.java</file>
             <file>file:/C:/Users/Administrator/Documents/NetBeansProjects/YPD/web/WEB-INF/src/YPD/Controller/MsgController.java</file>
-            <file>file:/C:/Users/Administrator/Documents/NetBeansProjects/YPD/web/WEB-INF/src/YPD/Model/MsgExchg/MsgProc.java</file>
+            <file>file:/C:/Users/Administrator/Documents/NetBeansProjects/YPD/web/Manager.jsp</file>
         </group>
     </open-files>
 </project-private>

@@ -5,6 +5,7 @@ package YPD.Model.acc;
  */
 import Class.User;
 import YPD.DatabaseOperation.DBoperation;
+import YPD.Model.server.Session;
 import YPD.Dic.Dictionary;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -38,10 +39,13 @@ public class AccProc {
     
     public boolean activateUser(HttpServletRequest _request, HttpServletResponse _response)
             throws ServletException, IOException {
-        User user = (User)_request.getAttribute("user");
+        ArrayList temp = (ArrayList)_request.getSession().getAttribute("UserSet");
+        User user = (User)temp.get(Integer.parseInt(_request.getParameter("key")));
         user.setBanned(0);
         try {
-            return opr.updataObj(user,user.getUuid());
+            opr.updataObj(user,Dictionary.TABLE_1);
+            Session.refreshAtr(_request, _response, "UserSet",getUserSet(_request, _response));
+            return true;
         } catch (IllegalArgumentException ex) {
             return false;
         } catch (IllegalAccessException ex) {
@@ -62,11 +66,14 @@ public class AccProc {
     public boolean banUser(HttpServletRequest _request, HttpServletResponse _response)
             throws ServletException, IOException {
         
-        User user = (User)_request.getAttribute("user");
+        ArrayList temp = (ArrayList)_request.getSession().getAttribute("UserSet");
+        User user = (User)temp.get(Integer.parseInt(_request.getParameter("key")));
         user.setBanned(1);
 
         try {
-            return opr.updataObj(user, user.getUuid());
+            opr.updataObj(user,Dictionary.TABLE_1);
+            Session.refreshAtr(_request, _response, "UserSet",getUserSet(_request, _response));
+            return true;
         } catch (IllegalArgumentException ex) {
             return false;
         } catch (IllegalAccessException ex) {
@@ -86,12 +93,15 @@ public class AccProc {
      * @return is the delete process success or failed.
      */
     public boolean deleteUser(HttpServletRequest _request, HttpServletResponse _response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, IllegalAccessException {
         
-        User user = (User)_request.getAttribute("user");
+        ArrayList temp = (ArrayList)_request.getSession().getAttribute("UserSet");
+        User user = (User)temp.get(Integer.parseInt(_request.getParameter("key")));
 
         try {
-            return opr.deleteObj(user.getUuid(),Dictionary.TABLE_1);
+            opr.deleteObj(user.getUuid(),Dictionary.TABLE_1);
+            Session.refreshAtr(_request, _response, "UserSet",getUserSet(_request, _response));
+            return true;
         } catch (IllegalArgumentException ex) {
             return false;
         }
@@ -142,22 +152,26 @@ public class AccProc {
      */
     public ArrayList getUserSet(HttpServletRequest _request, HttpServletResponse _response)
             throws ServletException, IOException, IllegalArgumentException, IllegalAccessException{
-        ArrayList list = new ArrayList();
-        User user = new User();
-        CachedRowSet crs;
-
         try {
+            ArrayList list = new ArrayList<User>();
+            User user = new User();
+            CachedRowSet crs;       
             crs = opr.getAll(user,Dictionary.TABLE_1);
-            while(crs.next()){
-                list.add(new User(crs.getString("UUID"),crs.getString("username"),crs.getString("password"),
-                        crs.getInt("userType"),crs.getString("name"),crs.getInt("age"),crs.getInt("contact"),
-                        crs.getString("email"),crs.getInt("gender")));
+            ArrayList temp = opr.restoreToObj(crs, user);
+            for(Object obj : temp){
+                list.add((User)obj);
             }
-            crs.close();
+            return list;
         } catch (SQLException ex) {
-            
+            Logger.getLogger(AccProc.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (NoSuchFieldException ex) {
+            Logger.getLogger(AccProc.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (InstantiationException ex) {
+            Logger.getLogger(AccProc.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
-        return list;
     }
 
 

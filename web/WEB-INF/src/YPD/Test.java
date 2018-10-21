@@ -25,8 +25,8 @@ public class Test {
     
     public static void main(String[] arg) throws SQLException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException, NoSuchFieldException, InstantiationException {   
 
-//        testCase1();
-        testCase2();
+        testCase1();
+//        testCase3();
 
     }
     
@@ -41,7 +41,7 @@ public class Test {
     }
     
     public static void testCase1() throws SQLException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException{
-        User user = new User(AccProc.getUID(),"name","pass",0,"Yi");
+        User user = new User(AccProc.getUID(),"name","pass",0,"Tom");
         DBoperation db = new DBoperation();
         db.newObjToDB(user,Dictionary.TABLE_1);
         CachedRowSet set = db.getAll(user,Dictionary.TABLE_1);
@@ -73,5 +73,11 @@ public class Test {
             System.out.println(u.toString());
         }
         db.close();
+    }
+    
+    public static void testCase3() throws SQLException, ClassNotFoundException{
+        DBoperation db = new DBoperation();
+        db.deleteObj("1da8e77a-7af5-4c23-83b0-69a3eb3dc724", Dictionary.TABLE_1);
+        
     }
 }
