@@ -10,7 +10,7 @@
     };
     
 
-    function act() {
+    function act(id) {
         var key = document.getElementById(id).getAttribute("value");
         location.href = "AccController?method=Activate&key=" + key;
     };
