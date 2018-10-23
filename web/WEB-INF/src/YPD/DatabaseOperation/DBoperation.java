@@ -12,8 +12,8 @@ import java.util.logging.Logger;
 import javax.sql.rowset.CachedRowSet;
 
 /**
- *
- * @author Administrator
+ * 
+ * @author Yi Qiu
  */
 public class DBoperation {
 
@@ -21,8 +21,8 @@ public class DBoperation {
     private MySQLstmt stmt;
 
     /**
-     *
-     * @param stmt
+     * Initializes the DBoperation class, generates a MySQLstmt.
+     * 
      * @throws SQLException
      * @throws ClassNotFoundException
      */
@@ -31,9 +31,11 @@ public class DBoperation {
     }
 
     /**
-     *
-     * @param _obj
-     * @return
+     * Store a new object into mySQL database.
+     * 
+     * @param _obj Any type of objects that is going to update.
+     * @param _destination The table name in MySQL database.
+     * @return success or not.
      * @throws IllegalArgumentException
      * @throws IllegalAccessException
      */
@@ -43,10 +45,12 @@ public class DBoperation {
     }
 
     /**
-     *
-     * @param _obj
-     * @param _uuid
-     * @return
+     * Update a object that is already exist in database.
+     * 
+     * @param _obj Any type of objects that is going to update.
+     * @param _uuid An uuid defines where to update.
+     * @param _destination The table name in MySQL database.
+     * @return success or not.
      * @throws IllegalArgumentException
      * @throws IllegalAccessException
      */
@@ -56,9 +60,11 @@ public class DBoperation {
     }
 
     /**
-     *
-     * @param _obj
-     * @return
+     * Update a object that is already exist in database.
+     * 
+     * @param _obj Any type of objects that is going to update.
+     * @param _destination The table name in MySQL database.
+     * @return success or not.
      * @throws IllegalArgumentException
      * @throws IllegalAccessException
      */
@@ -68,19 +74,23 @@ public class DBoperation {
     }
 
     /**
-     *
-     * @param _uuid
-     * @return
+     * Remove a object from the database
+     * 
+     * @param _uuid uuid of the target object
+     * @param _destination The table name in MySQL database.
+     * @return success or not.
      */
     public boolean deleteObj(String _uuid, String _destination) {
         return stmt.deleteUserFromDB(_uuid, _destination);
     }
 
     /**
-     *
-     * @param _dummyObject
-     * @param _uuid
-     * @return
+     * Get a target object from the database.
+     * 
+     * @param _dummyObject A dummy object for MySQLstmt to analyze.
+     * @param _uuid uuid of the target object
+     * @param _destination The table name in MySQL database.
+     * @return a CachedRowSet that is containing the target.
      * @throws IllegalArgumentException
      * @throws IllegalAccessException
      */
@@ -92,9 +102,11 @@ public class DBoperation {
     }
 
     /**
-     *
-     * @param _dummyObject
-     * @return
+     * Get all objects from database.
+     * 
+     * @param _dummyObject A dummy object for MySQLstmt to analyze.
+     * @param _destination The table name in MySQL database.
+     * @return a CachedRowSet that is containing all objects that are from the database.
      * @throws IllegalArgumentException
      * @throws IllegalAccessException
      */
@@ -105,7 +117,8 @@ public class DBoperation {
     }
 
     /**
-     *
+     * Close the MySQLstmt to release memory.
+     * 
      * @throws SQLException
      */
     public void close() throws SQLException {
@@ -113,9 +126,10 @@ public class DBoperation {
     }
 
     /**
-     *
-     * @param _obj
-     * @return
+     * Convert a object to a map data that has all fields of this object.
+     * 
+     * @param _obj Any type of objects.
+     * @return A map file that is representing this object.
      * @throws IllegalArgumentException
      * @throws IllegalAccessException
      */
@@ -137,6 +151,18 @@ public class DBoperation {
         return map;
     }
     
+    /**
+     * Convert all info that is stored in CachedRowSet into a ArrayList of Objects.
+     * 
+     * @param _crs CachedRowSet
+     * @param _dummyObj A dummy object for this method to analyze
+     * @return An ArrayList of Objects
+     * @throws SQLException
+     * @throws NoSuchFieldException
+     * @throws IllegalArgumentException
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     */
     public ArrayList restoreToObj(CachedRowSet _crs, Object _dummyObj) throws SQLException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException, InstantiationException{
         ArrayList obj = new ArrayList<Object>();
 //        String[] name = stmt.getNAME();

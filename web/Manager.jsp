@@ -18,8 +18,9 @@
         <%
             AccProc accproc = new AccProc();
             ArrayList<User> list = (ArrayList) session.getAttribute("UserSet");
-            int count = 0;
-            for (User user : list) {
+            int count = 0; 
+            while(count < list.size()){
+                User user = list.get(count);
         %>
         <div>
             <label>UUID: <%out.write(user.getUuid());%> , Name: <%out.write(user.getName());%>, UserType: <%if (user.getUsertype() == 0) {
@@ -41,7 +42,7 @@
                 count++;%>
         </div>        
         </br>
-        <%}%>
+        <%} count = 0;%>
         <script src="js/action.js" ></script>
     </body>
 </html>

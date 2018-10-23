@@ -41,9 +41,12 @@ public class Test {
     }
     
     public static void testCase1() throws SQLException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException{
-        User user = new User(AccProc.getUID(),"name","pass",0,"Tom");
+        User user = null;
         DBoperation db = new DBoperation();
-        db.newObjToDB(user,Dictionary.TABLE_1);
+        for(int i = 0; i < 10 ; i++){
+        user = new User(AccProc.getUID(),"name","pass",0,"Test-" + i);
+        db.newObjToDB(user,Dictionary.TABLE_1);            
+        }
         CachedRowSet set = db.getAll(user,Dictionary.TABLE_1);
         printResult(set);
 //        user.setAge(18);

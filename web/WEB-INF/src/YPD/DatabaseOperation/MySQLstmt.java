@@ -16,6 +16,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sql.rowset.CachedRowSet;
 
+/**
+ *
+ * @author Yi Qiu
+ */
 public class MySQLstmt implements DatabaseInterface{
 
     //local connection(Not using).
@@ -28,20 +32,18 @@ public class MySQLstmt implements DatabaseInterface{
     private Map<String,String> map;
     
     /**
-     *
+     * Calls the setConnection() method to open a new SQL connection.
+     * 
      * @throws SQLException
+     * @throws java.lang.ClassNotFoundException
      */
     public MySQLstmt() throws SQLException, ClassNotFoundException{
         this.setConnection();
     }
-
-    public String[] getNAME() {
-        return this.NAME;
-    }
     
     /**
-     *
-     * @param _map
+     * 
+     * @param _map A map that is presenting a object.
      */
     public void load(Map<String, String> _map){
         this.NAME =  new String[_map.size()];
@@ -55,9 +57,10 @@ public class MySQLstmt implements DatabaseInterface{
     }
 
     /**
-     *
-     * @param _destination
-     * @return
+     * Add a new object to the database.
+     * 
+     * @param _destination The table name in MySQL database.
+     * @return success or not.
      */
     @Override
     public Boolean insertNew(String _destination) {
@@ -74,9 +77,11 @@ public class MySQLstmt implements DatabaseInterface{
     }
 
     /**
-     *
-     * @param _uuid
-     * @return
+     * Generate a SQL statement and remove target from database(base on the given uuid).
+     * 
+     * @param _uuid uuid of the target object
+     * @param _destination The table name in MySQL database.
+     * @return success or not.
      */
     @Override
     public Boolean deleteUserFromDB(String _uuid, String _destination) {
@@ -85,8 +90,10 @@ public class MySQLstmt implements DatabaseInterface{
     }
     
     /**
-     *
-     * @return
+     * Generate a SQL statement and remove target from database.
+     * 
+     * @param _destination The table name in MySQL database.
+     * @return success or not.
      */
     @Override
     public Boolean deleteUserFromDB(String _destination) {
@@ -95,10 +102,11 @@ public class MySQLstmt implements DatabaseInterface{
     }
 
     /**
-     *
-     * @param _uuid
-     * @param _destination
-     * @return
+     * Return a target object from database in form of a CachedRowSet(base on the given uuid).
+     * 
+     * @param _uuid uuid of the target object
+     * @param _destination The table name in MySQL database.
+     * @return A CachedRowSet contains the info of the object.
      */
     @Override
     public CachedRowSet getTargetData(String _uuid, String _destination) {
@@ -119,10 +127,11 @@ public class MySQLstmt implements DatabaseInterface{
     }
 
     /**
-     *
-     * @param _destination
-     * @return
-     */
+     * Return a target object from database in form of a CachedRowSet.
+     * 
+     * @param _destination The table name in MySQL database.
+     * @return A CachedRowSet contains the info of the object.
+     */ 
     @Override
     public CachedRowSet getUserDataSet(String _destination) {
         String head = "SELECT ";
@@ -145,6 +154,7 @@ public class MySQLstmt implements DatabaseInterface{
     }
     
     /**
+     * Open a new SQL connection and a SQL statement.
      * 
      * @throws SQLException 
      */
@@ -155,7 +165,8 @@ public class MySQLstmt implements DatabaseInterface{
     }            
     
     /**
-     *
+     * Close the SQL connection and SQL statement to release the memory.
+     * 
      * @throws SQLException
      */
     protected void release() throws SQLException{
@@ -166,10 +177,10 @@ public class MySQLstmt implements DatabaseInterface{
     }
     
     /**
+     * Excute the update statement.
      * 
-     * 
-     * @param _sql
-     * @return 
+     * @param _sql A string that has SQL statement to be excuted
+     * @return success or not
      */
     private boolean update(String _sql){
         try {
@@ -182,10 +193,10 @@ public class MySQLstmt implements DatabaseInterface{
     }
     
     /**
+     * Excute the query statement.
      * 
-     * 
-     * @param _sql
-     * @return 
+     * @param _sql A string that has SQL statement to be excuted
+     * @return success or not
      */
     private ResultSet read(String _sql){
         try {           
@@ -197,10 +208,11 @@ public class MySQLstmt implements DatabaseInterface{
     }
 
     /**
-     *
-     * @param _uuid
-     * @param _destination
-     * @return
+     * Update a object to database.
+     * 
+     * @param _uuid uuid of the target object
+     * @param _destination The table name in MySQL database.
+     * @return success or not.
      */
     @Override
     public Boolean updateObject(String _uuid, String _destination) {
@@ -214,9 +226,10 @@ public class MySQLstmt implements DatabaseInterface{
     }
 
     /**
-     *
-     * @param _destination
-     * @return
+     * Update a object to database.
+     * 
+     * @param _destination The table name in MySQL database.
+     * @return success or not.
      */
     @Override
     public Boolean updateObject(String _destination) {

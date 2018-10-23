@@ -4,9 +4,8 @@ import java.util.Map;
 import javax.sql.rowset.CachedRowSet;
 
 /**
- * This is a databaseinterface that allow progarm to modify and get data from
- * mySQL database.
- *
+ * A databaseinterface.
+ * 
  * @date lastUpdate: 2018/10/16
  * @author Yi Qiu
  */
