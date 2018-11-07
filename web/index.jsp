@@ -3,7 +3,7 @@
     Created on : 2018-9-27, 21:51:42
     Author     : Yi Qiu
 --%>
-
+<%@include file = "WEB-INF/src/prepare.jspf" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,17 +12,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Your Personal Doctor</title>
         <jsp:include page="sub_elements/common_source.jsp"></jsp:include>
-        <%! boolean log = false;%>
-        <% Cookie[] cookie = request.getCookies();
-            if (cookie != null) {
-                for (int i = 0; i < cookie.length; i++) {
-                    if (cookie[i].getName().compareTo("name") == 0) {
-                        this.log = true;
-                    }
-                }
-            }
-            session.setAttribute("result", log);
-        %>
     </head>
     <body style="min-width:1300px">
         <!--header start-->
@@ -58,10 +47,10 @@
                             </span>
                             <n1>Fast Track</n1>
                         </div>
-                        <p style="margin: 15px;background: #FFFFFF">
+                        <p style="margin: 25px;background: #FFFFFF">
                             Login is required for more </br>Y-P-D self service! 
                         </p>
-                        <p style="margin-top: 30px"> 
+                        <p style="margin: 50px 40px"> 
                             <a href="login.jsp">
                                 <span class="icon-doctor"> </span> 
                                 Login 
@@ -74,6 +63,24 @@
                             </span>
                             <n1>Dashboard</n1>
                         </div>
+                        <p style="margin: 17px;background: #FFFFFF; line-height: 20px">
+                            <td align="center">
+                                <image style ="width: 100px; height: 100px" src = "" /></br>
+                                Name: <%//out.write(user.getName());%></br>
+                                Age: <%//out.write(user.getAge());%></br>
+                                Gender: <%//out.write(user.getGender());%></br>
+                            </td>
+                        </p>
+                        <p style="margin: 15px 40px"> 
+                            <a href="AutoMatching.jsp">
+                                Quick Matching
+                            </a>
+                        </p>
+                        <p style="margin: 15px 40px"> 
+                            <a href="AccController?method=Logoff">
+                                Logout
+                            </a>
+                        </p>
                         <%}%>
                     </div>
                 </div>

@@ -24,7 +24,7 @@ import javax.sql.rowset.CachedRowSet;
 public class Test {    
     
     public static void main(String[] arg) throws SQLException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException, NoSuchFieldException, InstantiationException {   
-
+        
         testCase1();
 //        testCase3();
 
@@ -82,5 +82,9 @@ public class Test {
         DBoperation db = new DBoperation();
         db.deleteObj("1da8e77a-7af5-4c23-83b0-69a3eb3dc724", Dictionary.TABLE_1);
         
+    }
+    
+    public static void testCase4() throws SQLException, ClassNotFoundException{
+        AccProc acc = new AccProc();
     }
 }

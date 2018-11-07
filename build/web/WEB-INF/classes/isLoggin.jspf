@@ -3,7 +3,8 @@
 
     Will be called to check if there is a user
     If there is no user logged-in, webpage will be redirect to the login.jsp
---%>
+--%><%@page import="Class.User"%>
+
 If there is
 
 <%@ page pageEncoding="UTF-8" %>
@@ -13,6 +14,11 @@ If there is
     if (result != null) {
         if (!result) {
             response.sendRedirect("login.jsp");
-        }        
+        }
+    } else {
+        User user = new User();
+        if (session.getAttribute("LogInInfo") != null) {
+            user = (User) session.getAttribute("LogInInfo");
+        }
     }
 %>

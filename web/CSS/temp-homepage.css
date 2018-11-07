@@ -38,8 +38,7 @@
 }
 
 .login-box p{
-    line-height: 65px;
-    margin: 20px 40px;
+    line-height: 35px;
     background: #e1e1e1;
     text-align: center;
 }
@@ -96,9 +95,6 @@
 
 .info{
     background-color: #323030;
-    border-top-style: solid;
-    border-top-color: black;
-    border-top-width: 5px;
     background: white;
     height: 400px;
     min-width: 1300px;	

@@ -76,7 +76,7 @@ public class AccController extends HttpServlet {
                             _response.sendRedirect("Manager.jsp");
                         }
                         break;
-                    case "Remove": {
+                    case "Remove": 
                         try {
                             if(accProc.deleteUser(_request, _response)){
                                  _response.sendRedirect("Manager.jsp");
@@ -84,9 +84,9 @@ public class AccController extends HttpServlet {
                         } catch (IllegalAccessException ex) {
 
                         }
-                    }
+                    
                          break;
-                    case "UserSet": {
+                    case "UserSet": 
                         try {
                             HttpSession session = _request.getSession();
                             session.setAttribute(cases, accProc.getUserSet(_request, _response));
@@ -96,9 +96,21 @@ public class AccController extends HttpServlet {
                         } catch (IllegalAccessException ex) {
 
                         }
-                    }
+                    
                         break;
+                    case "LogInInfo": 
+                        try {
+                            HttpSession session = _request.getSession();
+                            session.setAttribute("result", true);
+                            session.setAttribute(cases, accProc.getTarget(_request, _response));
+                            _response.sendRedirect("index.jsp");
+                        } catch (IllegalArgumentException ex) {
 
+                        } catch (IllegalAccessException ex) {
+
+                        }
+                    
+                        break;
                 }
             }
             accProc.close();

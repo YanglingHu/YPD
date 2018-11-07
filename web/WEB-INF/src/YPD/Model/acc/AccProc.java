@@ -82,7 +82,15 @@ public class AccProc {
         
     }
 
-
+    public void setCookie(HttpServletRequest _request, HttpServletResponse _response)
+            throws ServletException, IOException {
+        Cookie[] c = this.generateCookies(_request.getParameter("uuid"));
+        for(Cookie cookie : c){
+            _response.addCookie(cookie);
+        }
+    }
+    
+    
     /**
      * Permanently remove a user from this web server.
      *
@@ -111,19 +119,16 @@ public class AccProc {
     /**
      * Generate cookie for user and url.
      * 
-     * @param _name username to generate the cookie
-     * @param _url url to generate the cookie
+     * @param _uuid
      * @return a cookie array that has cookies in it.
      * @throws UnsupportedEncodingException
      */
-    public static Cookie[] generateCookies(String _name, String _uuid) throws UnsupportedEncodingException {
+    public Cookie[] generateCookies(String _uuid) throws UnsupportedEncodingException {
         
         // Generate two cookies.
-        Cookie name = new Cookie("name", URLEncoder.encode(_name, "utf-8"));
         Cookie uuid = new Cookie("uuid", URLEncoder.encode(_uuid, "utf-8"));
-        name.setMaxAge(60 * 60 * 168);
         uuid.setMaxAge(60 * 60 * 168);
-        Cookie[] cookie = {name, uuid};
+        Cookie[] cookie = {uuid};
         return cookie;
     }
 
@@ -174,6 +179,37 @@ public class AccProc {
         }
     }
 
+    /**
+     * Get one target user from database on this web server.
+     *
+     * @param _request servlet request
+     * @param _response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     * @return is the getData process success or failed.
+     */
+    public User getTarget(HttpServletRequest _request, HttpServletResponse _response)
+            throws ServletException, IOException, IllegalArgumentException, IllegalAccessException{
+        try {
+            User user = new User();
+            CachedRowSet crs;       
+            crs = opr.getTargetObj(user, _request.getParameter("uuid"), Dictionary.TABLE_1);
+            ArrayList temp = opr.restoreToObj(crs, user);
+            for(Object obj : temp){
+                user = (User)obj;
+            }
+            return user;
+        } catch (SQLException ex) {
+            Logger.getLogger(AccProc.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (NoSuchFieldException ex) {
+            Logger.getLogger(AccProc.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (InstantiationException ex) {
+            Logger.getLogger(AccProc.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
 
     /**
      * Set the age of all cookies that are in the cookie array 
