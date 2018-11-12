@@ -84,7 +84,7 @@ public class AccProc {
 
     public void setCookie(HttpServletRequest _request, HttpServletResponse _response)
             throws ServletException, IOException {
-        Cookie[] c = this.generateCookies(_request.getParameter("uuid"));
+        Cookie[] c = this.generateCookies((String)_request.getAttribute("name"));
         for(Cookie cookie : c){
             _response.addCookie(cookie);
         }
@@ -126,7 +126,7 @@ public class AccProc {
     public Cookie[] generateCookies(String _uuid) throws UnsupportedEncodingException {
         
         // Generate two cookies.
-        Cookie uuid = new Cookie("uuid", URLEncoder.encode(_uuid, "utf-8"));
+        Cookie uuid = new Cookie("name", URLEncoder.encode(_uuid, "utf-8"));
         uuid.setMaxAge(60 * 60 * 168);
         Cookie[] cookie = {uuid};
         return cookie;
@@ -193,7 +193,7 @@ public class AccProc {
         try {
             User user = new User();
             CachedRowSet crs;       
-            crs = opr.getTargetObj(user, _request.getParameter("uuid"), Dictionary.TABLE_1);
+            crs = opr.getTargetObj(user, _request.getParameter("name"), Dictionary.TABLE_1);
             ArrayList temp = opr.restoreToObj(crs, user);
             for(Object obj : temp){
                 user = (User)obj;
@@ -210,7 +210,38 @@ public class AccProc {
             return null;
         }
     }
-
+    
+    /**
+     * Get one target user from database on this web server.
+     *
+     * @param _request servlet request
+     * @param _response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     * @return is the getData process success or failed.
+     */
+    public User getTarget(String _name)
+            throws ServletException, IOException, IllegalArgumentException, IllegalAccessException{
+        try {
+            User user = new User();
+            CachedRowSet crs;       
+            crs = opr.getTargetObj(user, _name, Dictionary.TABLE_1);
+            ArrayList temp = opr.restoreToObj(crs, user);
+            for(Object obj : temp){
+                user = (User)obj;
+            }
+            return user;
+        } catch (SQLException ex) {
+            Logger.getLogger(AccProc.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (NoSuchFieldException ex) {
+            Logger.getLogger(AccProc.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (InstantiationException ex) {
+            Logger.getLogger(AccProc.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
     /**
      * Set the age of all cookies that are in the cookie array 
      * to zero.
@@ -259,10 +290,26 @@ public class AccProc {
      * @throws IOException if an I/O error occurs
      * @return is login success or failed.
      */
-    public static boolean signIn(HttpServletRequest _request, HttpServletResponse _response)
-            throws ServletException, IOException {
-        
-        return false;
+    public int signIn(HttpServletRequest _request, HttpServletResponse _response)
+            throws ServletException, IOException, IllegalArgumentException, IllegalAccessException, SQLException {
+        User user;
+        String username = _request.getParameter("username");
+        String password = _request.getParameter("password");
+        user = new User();
+        CachedRowSet result = opr.getTargetObj(user, username, Dictionary.TABLE_1);
+        while (result.next()) {
+            String temp = result.getString("password");
+            if(!password.equals(temp) || result.getInt("banned") == 1){
+                break;
+            }
+            _request.setAttribute("name",result.getString("username"));
+            
+            if(result.getInt("usertype") != 2){
+                this.setCookie(_request, _response);
+            }
+            return result.getInt("usertype");
+        }
+        return 4;
     }
 
 

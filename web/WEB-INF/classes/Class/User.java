@@ -22,6 +22,7 @@ public class User {
     private String email;
     private int gender;
     private int banned;
+    private String img = "";
     
     public User(){
         this.uuid = null;          
@@ -71,6 +72,14 @@ public class User {
     public void setPassword(String _password){
         this.password = _password;
     }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String _img) {
+        this.img = _img;
+    }
      public int getUsertype(){
         return usertype;   
     }
@@ -115,6 +124,17 @@ public class User {
         return gender;
        
     }
+     
+    public String getGenderString(){
+        if(this.gender == 0){
+            return "male";
+        }else if(this.gender == 1){
+            return "female";
+        }else{
+            return "unknown";
+        }
+    } 
+     
     public void setGender(int _gender){
         this.gender = _gender;
     }

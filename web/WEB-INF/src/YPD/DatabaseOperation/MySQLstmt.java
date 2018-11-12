@@ -116,7 +116,7 @@ public class MySQLstmt implements DatabaseInterface{
                 head +=  this.NAME[i] + ", ";
             }
             head = head.substring(0, head.length() - 2);
-            String tail = " FROM " + _destination + " WHERE uuid='" + _uuid + "'";
+            String tail = " FROM " + _destination + " WHERE username='" + _uuid + "'";
             CachedRowSet crs = new CachedRowSetImpl();
             crs.populate(read(head + tail));
             return crs;

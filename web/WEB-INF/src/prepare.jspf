@@ -3,22 +3,26 @@
 <%@ page pageEncoding="UTF-8" %>
 <% 
     boolean log;
-    if(session.getAttribute("result")!= null){
+    boolean checked;
+    if(session.getAttribute("result")!= null && session.getAttribute("checked") != null){
         log = (Boolean)session.getAttribute("result");
+        checked = (Boolean)session.getAttribute("checked");
     }else{
         log = false;
+        checked = false;
     }
     Cookie[] cookie = request.getCookies();
-    if (cookie != null) {
+    if (cookie != null && !checked) {
         for (int i = 0; i < cookie.length; i++) {
-            if (cookie[i].getName().compareTo("uuid") == 0) {
-                response.sendRedirect("AccController?method=LogInInfo&uuid=" + cookie[i].getValue());
+            if (cookie[i].getName().compareTo("name") == 0) {
+                session.setAttribute("checked", true);
+                response.sendRedirect("AccController?method=LogInInfo&name=" + cookie[i].getValue());
             }
         }
     }
     User user = new User();
-    if(session.getAttribute("LogInInfo") != null){
-         user = (User) session.getAttribute("LogInInfo");
+    if(session.getAttribute("C_User") != null){
+         user = (User) session.getAttribute("C_User");
     }
     session.setAttribute("result", log);
 %>

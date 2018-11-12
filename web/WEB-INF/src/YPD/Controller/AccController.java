@@ -61,55 +61,58 @@ public class AccController extends HttpServlet {
                         accProc.logOut(_request, _response);
                         break;
                     case "SignIn":
-                        accProc.signIn(_request, _response);
-                        break;
-                    case "SignUp":
-                        accProc.signUp(_request, _response);
-                        break;
-                    case "Blacklist":
-                        if(accProc.banUser(_request, _response)){
-                            _response.sendRedirect("Manager.jsp");
-                        }
-                        break;
-                    case "Activate":
-                        if(accProc.activateUser(_request, _response)){
-                            _response.sendRedirect("Manager.jsp");
-                        }
-                        break;
-                    case "Remove": 
                         try {
-                            if(accProc.deleteUser(_request, _response)){
-                                 _response.sendRedirect("Manager.jsp");
+                            int temp = accProc.signIn(_request, _response);
+                            if ( temp == 4) {
+                                _response.sendRedirect("login.jsp");
+                            } else if( temp == 0 || temp == 1) {
+                                _response.sendRedirect("index.jsp");
+                            } else {
+                                HttpSession session = _request.getSession();
+                                session.setAttribute("UserSet", accProc.getUserSet(_request, _response));
+                                _response.sendRedirect("Manager.jsp");
                             }
-                        } catch (IllegalAccessException ex) {
-
-                        }
-                    
-                         break;
-                    case "UserSet": 
-                        try {
-                            HttpSession session = _request.getSession();
-                            session.setAttribute(cases, accProc.getUserSet(_request, _response));
-                            _response.sendRedirect("Manager.jsp");
                         } catch (IllegalArgumentException ex) {
 
                         } catch (IllegalAccessException ex) {
 
                         }
-                    
                         break;
-                    case "LogInInfo": 
+                    case "SignUp":
+                        accProc.signUp(_request, _response);
+                        break;
+                    case "Blacklist":
+                        if (accProc.banUser(_request, _response)) {
+                            _response.sendRedirect("Manager.jsp");
+                        }
+                        break;
+                    case "Activate":
+                        if (accProc.activateUser(_request, _response)) {
+                            _response.sendRedirect("Manager.jsp");
+                        }
+                        break;
+                    case "Remove":
+                        try {
+                            if (accProc.deleteUser(_request, _response)) {
+                                _response.sendRedirect("Manager.jsp");
+                            }
+                        } catch (IllegalAccessException ex) {
+
+                        }
+
+                        break;
+                    case "LogInInfo":
                         try {
                             HttpSession session = _request.getSession();
                             session.setAttribute("result", true);
-                            session.setAttribute(cases, accProc.getTarget(_request, _response));
+                            session.setAttribute("C_User", accProc.getTarget(_request.getParameter("name")));
                             _response.sendRedirect("index.jsp");
                         } catch (IllegalArgumentException ex) {
 
                         } catch (IllegalAccessException ex) {
 
                         }
-                    
+
                         break;
                 }
             }

@@ -43,8 +43,8 @@ public class Test {
     public static void testCase1() throws SQLException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException{
         User user = null;
         DBoperation db = new DBoperation();
-        for(int i = 0; i < 10 ; i++){
-        user = new User(AccProc.getUID(),"name","pass",0,"Test-" + i);
+        for(int i = 0; i < 5 ; i++){
+        user = new User(AccProc.getUID(),"Test-" + i,"pass",1,"Test-" + i);
         db.newObjToDB(user,Dictionary.TABLE_1);            
         }
         CachedRowSet set = db.getAll(user,Dictionary.TABLE_1);

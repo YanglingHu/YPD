@@ -65,10 +65,10 @@
                         </div>
                         <p style="margin: 17px;background: #FFFFFF; line-height: 20px">
                             <td align="center">
-                                <image style ="width: 100px; height: 100px" src = "" /></br>
-                                Name: <%//out.write(user.getName());%></br>
-                                Age: <%//out.write(user.getAge());%></br>
-                                Gender: <%//out.write(user.getGender());%></br>
+                                <image style ="width: 100px; height: 100px; background-size: cover" src = "<%if(!user.getImg().equals("")){ out.write(user.getUsertype()); } else { out.write("PIC/person.png");}%>" /></br>
+                                Name: <%out.write(user.getName());%></br>
+                                Age: <%out.write(Integer.toString(user.getAge()));%></br>
+                                Gender: <%out.write(user.getGenderString());%></br>
                             </td>
                         </p>
                         <p style="margin: 15px 40px"> 
