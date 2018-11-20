@@ -9,7 +9,8 @@ import java.util.UUID;
 
 /**
  *
- * @author Administrator
+ * @Update 2018/11/20
+ * @author Yi Qiu
  */
 public class User {
     private String uuid;
@@ -23,6 +24,8 @@ public class User {
     private int gender;
     private int banned;
     private String img = "";
+    private int MID = 0;
+
     
     public User(){
         this.uuid = null;          
@@ -139,6 +142,14 @@ public class User {
         this.gender = _gender;
     }
     
+    public int getMID() {
+        return MID;
+    }
+
+    public void setMID(int _MID) {
+        this.MID = _MID;
+    }
+
     public int getBanned(){
         return this.banned;
     }

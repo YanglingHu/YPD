@@ -1,4 +1,5 @@
 package YPD.Model.acc;
+
 /**
  *
  * @author Yi Qiu
@@ -18,8 +19,13 @@ import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
-
+/**
+ *
+ * @Update 2018/11/20
+ * @author Yi Qiu
+ */
 public class AccProc {
+
     /**
      * Allow a user to sign in this web server again.
      *
@@ -31,20 +37,31 @@ public class AccProc {
      */
     private DBoperation opr;
 
+    /**
+     *
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public AccProc() throws SQLException, ClassNotFoundException {
         this.opr = new DBoperation();
     }
-    
-    
-    
+
+    /**
+     *
+     * @param _request
+     * @param _response
+     * @return
+     * @throws ServletException
+     * @throws IOException
+     */
     public boolean activateUser(HttpServletRequest _request, HttpServletResponse _response)
             throws ServletException, IOException {
-        ArrayList temp = (ArrayList)_request.getSession().getAttribute("UserSet");
-        User user = (User)temp.get(Integer.parseInt(_request.getParameter("key")));
+        ArrayList temp = (ArrayList) _request.getSession().getAttribute("UserSet");
+        User user = (User) temp.get(Integer.parseInt(_request.getParameter("key")));
         user.setBanned(0);
         try {
-            opr.updataObj(user,Dictionary.TABLE_1);
-            Session.refreshAtr(_request, _response, "UserSet",getUserSet(_request, _response));
+            opr.updataObj(user, Dictionary.TABLE_1);
+            Session.refreshAtr(_request, _response, "UserSet", getUserSet(_request, _response));
             return true;
         } catch (IllegalArgumentException ex) {
             return false;
@@ -52,7 +69,6 @@ public class AccProc {
             return false;
         }
     }
-
 
     /**
      * Prohibit a user from signing in this web server.
@@ -65,32 +81,38 @@ public class AccProc {
      */
     public boolean banUser(HttpServletRequest _request, HttpServletResponse _response)
             throws ServletException, IOException {
-        
-        ArrayList temp = (ArrayList)_request.getSession().getAttribute("UserSet");
-        User user = (User)temp.get(Integer.parseInt(_request.getParameter("key")));
+
+        ArrayList temp = (ArrayList) _request.getSession().getAttribute("UserSet");
+        User user = (User) temp.get(Integer.parseInt(_request.getParameter("key")));
         user.setBanned(1);
 
         try {
-            opr.updataObj(user,Dictionary.TABLE_1);
-            Session.refreshAtr(_request, _response, "UserSet",getUserSet(_request, _response));
+            opr.updataObj(user, Dictionary.TABLE_1);
+            Session.refreshAtr(_request, _response, "UserSet", getUserSet(_request, _response));
             return true;
         } catch (IllegalArgumentException ex) {
             return false;
         } catch (IllegalAccessException ex) {
             return false;
         }
-        
+
     }
 
+    /**
+     *
+     * @param _request
+     * @param _response
+     * @throws ServletException
+     * @throws IOException
+     */
     public void setCookie(HttpServletRequest _request, HttpServletResponse _response)
             throws ServletException, IOException {
-        Cookie[] c = this.generateCookies((String)_request.getAttribute("name"));
-        for(Cookie cookie : c){
+        Cookie[] c = this.generateCookies((String) _request.getAttribute("name"));
+        for (Cookie cookie : c) {
             _response.addCookie(cookie);
         }
     }
-    
-    
+
     /**
      * Permanently remove a user from this web server.
      *
@@ -99,32 +121,32 @@ public class AccProc {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      * @return is the delete process success or failed.
+     * @throws java.lang.IllegalAccessException
      */
     public boolean deleteUser(HttpServletRequest _request, HttpServletResponse _response)
             throws ServletException, IOException, IllegalAccessException {
-        
-        ArrayList temp = (ArrayList)_request.getSession().getAttribute("UserSet");
-        User user = (User)temp.get(Integer.parseInt(_request.getParameter("key")));
+
+        ArrayList temp = (ArrayList) _request.getSession().getAttribute("UserSet");
+        User user = (User) temp.get(Integer.parseInt(_request.getParameter("key")));
 
         try {
-            opr.deleteObj(user.getUuid(),Dictionary.TABLE_1);
-            Session.refreshAtr(_request, _response, "UserSet",getUserSet(_request, _response));
+            opr.deleteObj(user.getUuid(), Dictionary.TABLE_1);
+            Session.refreshAtr(_request, _response, "UserSet", getUserSet(_request, _response));
             return true;
         } catch (IllegalArgumentException ex) {
             return false;
         }
     }
 
-
     /**
      * Generate cookie for user and url.
-     * 
+     *
      * @param _uuid
      * @return a cookie array that has cookies in it.
      * @throws UnsupportedEncodingException
      */
     public Cookie[] generateCookies(String _uuid) throws UnsupportedEncodingException {
-        
+
         // Generate two cookies.
         Cookie uuid = new Cookie("name", URLEncoder.encode(_uuid, "utf-8"));
         uuid.setMaxAge(60 * 60 * 168);
@@ -132,19 +154,17 @@ public class AccProc {
         return cookie;
     }
 
-
     /**
      * Generate a uuid for the user.
      *
      * @return a uuid
      */
     public static String getUID() {
-        
+
         String uuid = UUID.randomUUID().toString();
 //        System.out.println(uuid);
         return uuid;
     }
-
 
     /**
      * Get all users from database on this web server.
@@ -154,17 +174,18 @@ public class AccProc {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      * @return is the getData process success or failed.
+     * @throws java.lang.IllegalAccessException
      */
     public ArrayList getUserSet(HttpServletRequest _request, HttpServletResponse _response)
-            throws ServletException, IOException, IllegalArgumentException, IllegalAccessException{
+            throws ServletException, IOException, IllegalArgumentException, IllegalAccessException {
         try {
             ArrayList list = new ArrayList<User>();
             User user = new User();
-            CachedRowSet crs;       
-            crs = opr.getAll(user,Dictionary.TABLE_1);
+            CachedRowSet crs;
+            crs = opr.getAll(user, Dictionary.TABLE_1);
             ArrayList temp = opr.restoreToObj(crs, user);
-            for(Object obj : temp){
-                list.add((User)obj);
+            for (Object obj : temp) {
+                list.add((User) obj);
             }
             return list;
         } catch (SQLException ex) {
@@ -187,16 +208,17 @@ public class AccProc {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      * @return is the getData process success or failed.
+     * @throws java.lang.IllegalAccessException
      */
     public User getTarget(HttpServletRequest _request, HttpServletResponse _response)
-            throws ServletException, IOException, IllegalArgumentException, IllegalAccessException{
+            throws ServletException, IOException, IllegalArgumentException, IllegalAccessException {
         try {
             User user = new User();
-            CachedRowSet crs;       
+            CachedRowSet crs;
             crs = opr.getTargetObj(user, _request.getParameter("name"), Dictionary.TABLE_1);
             ArrayList temp = opr.restoreToObj(crs, user);
-            for(Object obj : temp){
-                user = (User)obj;
+            for (Object obj : temp) {
+                user = (User) obj;
             }
             return user;
         } catch (SQLException ex) {
@@ -210,25 +232,25 @@ public class AccProc {
             return null;
         }
     }
-    
+
     /**
      * Get one target user from database on this web server.
      *
-     * @param _request servlet request
-     * @param _response servlet response
+     * @param _name
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      * @return is the getData process success or failed.
+     * @throws java.lang.IllegalAccessException
      */
     public User getTarget(String _name)
-            throws ServletException, IOException, IllegalArgumentException, IllegalAccessException{
+            throws ServletException, IOException, IllegalArgumentException, IllegalAccessException {
         try {
             User user = new User();
-            CachedRowSet crs;       
+            CachedRowSet crs;
             crs = opr.getTargetObj(user, _name, Dictionary.TABLE_1);
             ArrayList temp = opr.restoreToObj(crs, user);
-            for(Object obj : temp){
-                user = (User)obj;
+            for (Object obj : temp) {
+                user = (User) obj;
             }
             return user;
         } catch (SQLException ex) {
@@ -242,25 +264,24 @@ public class AccProc {
             return null;
         }
     }
+
     /**
-     * Set the age of all cookies that are in the cookie array 
-     * to zero.
-     * 
+     * Set the age of all cookies that are in the cookie array to zero.
+     *
      * @param _cookie a array contains cookies that are going to be killed.
      * @return a array contains cookies that are killed
      */
     public static Cookie[] killAllCookies(Cookie[] _cookie) {
-        
+
         for (int i = 0; i < _cookie.length; i++) {
             _cookie[i].setMaxAge(0);
         }
         return _cookie;
     }
 
-
     /**
      * Logout the user taht is logged-in.
-     * 
+     *
      * @param _request servlet request
      * @param _response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -268,7 +289,7 @@ public class AccProc {
      */
     public static void logOut(HttpServletRequest _request, HttpServletResponse _response)
             throws ServletException, IOException {
-        
+
         //Get user's cookie.
         Cookie[] cookies = _request.getCookies();
         //Remove the cookie.
@@ -280,15 +301,16 @@ public class AccProc {
         _response.sendRedirect("index.jsp");
     }
 
-
     /**
      * User login to the web server.
-     * 
+     *
      * @param _request servlet request
      * @param _response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      * @return is login success or failed.
+     * @throws java.sql.SQLException
+     * @throws java.lang.IllegalAccessException
      */
     public int signIn(HttpServletRequest _request, HttpServletResponse _response)
             throws ServletException, IOException, IllegalArgumentException, IllegalAccessException, SQLException {
@@ -297,25 +319,24 @@ public class AccProc {
         String password = _request.getParameter("password");
         user = new User();
         CachedRowSet result = opr.getTargetObj(user, username, Dictionary.TABLE_1);
-        while (result.next()) {
+        if (result.next()) {
             String temp = result.getString("password");
-            if(!password.equals(temp) || result.getInt("banned") == 1){
-                break;
+            if (!password.equals(temp) || result.getInt("banned") == 1) {
+                return Dictionary.ERROR_CODE_3;
             }
-            _request.setAttribute("name",result.getString("username"));
-            
-            if(result.getInt("usertype") != 2){
+            _request.setAttribute("name", result.getString("username"));
+
+            if (result.getInt("usertype") != Dictionary.STATUS_CODE_MANAGER) {
                 this.setCookie(_request, _response);
             }
             return result.getInt("usertype");
         }
-        return 4;
+        return Dictionary.ERROR_CODE_4;
     }
-
 
     /**
      * Add a new user to the web server.
-     * 
+     *
      * @param _request servlet request
      * @param _response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -324,14 +345,13 @@ public class AccProc {
      */
     public static boolean signUp(HttpServletRequest _request, HttpServletResponse _response)
             throws ServletException, IOException {
-        
+
         return false;
     }
 
-
     /**
      * Update the new user-info to database.
-     * 
+     *
      * @param _request servlet request
      * @param _response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -339,7 +359,7 @@ public class AccProc {
      */
     public void updateInfo(HttpServletRequest _request, HttpServletResponse _response)
             throws ServletException, IOException {
-        
+
         try {
             // Get updated user input.
             int age = Integer.parseInt(_request.getParameter("age"));
@@ -347,16 +367,16 @@ public class AccProc {
             // Initialize local User class.
             User user = new User();
             // Load old information to local User class.
-            user = (User)opr.getTargetObj(user,_request.getParameter("uuid"),Dictionary.TABLE_1);
+            user = (User) opr.getTargetObj(user, _request.getParameter("uuid"), Dictionary.TABLE_1);
             // Update.
             user.setName(_request.getParameter("f_name") + " " + _request.getParameter("l_name"));
             user.setEmail(_request.getParameter("email"));
             user.setAge(Integer.parseInt(_request.getParameter("contact")));
             user.setContact(Integer.parseInt(_request.getParameter("contact")));
             // Decide what to do next based on the returned boolean value.
-            if(opr.updataObj(user,user.getUuid())){
+            if (opr.updataObj(user, user.getUuid())) {
                 _response.sendRedirect("success.jsp");
-            }else{
+            } else {
                 _response.sendRedirect("fail.jsp");
             }
         } catch (IllegalArgumentException ex) {
@@ -365,9 +385,46 @@ public class AccProc {
             _response.sendRedirect("fail.jsp");
         }
     }
-    
-    public void close() throws SQLException{
+
+    /**
+     *
+     * @param _request
+     * @param _response
+     * @throws ServletException
+     * @throws IOException
+     * @throws IllegalArgumentException
+     * @throws IllegalAccessException
+     */
+    public void match(HttpServletRequest _request, HttpServletResponse _response)
+            throws ServletException, IOException, IllegalArgumentException, IllegalAccessException {
+        ArrayList t_arr = this.getUserSet(_request, _response);
+        ArrayList f_arr = new ArrayList<User>();
+        String MID = _request.getParameter("MID");
+        
+        if (MID == null) {
+            for (Object t : t_arr) {
+                User temp = (User)t;
+                if(temp.getUsertype() == 0)
+                f_arr.add(temp);
+            }
+        } else {
+            for (Object t : t_arr) {
+                User temp = (User)t;
+                if(temp.getUsertype() == 0 && temp.getMID() == Integer.parseInt(MID))
+                f_arr.add(temp);
+            }
+        }
+        HttpSession session = _request.getSession();
+        session.setAttribute("DoctorSet", f_arr);
+        _response.sendRedirect("match.jsp");
+    }
+
+    /**
+     *
+     * @throws SQLException
+     */
+    public void close() throws SQLException {
         opr.close();
     }
-    
+
 }
