@@ -19,7 +19,7 @@
         var OnlineID = document.getElementById("id-u").value;
         var Username = document.getElementById("username-u").value;
         var Password = document.getElementById("password-u").value;
-        location.href = "AccController?method=Signup&ID=" + OnlineID + "&username=" + Username + "&password=" + Password;
+        location.href = "AccController?method=SignUp&ID=" + OnlineID + "&username=" + Username + "&password=" + Password;
     };
     
     function signUpD() {
@@ -28,7 +28,7 @@
         var Password = document.getElementById("password-d").value;
         var firstname = document.getElementById("Firstname-d").value;
         var NPI = document.getElementById("NPI-d").value;
-        location.href = "AccController?method=Signup&ID=" + OnlineID + "&username=" + Username + "&password=" + Password + "&firstname=" + firstname + "&NPI=" + NPI;
+        location.href = "AccController?method=SignUp&ID=" + OnlineID + "&username=" + Username + "&password=" + Password + "&firstname=" + firstname + "&NPI=" + NPI;
     };
     
     function signIn() {
