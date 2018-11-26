@@ -80,9 +80,9 @@ public class AccController extends HttpServlet {
                         break;
                     case "SignUp":
                         if(accProc.signUp(_request, _response)){
-                            _response.sendRedirect("Failed.jsp");
-                        }else{
                             _response.sendRedirect("Success.jsp");
+                        }else{
+                            _response.sendRedirect("Failed.jsp");
                         }
                         break;
                     case "Blacklist":

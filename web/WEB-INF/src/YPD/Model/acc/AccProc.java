@@ -354,13 +354,13 @@ public class AccProc {
                 Map<String, String> map = checkForDoctor(_request.getParameter("firstname"), _request.getParameter("NPI"));
                 
                 if (map != null) {
-                    User user = new User(this.getUID(), _request.getParameter("username"), _request.getParameter("password"), Dictionary.STATUS_CODE_DOCTOR, "");
+                    User user = new User(this.getUID(), _request.getParameter("username"), _request.getParameter("password"), Dictionary.STATUS_CODE_DOCTOR, "Unknown");
                     user.setName(map.get("first_name"));
                     user.setImg(map.get("img"));
                     return opr.newObjToDB(user, Dictionary.TABLE_1);
                 }
             } else {
-                User user = new User(this.getUID(), _request.getParameter("username"), _request.getParameter("password"), Dictionary.STATUS_CODE_USER, "");
+                User user = new User(this.getUID(), _request.getParameter("username"), _request.getParameter("password"), Dictionary.STATUS_CODE_USER, "Unknown");
                 return opr.newObjToDB(user, Dictionary.TABLE_1);
             }
         } catch (JSONException | IllegalArgumentException | IllegalAccessException ex) {

@@ -42,8 +42,6 @@
                             <div class="tab-content tab-content-2">
                                 <td align="center">
                                     <form action="AccController?method=SignUp" method="Post">
-                                            <b>OnlineID：</b></br>
-                                        <input id="id-u" type="text" /></br>
                                             <b>Username：</b></br>
                                         <input id="username-u" type="text" /></br>
                                             <b>Password：</b></br>
@@ -71,8 +69,6 @@
                         <div class="modal-body">
                             <div class="col-8 mx-auto text-center">
                             <form action="AccController?method=SignUp" method="Post">
-                                    <b>OnlineID：</b></br>
-                                <input id="id-d" type="text" /></br>
                                     <b>Username：</b></br>
                                 <input id="username-d" type="text" /></br>
                                     <b>Password：</b></br>
