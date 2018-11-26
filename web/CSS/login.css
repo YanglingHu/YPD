@@ -8,7 +8,7 @@
     text-align: center;
 }
 
-.BG-warpper{
+.BG-wrapper{
     height: 800px;
     width: 100%;
     margin: 0px auto;
@@ -24,14 +24,6 @@
   margin: 150px 37%;
   background-color: rgba(255,255,155,0.2);
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-}
-
-.login-wrapper{
-  position: relative;
-  width: 350px;
-  height: 40px;
-  background-color: #33344a;
-  display: none;
 }
 
 .tab-radio{

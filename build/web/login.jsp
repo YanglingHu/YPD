@@ -12,26 +12,27 @@
         <title>Login to YPD--</title>
         <link rel="stylesheet" href="CSS/login.css" type="text/css">
         <jsp:include page="sub_elements/common_source.jsp"></jsp:include>
-        
+   
     </head>
     <body>        
         <jsp:include page="sub_elements/header.jsp"></jsp:include>
             <div class="Main">
-                <div class="BG-warpper">
+                <div class="BG-wrapper">
                     <div class="login-theme">
-                        <div class="login-warpper">
+                        <div>
                             <!--tab section 1-->
                             <input type="radio" name="tab-radio" class="tab-radio" id="tab-radio-1" checked>
                             <label for="tab-radio-1" class="tab-handler tab-handler-1">SignIn</label>
                             <div class="tab-content tab-content-1">
                                 <td align="center">
-                                    <form action="AccController?method=signIn" method="Post">
+                                    <form action="AccController" method="Post">
                                             <b>Username：</b></br>
-                                        <input id="username-i" type="text" /></br>
+                                        <input name="username" type="text" /></br>
                                             <b>Password：</b></br>
-                                        <input id="password-i" type="password" /><p>
+                                        <input name="password" type="password" /><p>
+                                        <input type ="hidden" name="method" value="SignIn"/>
                                         <p align="center">
-                                            <button type="button" class="btn btn-sm btn-primary" onclick="signIn()">SignIn</button>
+                                            <button type="button" class="btn btn-sm btn-primary" onclick="this.form.submit()">SignIn</button>
                                         </p>
                                     </form>
                                 </td>
@@ -41,21 +42,22 @@
                             <label for="tab-radio-2" class="tab-handler tab-handler-2">SignUp</label>
                             <div class="tab-content tab-content-2">
                                 <td align="center">
-                                    <form action="AccController?method=SignUp" method="Post">
+                                    <form action="AccController" method="Post">
                                             <b>Username：</b></br>
-                                        <input id="username-u" type="text" /></br>
+                                        <input name="username" type="text" /></br>
                                             <b>Password：</b></br>
-                                        <input id="password-u" type="password"/></br>
+                                        <input name="password" type="password"/></br>
                                             <b>Check-pw：</b></br>
-                                        <input id="repasswd-u" type="password" /><p>
+                                        <input id="repasswd" type="password" /><p>
+                                        <input type ="hidden" name="method" value="SignUp"/>
                                         <p align="center">
-                                            <button type="button" class="btn btn-sm btn-primary" onclick="signUp()">SignUp</button>
+                                            <button type="button" class="btn btn-sm btn-primary" onclick="this.form.submit()">SignUp</button>
                                         </p>
                                     </form>
                                 </td>
                                 <p class="" style="float: right"><a href="#" data-toggle="modal" data-target="#signUpDoctor">I'm a doctor</a></p>
-                            </div>
-                        </div>    
+                            </div>   
+                        </div>
                     </div>
                 </div>
             </div>
@@ -68,28 +70,28 @@
                         </div>
                         <div class="modal-body">
                             <div class="col-8 mx-auto text-center">
-                            <form action="AccController?method=SignUp" method="Post">
+                            <form id="modal-form-doctor" action="AccController" method="Post">
                                     <b>Username：</b></br>
-                                <input id="username-d" type="text" /></br>
+                                <input name="username" type="text" /></br>
                                     <b>Password：</b></br>
-                                <input id="password-d" type="password"/></br>
+                                <input name="password" type="password"/></br>
                                     <b>Check-pw：</b></br>
-                                <input id="repasswd-d" type="password"/></br>
+                                <input id="repasswd" type="password"/></br>
                                     <b>Your First Name：</b></br>
-                                <input id="Firstname-d" type="text" onkeyup="this.value=this.value.replace(/[^a-zA-Z]/g,'')"/></br>
+                                <input name="firstname" type="text" onkeyup="this.value=this.value.replace(/[^a-zA-Z]/g,'')"/></br>
                                     <b>Your NPI license：</b></br>
-                                <input id="NPI-d" type="tel" onkeyup="this.value=this.value.replace(/\D/g,'')"/><p>
+                                <input name="NPI" type="tel" onkeyup="this.value=this.value.replace(/\D/g,'')"/><p>
+                                <input type ="hidden" name="method" value="SignUp"/>
                             </form>
                             </div>
                         </div>
                         <div class="modal-footer">
-                        <button type="button" class="btn btn-sm btn-primary" onclick="signUpD()">SignUp</button>
+                        <button type="button" class="btn btn-sm btn-primary" onclick="document.getElementById('modal-form-doctor').submit();">SignUp</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
             </div>
         <jsp:include page="sub_elements/footer.jsp"></jsp:include>
-        <script src="js/action.js" ></script>
     </body>
 </html>
