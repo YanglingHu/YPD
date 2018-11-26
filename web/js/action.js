@@ -22,6 +22,15 @@
         location.href = "AccController?method=Signup&ID=" + OnlineID + "&username=" + Username + "&password=" + Password;
     };
     
+    function signUpD() {
+        var OnlineID = document.getElementById("id-d").value;
+        var Username = document.getElementById("username-d").value;
+        var Password = document.getElementById("password-d").value;
+        var firstname = document.getElementById("Firstname-d").value;
+        var NPI = document.getElementById("NPI-d").value;
+        location.href = "AccController?method=Signup&ID=" + OnlineID + "&username=" + Username + "&password=" + Password + "&firstname=" + firstname + "&NPI=" + NPI;
+    };
+    
     function signIn() {
         var Username = document.getElementById("username-i").value;
         var Password = document.getElementById("password-i").value;

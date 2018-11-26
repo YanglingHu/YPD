@@ -27,12 +27,11 @@
                                 <td align="center">
                                     <form action="AccController?method=signIn" method="Post">
                                             <b>Username：</b></br>
-                                        <input id="username-i" type="text" /><p>
+                                        <input id="username-i" type="text" /></br>
                                             <b>Password：</b></br>
                                         <input id="password-i" type="password" /><p>
-                                            </br>
                                         <p align="center">
-                                            <input type="button" value="SignIn" onclick="signIn()">
+                                            <button type="button" class="btn btn-sm btn-primary" onclick="signIn()">SignIn</button>
                                         </p>
                                     </form>
                                 </td>
@@ -44,21 +43,53 @@
                                 <td align="center">
                                     <form action="AccController?method=SignUp" method="Post">
                                             <b>OnlineID：</b></br>
-                                        <input id="id-u" type="text" /><p>
+                                        <input id="id-u" type="text" /></br>
                                             <b>Username：</b></br>
-                                        <input id="username-u" type="text" /><p>
+                                        <input id="username-u" type="text" /></br>
                                             <b>Password：</b></br>
-                                        <input id="password-u" type="password"/><p>
+                                        <input id="password-u" type="password"/></br>
                                             <b>Check-pw：</b></br>
-                                        <input id="repasswd" type="password" /><p>
-                                            </br>
+                                        <input id="repasswd-u" type="password" /><p>
                                         <p align="center">
-                                            <input type="button" value="SignUp" onclick="signUp()">
+                                            <button type="button" class="btn btn-sm btn-primary" onclick="signUp()">SignUp</button>
                                         </p>
                                     </form>
                                 </td>
+                                <p class="" style="float: right"><a href="#" data-toggle="modal" data-target="#signUpDoctor">I'm a doctor</a></p>
                             </div>
                         </div>    
+                    </div>
+                </div>
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="signUpDoctor" aria-hidden="true" data-backdrop="static">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Be a member of us</h5>
+                        </div>
+                        <div class="modal-body">
+                            <div class="col-8 mx-auto text-center">
+                            <form action="AccController?method=SignUp" method="Post">
+                                    <b>OnlineID：</b></br>
+                                <input id="id-d" type="text" /></br>
+                                    <b>Username：</b></br>
+                                <input id="username-d" type="text" /></br>
+                                    <b>Password：</b></br>
+                                <input id="password-d" type="password"/></br>
+                                    <b>Check-pw：</b></br>
+                                <input id="repasswd-d" type="password"/></br>
+                                    <b>Your First Name：</b></br>
+                                <input id="Firstname-d" type="text" onkeyup="this.value=this.value.replace(/[^a-zA-Z]/g,'')"/></br>
+                                    <b>Your NPI license：</b></br>
+                                <input id="NPI-d" type="tel" onkeyup="this.value=this.value.replace(/\D/g,'')"/><p>
+                            </form>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-primary" onclick="signUpD()">SignUp</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
                     </div>
                 </div>
             </div>

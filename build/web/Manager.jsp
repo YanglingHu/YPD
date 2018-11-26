@@ -12,37 +12,22 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <jsp:include page="sub_elements/common_source.jsp"></jsp:include>
         <title>Manager plannel</title>
     </head>
     <body>
-        <%
-            AccProc accproc = new AccProc();
-            ArrayList<User> list = (ArrayList) session.getAttribute("UserSet");
-            int count = 0; 
-            while(count < list.size()){
-                User user = list.get(count);
-        %>
-        <div>
-            <label>UUID: <%out.write(user.getUuid());%> , Name: <%out.write(user.getName());%>, UserType: <%if (user.getUsertype() == 0) {
-                    out.write("Doctor");
-                } else {
-                    out.write("User");
-                }%>
-                </lable>
-                <input type ="hidden" id="user-<%out.write((Integer.toString(count)));%>" value="<%out.write((Integer.toString(count)));%>"/>
-                <input type="button" name="user-<%out.write((Integer.toString(count)));%>" value="Delete" onclick= "del(this.name);"/>
-                &nbsp;&nbsp;
-                <%
-                    if (user.getBanned() == 0) {
-                %>
-                <input type="button" name="user-<%out.write((Integer.toString(count)));%>" value="Ban" onclick="ban(this.name)" />
-                <%} else {%>
-                <input type="button" name="user-<%out.write((Integer.toString(count)));%>" value="Activate" onclick="act(this.name)" />
-                <%}
-                count++;%>
-        </div>        
-        </br>
-        <%} count = 0;%>
+        <div class="col-6 offset-3">
+        <%@include file = "WEB-INF/src/fragments/list_manager.jspf" %>
+        </div>
+        <div class="col-4 mx-auto">
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+        </div>
         <script src="js/action.js" ></script>
     </body>
 </html>

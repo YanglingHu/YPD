@@ -8,6 +8,7 @@ import Class.User;
 import YPD.DatabaseOperation.DBoperation;
 import YPD.Model.server.Session;
 import YPD.Dic.Dictionary;
+import static YPD.Model.acc.Verification.*;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import javax.sql.rowset.CachedRowSet;
@@ -18,6 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
+import org.json.JSONException;
 
 /**
  *
@@ -319,7 +321,7 @@ public class AccProc {
         String password = _request.getParameter("password");
         user = new User();
         CachedRowSet result = opr.getTargetObj(user, username, Dictionary.TABLE_1);
-        if (result.next()) {
+        if (result != null && result.next()) {
             String temp = result.getString("password");
             if (!password.equals(temp) || result.getInt("banned") == 1) {
                 return Dictionary.ERROR_CODE_3;
@@ -343,9 +345,27 @@ public class AccProc {
      * @throws IOException if an I/O error occurs
      * @return is signup success or failed.
      */
-    public static boolean signUp(HttpServletRequest _request, HttpServletResponse _response)
+    public boolean signUp(HttpServletRequest _request, HttpServletResponse _response)
             throws ServletException, IOException {
+        try {
+            
+            if (_request.getParameter("NPI") != null || _request.getParameter("firstname") != null) {
 
+                Map<String, String> map = checkForDoctor(_request.getParameter("firstname"), _request.getParameter("NPI"));
+                
+                if (map != null) {
+                    User user = new User(this.getUID(), _request.getParameter("username"), _request.getParameter("password"), Dictionary.STATUS_CODE_DOCTOR, "");
+                    user.setName(map.get("first_name"));
+                    user.setImg(map.get("img"));
+                    return opr.newObjToDB(user, Dictionary.TABLE_1);
+                }
+            } else {
+                User user = new User(this.getUID(), _request.getParameter("username"), _request.getParameter("password"), Dictionary.STATUS_CODE_USER, "");
+                return opr.newObjToDB(user, Dictionary.TABLE_1);
+            }
+        } catch (JSONException | IllegalArgumentException | IllegalAccessException ex) {
+            return false;
+        }
         return false;
     }
 
@@ -400,18 +420,20 @@ public class AccProc {
         ArrayList t_arr = this.getUserSet(_request, _response);
         ArrayList f_arr = new ArrayList<User>();
         String MID = _request.getParameter("MID");
-        
+
         if (MID == null) {
             for (Object t : t_arr) {
-                User temp = (User)t;
-                if(temp.getUsertype() == 0)
-                f_arr.add(temp);
+                User temp = (User) t;
+                if (temp.getUsertype() == 0) {
+                    f_arr.add(temp);
+                }
             }
         } else {
             for (Object t : t_arr) {
-                User temp = (User)t;
-                if(temp.getUsertype() == 0 && temp.getMID() == Integer.parseInt(MID))
-                f_arr.add(temp);
+                User temp = (User) t;
+                if (temp.getUsertype() == 0 && temp.getMID() == Integer.parseInt(MID)) {
+                    f_arr.add(temp);
+                }
             }
         }
         HttpSession session = _request.getSession();

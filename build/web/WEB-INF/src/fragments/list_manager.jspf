@@ -1,0 +1,29 @@
+<%@ page pageEncoding="UTF-8" %>
+<%
+    AccProc accproc = new AccProc();
+    ArrayList<User> list = (ArrayList) session.getAttribute("UserSet");
+    int count = 0;
+    while (count < list.size()) {
+        User user = list.get(count);
+%>
+<div class="container" style="margin: 10px auto">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title"><%out.write(user.getName());%></h4>
+            <h6 class="card-subtitle mb-2 text-muted"><%out.write(user.getTypeString());%></h6>
+            <p class="card-text">UUID: <%out.write(user.getUuid());%></p>
+            <input type ="hidden" id="user-<%out.write((Integer.toString(count)));%>" value="<%out.write((Integer.toString(count)));%>"/>
+            <p style="float: right">
+            <button type="button" class="btn btn-primary btn-sm" name="user-<%out.write((Integer.toString(count)));%>" onclick="del(this.name)">Delete</button>
+            <%
+                if (user.getBanned() == 0) {
+            %>
+            <button type="button" class="btn btn-primary btn-sm" name="user-<%out.write((Integer.toString(count)));%>" onclick="ban(this.name)">Ban</button>
+            <%} else {%>
+            <button type="button" class="btn btn-primary btn-sm" name="user-<%out.write((Integer.toString(count)));%>" onclick="act(this.name)">Activate</button>
+            <%}count++;%>
+            </p>
+        </div>
+    </div>
+</div>
+<%}count = 0;%>

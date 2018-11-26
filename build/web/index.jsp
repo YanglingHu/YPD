@@ -3,7 +3,7 @@
     Created on : 2018-9-27, 21:51:42
     Author     : Yi Qiu
 --%>
-<%@include file = "WEB-INF/src/prepare.jspf" %>
+<%@include file = "WEB-INF/src/fragments/prepare.jspf" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -40,48 +40,7 @@
                         </div>
                     </div>
                     <div class="login-box">
-                        <% if(log == false){ %>
-                        <div class="login-title">
-                            <span class="icon">
-                                <i class="disPlayA"></i>
-                            </span>
-                            <n1>Fast Track</n1>
-                        </div>
-                        <p style="margin: 25px;background: #FFFFFF">
-                            Login is required for more </br>Y-P-D self service! 
-                        </p>
-                        <p style="margin: 50px 40px"> 
-                            <a href="login.jsp">
-                                <span class="icon-doctor"> </span> 
-                                Login 
-                            </a>
-                        </p>
-                        <%}else{%>   
-                        <div class="login-title">
-                            <span class="icon">
-                                <i class="disPlayA"></i>
-                            </span>
-                            <n1>Dashboard</n1>
-                        </div>
-                        <p style="margin: 17px;background: #FFFFFF; line-height: 20px">
-                            <td align="center">
-                                <image style ="width: 100px; height: 100px; background-size: cover" src = "<%if(!user.getImg().equals("")){ out.write(user.getUsertype()); } else { out.write("PIC/person.png");}%>" /></br>
-                                Name: <%out.write(user.getName());%></br>
-                                Age: <%out.write(Integer.toString(user.getAge()));%></br>
-                                Gender: <%out.write(user.getGenderString());%></br>
-                            </td>
-                        </p>
-                        <p style="margin: 15px 40px"> 
-                            <a href="AutoMatching.jsp">
-                                Quick Matching
-                            </a>
-                        </p>
-                        <p style="margin: 15px 40px"> 
-                            <a href="AccController?method=Logoff">
-                                Logout
-                            </a>
-                        </p>
-                        <%}%>
+                        <%@include file = "WEB-INF/src/fragments/login_box.jspf" %>
                     </div>
                 </div>
             </div>

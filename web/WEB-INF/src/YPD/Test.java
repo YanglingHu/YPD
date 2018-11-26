@@ -10,11 +10,13 @@ import Class.User;
 import YPD.DatabaseOperation.DBoperation;
 import YPD.Dic.Dictionary;
 import YPD.Model.acc.AccProc;
+import YPD.Model.acc.Verification;
 import static YPD.Model.acc.AccProc.getUID;
 import java.lang.reflect.*;
 import java.sql.*;
 import java.util.*;
 import javax.sql.rowset.CachedRowSet;
+import org.json.JSONException;
 
 
 /**
@@ -23,9 +25,11 @@ import javax.sql.rowset.CachedRowSet;
  */
 public class Test {    
     
-    public static void main(String[] arg) throws SQLException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException, NoSuchFieldException, InstantiationException {   
-        
-        testCase1();
+    public static void main(String[] arg) throws SQLException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException, NoSuchFieldException, InstantiationException, JSONException {   
+        Verification.checkForDoctor("John","1912968298");
+        Verification.checkForDoctor("Jason","1912968298");
+        Verification.checkForDoctor("Jason","1234567890");
+//        testCase1();
 //        testCase3();
 
     }
@@ -84,7 +88,4 @@ public class Test {
         
     }
     
-    public static void testCase4() throws SQLException, ClassNotFoundException{
-        AccProc acc = new AccProc();
-    }
 }

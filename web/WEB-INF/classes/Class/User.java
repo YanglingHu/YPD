@@ -5,6 +5,7 @@
  */
 package Class;
 
+import YPD.Dic.Dictionary;
 import java.util.UUID;
 
 /**
@@ -89,6 +90,17 @@ public class User {
     
     public void setUsertype(int _usertype){
         this.usertype = _usertype;
+    } 
+    
+    public String getTypeString(){
+        if(this.usertype == Dictionary.STATUS_CODE_DOCTOR){
+            return "Doctor";
+        }else if(this.usertype == Dictionary.STATUS_CODE_USER){
+            return "User";
+        }else if(this.usertype == Dictionary.STATUS_CODE_MANAGER){
+            return "Manager";
+        }
+        return "unknown";
     } 
     
     public String getName(){
