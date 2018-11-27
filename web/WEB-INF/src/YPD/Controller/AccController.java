@@ -35,7 +35,7 @@ public class AccController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest _request, HttpServletResponse _response)
             throws ServletException, IOException {
-//        doPost(_request, _response);
+        doPost(_request, _response);
     }
 
     /**

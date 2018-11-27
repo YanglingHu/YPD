@@ -12,15 +12,18 @@
             <h4 class="card-title"><%out.write(user.getName());%></h4>
             <h6 class="card-subtitle mb-2 text-muted"><%out.write(user.getTypeString());%></h6>
             <p class="card-text">UUID: <%out.write(user.getUuid());%></p>
-            <input type ="hidden" id="user-<%out.write((Integer.toString(count)));%>" value="<%out.write((Integer.toString(count)));%>"/>
+            <form id="user-form-<%out.write((Integer.toString(count)));%>" action="AccController" method="Post">
+            <input type ="hidden" id="user-<%out.write((Integer.toString(count)));%>" name="key" value="<%out.write((Integer.toString(count)));%>"/>
+            <input type ="hidden" id="method-<%out.write((Integer.toString(count)));%>" name="method" value=""/>
+            </form>
             <p style="float: right">
-            <button type="button" class="btn btn-primary btn-sm" name="user-<%out.write((Integer.toString(count)));%>" onclick="del(this.name)">Delete</button>
+            <button type="button" class="btn btn-primary btn-sm" name="user-<%out.write((Integer.toString(count)));%>" onclick="document.getElementById('method-<%out.write((Integer.toString(count)));%>').value='Remove';document.getElementById('user-form-<%out.write((Integer.toString(count)));%>').submit();">Delete</button>
             <%
                 if (user.getBanned() == 0) {
             %>
-            <button type="button" class="btn btn-primary btn-sm" name="user-<%out.write((Integer.toString(count)));%>" onclick="ban(this.name)">Ban</button>
+            <button type="button" class="btn btn-primary btn-sm" name="user-<%out.write((Integer.toString(count)));%>" onclick="document.getElementById('method-<%out.write((Integer.toString(count)));%>').value='Blacklist';document.getElementById('user-form-<%out.write((Integer.toString(count)));%>').submit();">Ban</button>
             <%} else {%>
-            <button type="button" class="btn btn-primary btn-sm" name="user-<%out.write((Integer.toString(count)));%>" onclick="act(this.name)">Activate</button>
+            <button type="button" class="btn btn-primary btn-sm" name="user-<%out.write((Integer.toString(count)));%>" onclick="document.getElementById('method-<%out.write((Integer.toString(count)));%>').value='Activate';document.getElementById('user-form-<%out.write((Integer.toString(count)));%>').submit();">Activate</button>
             <%}count++;%>
             </p>
         </div>
