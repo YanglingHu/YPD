@@ -6,6 +6,6 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<div class="fUrl">
+<div class="fUrl" style="margin-top: 10px">
 </div>
 

@@ -1,0 +1,30 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+                            <div class="card border-light mb-3" style="margin-top: 10px">
+                                <div class="card-header"><h4>Infomation</h4></div>
+                                <div class="card-body">
+                                    <form id="form-Info" action="UpdateController" method="Post">
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-12 text-center">
+                                                <label for="Email1">Email address</label>
+                                                <input type="email" class="form-control" id="Email1" name="Email" value="<%out.write(user.getEmail());%>"/>
+                                                <label for="Name">Name</label>
+                                                <input type="text" class="form-control"  value="<%out.write(user.getName());%>" id="Name" name="Name"/>
+                                                <label for="Name">Phone Number</label>
+                                                <input type="text" class="form-control"  value="<%out.write(Integer.toString(user.getContact()));%>" id="Phone Number" name="PhoneNumber"/>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12 text-center">
+                                                <label for="Age">Age</label>
+                                                <input type="text" class="form-control"  value="<%out.write(Integer.toString(user.getAge()));%>" id="Age" name="Age"/>
+                                                <label for="Gender">Gender</label>
+                                                <select class="form-control" id="Gender" name="Gender">
+                                                    <option value="0">Male</option>
+                                                    <option value="1">Female</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    <input type ="hidden" name="method" value="updateInfo"/>
+                                    </form>  
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-outline-primary btn-block btn-sm" onclick="document.getElementById('form-Info').submit();">save</button>

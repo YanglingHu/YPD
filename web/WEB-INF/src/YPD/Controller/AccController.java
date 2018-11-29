@@ -57,10 +57,6 @@ public class AccController extends HttpServlet {
                 throw new IOException("Empty method parameter.");
             } else {
                 switch (cases) {
-
-                    case "Update":
-                        accProc.updateInfo(_request, _response);
-                        break;
                     case "Logoff":
                         accProc.logOut(_request, _response);
                         break;

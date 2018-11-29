@@ -1,0 +1,161 @@
+<%-- any content can be specified here e.g.: --%>
+<%@page import="java.util.Arrays"%>
+<%@ page pageEncoding="UTF-8" %>
+                            <div class="card border-light mb-3" style="margin-top: 10px">
+                                <div class="card-header"><h4>My Tags</h4></div>
+                                <div class="card-body">
+                                    <form Id="form-MyTag" action="UpdateController" method="Post">
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-12">
+                                                <%if(Arrays.asList(ml).contains("1")){%>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chk[]" value="1" id="c_1" checked="">
+                                                    <label class="custom-control-label" for="c_1">Brain</label>
+                                                </div>
+                                                <%}else{%>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chk[]" value="1" id="c_1">
+                                                    <label class="custom-control-label" for="c_1">Brain</label>
+                                                </div>
+                                                <%}
+                                                if(Arrays.asList(ml).contains("2")){
+                                                %>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chk[]" value="2" id="c_2" checked="">
+                                                    <label class="custom-control-label" for="c_2">Ear Nose & Throat</label>
+                                                </div>
+                                                <%}else{%>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chk[]" value="2" id="c_2">
+                                                    <label class="custom-control-label" for="c_2">Ear Nose & Throat</label>
+                                                </div>
+                                                <%}
+                                                if(Arrays.asList(ml).contains("3")){
+                                                %>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chk[]" value="3" id="c_3" checked="">
+                                                    <label class="custom-control-label" for="c_3">Internal Medicine</label>
+                                                </div>
+                                                <%}else{%>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chk[]" value="3" id="c_3">
+                                                    <label class="custom-control-label" for="c_3">Internal Medicine</label>
+                                                </div>
+                                                <%}
+                                                if(Arrays.asList(ml).contains("4")){
+                                                %>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chk[]" value="4" id="c_4" checked="">
+                                                    <label class="custom-control-label" for="c_4">Surgery</label>
+                                                </div>
+                                                <%}else{%>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chk[]" value="4" id="c_4">
+                                                    <label class="custom-control-label" for="c_4">Surgery</label>
+                                                </div>
+                                                <%}
+                                                if(Arrays.asList(ml).contains("5")){
+                                                %>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chk[]" value="5" id="c_5" checked="">
+                                                    <label class="custom-control-label" for="c_5">Pediatrics</label>
+                                                </div>
+                                                <%}else{%>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chk[]" value="5" id="c_5">
+                                                    <label class="custom-control-label" for="c_5">Pediatrics</label>
+                                                </div>
+                                                <%}
+                                                if(Arrays.asList(ml).contains("6")){
+                                                %>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chk[]" value="6" id="c_6" checked="">
+                                                    <label class="custom-control-label" for="c_6">Infectious Diseases</label>
+                                                </div>
+                                                <%}else{%>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chk[]" value="6" id="c_6">
+                                                    <label class="custom-control-label" for="c_6">Infectious Diseases</label>
+                                                </div>
+                                                <%}%>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <%if(Arrays.asList(ml).contains("7")){%>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chk[]" value="7" id="c_7" checked="">
+                                                    <label class="custom-control-label" for="c_7">Obstetrics & Gynecology</label>
+                                                </div>
+                                                <%}else{%>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chk[]" value="7" id="c_7">
+                                                    <label class="custom-control-label" for="c_7">Obstetrics & Gynecology</label>
+                                                </div>
+                                                <%}
+                                                if(Arrays.asList(ml).contains("8")){
+                                                %>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chk[]" value="8" id="c_8" checked="">
+                                                    <label class="custom-control-label" for="c_8">Psychosis</label>
+                                                </div>
+                                                <%}else{%>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chk[]" value="8" id="c_8">
+                                                    <label class="custom-control-label" for="c_8">Psychosis</label>
+                                                </div>
+                                                <%}
+                                                if(Arrays.asList(ml).contains("9")){
+                                                %>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chk[]" value="9" id="c_9" checked="">
+                                                    <label class="custom-control-label" for="c_9">Dermatology & STD</label>
+                                                </div>
+                                                <%}else{%>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chk[]" value="9" id="c_9">
+                                                    <label class="custom-control-label" for="c_9">Dermatology & STD</label>
+                                                </div>
+                                                <%}
+                                                if(Arrays.asList(ml).contains("10")){
+                                                %>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chk[]" value="10" id="c_10" checked="">
+                                                    <label class="custom-control-label" for="c_10">Oncology</label>
+                                                </div>
+                                                <%}else{%>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chk[]" value="10" id="c_10">
+                                                    <label class="custom-control-label" for="c_10">Oncology</label>
+                                                </div>
+                                                <%}
+                                                if(Arrays.asList(ml).contains("11")){
+                                                %>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chk[]" value="11" id="c_11" checked="">
+                                                    <label class="custom-control-label" for="c_11">Orthopedics</label>
+                                                </div>
+                                                <%}else{%>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chk[]" value="11" id="c_11">
+                                                    <label class="custom-control-label" for="c_11">Orthopedics</label>
+                                                </div>
+                                                <%}
+                                                if(Arrays.asList(ml).contains("12")){
+                                                %>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chk[]" value="12" id="c_12" checked="">
+                                                    <label class="custom-control-label" for="c_12">Andrology</label>
+                                                </div>
+                                                <%}else{%>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="chk[]" value="12" id="c_12">
+                                                    <label class="custom-control-label" for="c_12">Andrology</label>
+                                                </div>
+                                                <%}%>
+                                            </div>   
+                                        </div>    
+                                    <input type ="hidden" name="method" value="updateTag"/>
+                                    </form>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-outline-primary btn-block btn-sm" onclick="document.getElementById('form-MyTag').submit();">save</button>
+                        </div>

@@ -25,7 +25,7 @@ public class User {
     private int gender;
     private int banned;
     private String img = "";
-    private int MID = 0;
+    private String MID = "";
 
     
     public User(){
@@ -154,11 +154,11 @@ public class User {
         this.gender = _gender;
     }
     
-    public int getMID() {
+    public String getMID() {
         return MID;
     }
 
-    public void setMID(int _MID) {
+    public void setMID(String _MID) {
         this.MID = _MID;
     }
 

@@ -3,22 +3,29 @@
 
     Will be called to check if there is a user
     If there is no user logged-in, webpage will be redirect to the login.jsp
---%><%@page import="Class.User"%>
+--%>
 
-If there is
-
+<%@page import="Class.User"%>
+<%@page import="java.io.*"%>
 <%@ page pageEncoding="UTF-8" %>
 <%
+    User user = new User();
+    String[] ml = new String[0];
+    String MID;
     Boolean result = (Boolean) session.getAttribute("result");
     //out.print(result);
     if (result != null) {
         if (!result) {
             response.sendRedirect("login.jsp");
+        }else{
+            if (session.getAttribute("C_User") != null) {
+                user = (User) session.getAttribute("C_User");
+            }
         }
-    } else {
-        User user = new User();
-        if (session.getAttribute("LogInInfo") != null) {
-            user = (User) session.getAttribute("LogInInfo");
-        }
+    }
+    MID = user.getMID();
+    
+    if(MID != null){
+        ml = MID.split(",");
     }
 %>

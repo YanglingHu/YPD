@@ -348,11 +348,11 @@ public class AccProc {
     public boolean signUp(HttpServletRequest _request, HttpServletResponse _response)
             throws ServletException, IOException {
         try {
-            
+
             if (_request.getParameter("NPI") != null || _request.getParameter("firstname") != null) {
 
                 Map<String, String> map = checkForDoctor(_request.getParameter("firstname"), _request.getParameter("NPI"));
-                
+
                 if (map != null) {
                     User user = new User(this.getUID(), _request.getParameter("username"), _request.getParameter("password"), Dictionary.STATUS_CODE_DOCTOR, "Unknown");
                     user.setName(map.get("first_name"));
@@ -368,44 +368,7 @@ public class AccProc {
         }
         return false;
     }
-
-    /**
-     * Update the new user-info to database.
-     *
-     * @param _request servlet request
-     * @param _response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    public void updateInfo(HttpServletRequest _request, HttpServletResponse _response)
-            throws ServletException, IOException {
-
-        try {
-            // Get updated user input.
-            int age = Integer.parseInt(_request.getParameter("age"));
-            int contact = Integer.parseInt(_request.getParameter("contact"));
-            // Initialize local User class.
-            User user = new User();
-            // Load old information to local User class.
-            user = (User) opr.getTargetObj(user, _request.getParameter("uuid"), Dictionary.TABLE_1);
-            // Update.
-            user.setName(_request.getParameter("f_name") + " " + _request.getParameter("l_name"));
-            user.setEmail(_request.getParameter("email"));
-            user.setAge(Integer.parseInt(_request.getParameter("contact")));
-            user.setContact(Integer.parseInt(_request.getParameter("contact")));
-            // Decide what to do next based on the returned boolean value.
-            if (opr.updataObj(user, user.getUuid())) {
-                _response.sendRedirect("success.jsp");
-            } else {
-                _response.sendRedirect("fail.jsp");
-            }
-        } catch (IllegalArgumentException ex) {
-            _response.sendRedirect("fail.jsp");
-        } catch (IllegalAccessException ex) {
-            _response.sendRedirect("fail.jsp");
-        }
-    }
-
+    
     /**
      *
      * @param _request
@@ -417,30 +380,39 @@ public class AccProc {
      */
     public void match(HttpServletRequest _request, HttpServletResponse _response)
             throws ServletException, IOException, IllegalArgumentException, IllegalAccessException {
-        ArrayList t_arr = this.getUserSet(_request, _response);
-        ArrayList f_arr = new ArrayList<User>();
-        String MID = _request.getParameter("MID");
+        
+        if (!_request.getParameter("pairing").equals("true")) {
+            ArrayList t_arr = this.getUserSet(_request, _response);
+            ArrayList f_arr = new ArrayList<User>();
+            String MID = _request.getParameter("MID");
 
-        if (MID == null) {
-            for (Object t : t_arr) {
-                User temp = (User) t;
-                if (temp.getUsertype() == 0) {
-                    f_arr.add(temp);
+            if (MID == null) {
+                for (Object t : t_arr) {
+                    User temp = (User) t;
+                    if (temp.getUsertype() == 0) {
+                        f_arr.add(temp);
+                    }
+                }
+            } else {
+                for (Object t : t_arr) {
+                    User temp = (User) t;
+
                 }
             }
-        } else {
-            for (Object t : t_arr) {
-                User temp = (User) t;
-                if (temp.getUsertype() == 0 && temp.getMID() == Integer.parseInt(MID)) {
-                    f_arr.add(temp);
-                }
-            }
+            HttpSession session = _request.getSession();
+            session.setAttribute("DoctorSet", f_arr);
+            _response.sendRedirect("match.jsp");
+        }else{
+            this.automatch(_request, _response);
         }
-        HttpSession session = _request.getSession();
-        session.setAttribute("DoctorSet", f_arr);
-        _response.sendRedirect("match.jsp");
     }
 
+    public void automatch(HttpServletRequest _request, HttpServletResponse _response)
+            throws ServletException, IOException, IllegalArgumentException, IllegalAccessException {
+        
+        
+    }
+    
     /**
      *
      * @throws SQLException
