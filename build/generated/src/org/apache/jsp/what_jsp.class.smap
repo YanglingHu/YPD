@@ -1,0 +1,19 @@
+SMAP
+what_jsp.java
+JSP
+*S JSP
+*F
++ 0 what.jsp
+what.jsp
++ 1 prepare.jspf
+WEB-INF/src/fragments/prepare.jspf
+*L
+5:51
+1#1,28:52
+28:80
+6#0,7:81
+13:88,3
+14,3:91
+17:94,3
+18,4:97
+*E

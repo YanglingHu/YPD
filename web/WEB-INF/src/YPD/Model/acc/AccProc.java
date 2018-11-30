@@ -368,7 +368,7 @@ public class AccProc {
         }
         return false;
     }
-    
+
     /**
      *
      * @param _request
@@ -380,7 +380,7 @@ public class AccProc {
      */
     public void match(HttpServletRequest _request, HttpServletResponse _response)
             throws ServletException, IOException, IllegalArgumentException, IllegalAccessException {
-        
+
         if (!_request.getParameter("pairing").equals("true")) {
             ArrayList t_arr = this.getUserSet(_request, _response);
             ArrayList f_arr = new ArrayList<User>();
@@ -389,30 +389,50 @@ public class AccProc {
             if (MID == null) {
                 for (Object t : t_arr) {
                     User temp = (User) t;
-                    if (temp.getUsertype() == 0) {
+
+                    if (temp.getUsertype() == Dictionary.STATUS_CODE_DOCTOR) {
                         f_arr.add(temp);
                     }
                 }
             } else {
                 for (Object t : t_arr) {
                     User temp = (User) t;
+                    String[] s = temp.getMidArray();
 
+                    if (Arrays.asList(s).contains(MID) && temp.getUsertype() == Dictionary.STATUS_CODE_DOCTOR) {
+                        f_arr.add(temp);
+                    }
                 }
             }
             HttpSession session = _request.getSession();
             session.setAttribute("DoctorSet", f_arr);
             _response.sendRedirect("match.jsp");
-        }else{
+        } else {
             this.automatch(_request, _response);
         }
     }
 
     public void automatch(HttpServletRequest _request, HttpServletResponse _response)
             throws ServletException, IOException, IllegalArgumentException, IllegalAccessException {
-        
-        
+        ArrayList t_arr = this.getUserSet(_request, _response);
+        ArrayList f_arr = new ArrayList<User>();
+        String[] MID = ((User) _request.getSession().getAttribute("C_User")).getMidArray();
+
+        for (Object obj : t_arr) {
+            for (String s : MID) {
+                String[] match = ((User) obj).getMidArray();
+
+                if (Arrays.asList(match).contains(s) && ((User) obj).getUsertype() == Dictionary.STATUS_CODE_DOCTOR) {
+                    f_arr.add((User) obj);
+                    break;
+                }
+            }
+        }
+        HttpSession session = _request.getSession();
+        session.setAttribute("DoctorSet", f_arr);
+        _response.sendRedirect("match.jsp");
     }
-    
+
     /**
      *
      * @throws SQLException

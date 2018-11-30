@@ -154,8 +154,29 @@ public class User {
         this.gender = _gender;
     }
     
+    public String[] getMidArray() {
+        return this.MID.split(",");
+    }
+    
+    public String getMidString() {
+        String string = this.MID;
+        string = string.replace(Integer.toString(Dictionary.SPEC_BRAIN), "Brain");
+        string = string.replace(Integer.toString(Dictionary.SPEC_ENT), "Ear Nose & Throat");
+        string = string.replace(Integer.toString(Dictionary.SPEC_INTER_MEDIC), "Internal Medicine");
+        string = string.replace(Integer.toString(Dictionary.SPEC_SURGERY), "Surgery");
+        string = string.replace(Integer.toString(Dictionary.SPEC_PEDIA), "Pediatrics");
+        string = string.replace(Integer.toString(Dictionary.SPEC_INF_DISEASES), "Infectious Diseases");
+        string = string.replace(Integer.toString(Dictionary.SPEC_OG), "Obstetrics & Gynecology");
+        string = string.replace(Integer.toString(Dictionary.SPEC_PSYCHOSIS), "Psychosis");
+        string = string.replace(Integer.toString(Dictionary.SPEC_DNSTD), "Dermatology & STD");
+        string = string.replace(Integer.toString(Dictionary.SPEC_ONCOLOGY), "Oncology");
+        string = string.replace(Integer.toString(Dictionary.SPEC_ORTHOPEDICS), "Orthopedics");
+        string = string.replace(Integer.toString(Dictionary.SPEC_ANDROLOGY), "Andrology");
+        return string;
+    }
+
     public String getMID() {
-        return MID;
+        return this.MID;
     }
 
     public void setMID(String _MID) {

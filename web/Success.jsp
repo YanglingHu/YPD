@@ -12,6 +12,8 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <center>
         <h1>Success!</h1>
+        </center>
     </body>
 </html>

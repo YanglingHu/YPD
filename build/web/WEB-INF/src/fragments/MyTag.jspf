@@ -7,7 +7,7 @@
                                     <form Id="form-MyTag" action="UpdateController" method="Post">
                                         <div class="row">
                                             <div class="col-md-6 col-sm-12">
-                                                <%if(Arrays.asList(ml).contains("1")){%>
+                                                <%if(Arrays.asList(MID).contains("1")){%>
                                                 <div class="custom-control custom-checkbox">
                                                     <input type="checkbox" class="custom-control-input" name="chk[]" value="1" id="c_1" checked="">
                                                     <label class="custom-control-label" for="c_1">Brain</label>
@@ -18,7 +18,7 @@
                                                     <label class="custom-control-label" for="c_1">Brain</label>
                                                 </div>
                                                 <%}
-                                                if(Arrays.asList(ml).contains("2")){
+                                                if(Arrays.asList(MID).contains("2")){
                                                 %>
                                                 <div class="custom-control custom-checkbox">
                                                     <input type="checkbox" class="custom-control-input" name="chk[]" value="2" id="c_2" checked="">
@@ -30,7 +30,7 @@
                                                     <label class="custom-control-label" for="c_2">Ear Nose & Throat</label>
                                                 </div>
                                                 <%}
-                                                if(Arrays.asList(ml).contains("3")){
+                                                if(Arrays.asList(MID).contains("3")){
                                                 %>
                                                 <div class="custom-control custom-checkbox">
                                                     <input type="checkbox" class="custom-control-input" name="chk[]" value="3" id="c_3" checked="">
@@ -42,7 +42,7 @@
                                                     <label class="custom-control-label" for="c_3">Internal Medicine</label>
                                                 </div>
                                                 <%}
-                                                if(Arrays.asList(ml).contains("4")){
+                                                if(Arrays.asList(MID).contains("4")){
                                                 %>
                                                 <div class="custom-control custom-checkbox">
                                                     <input type="checkbox" class="custom-control-input" name="chk[]" value="4" id="c_4" checked="">
@@ -54,7 +54,7 @@
                                                     <label class="custom-control-label" for="c_4">Surgery</label>
                                                 </div>
                                                 <%}
-                                                if(Arrays.asList(ml).contains("5")){
+                                                if(Arrays.asList(MID).contains("5")){
                                                 %>
                                                 <div class="custom-control custom-checkbox">
                                                     <input type="checkbox" class="custom-control-input" name="chk[]" value="5" id="c_5" checked="">
@@ -66,7 +66,7 @@
                                                     <label class="custom-control-label" for="c_5">Pediatrics</label>
                                                 </div>
                                                 <%}
-                                                if(Arrays.asList(ml).contains("6")){
+                                                if(Arrays.asList(MID).contains("6")){
                                                 %>
                                                 <div class="custom-control custom-checkbox">
                                                     <input type="checkbox" class="custom-control-input" name="chk[]" value="6" id="c_6" checked="">
@@ -80,7 +80,7 @@
                                                 <%}%>
                                             </div>
                                             <div class="col-md-6 col-sm-12">
-                                                <%if(Arrays.asList(ml).contains("7")){%>
+                                                <%if(Arrays.asList(MID).contains("7")){%>
                                                 <div class="custom-control custom-checkbox">
                                                     <input type="checkbox" class="custom-control-input" name="chk[]" value="7" id="c_7" checked="">
                                                     <label class="custom-control-label" for="c_7">Obstetrics & Gynecology</label>
@@ -91,7 +91,7 @@
                                                     <label class="custom-control-label" for="c_7">Obstetrics & Gynecology</label>
                                                 </div>
                                                 <%}
-                                                if(Arrays.asList(ml).contains("8")){
+                                                if(Arrays.asList(MID).contains("8")){
                                                 %>
                                                 <div class="custom-control custom-checkbox">
                                                     <input type="checkbox" class="custom-control-input" name="chk[]" value="8" id="c_8" checked="">
@@ -103,7 +103,7 @@
                                                     <label class="custom-control-label" for="c_8">Psychosis</label>
                                                 </div>
                                                 <%}
-                                                if(Arrays.asList(ml).contains("9")){
+                                                if(Arrays.asList(MID).contains("9")){
                                                 %>
                                                 <div class="custom-control custom-checkbox">
                                                     <input type="checkbox" class="custom-control-input" name="chk[]" value="9" id="c_9" checked="">
@@ -115,7 +115,7 @@
                                                     <label class="custom-control-label" for="c_9">Dermatology & STD</label>
                                                 </div>
                                                 <%}
-                                                if(Arrays.asList(ml).contains("10")){
+                                                if(Arrays.asList(MID).contains("10")){
                                                 %>
                                                 <div class="custom-control custom-checkbox">
                                                     <input type="checkbox" class="custom-control-input" name="chk[]" value="10" id="c_10" checked="">
@@ -127,7 +127,7 @@
                                                     <label class="custom-control-label" for="c_10">Oncology</label>
                                                 </div>
                                                 <%}
-                                                if(Arrays.asList(ml).contains("11")){
+                                                if(Arrays.asList(MID).contains("11")){
                                                 %>
                                                 <div class="custom-control custom-checkbox">
                                                     <input type="checkbox" class="custom-control-input" name="chk[]" value="11" id="c_11" checked="">
@@ -139,7 +139,7 @@
                                                     <label class="custom-control-label" for="c_11">Orthopedics</label>
                                                 </div>
                                                 <%}
-                                                if(Arrays.asList(ml).contains("12")){
+                                                if(Arrays.asList(MID).contains("12")){
                                                 %>
                                                 <div class="custom-control custom-checkbox">
                                                     <input type="checkbox" class="custom-control-input" name="chk[]" value="12" id="c_12" checked="">

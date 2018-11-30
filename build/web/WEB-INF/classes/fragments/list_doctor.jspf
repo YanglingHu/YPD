@@ -1,2 +1,50 @@
 <%@ page pageEncoding="UTF-8" %>
-<h2>Hello World!</h2>
+<%
+    ArrayList<User> list = (ArrayList) session.getAttribute("DoctorSet");
+    int count = 0;
+    if (list.size() == 0) {
+%>
+<center><h2>No Doctor founded</h2></center>
+    <%
+        }
+        while (count < list.size()) {
+            User doctor = list.get(count);
+    %>
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title"><%out.write(doctor.getTypeString() + "-" + doctor.getName());%></h4></br>
+        <div class="row">
+            <div class="col-md-4 col-sm-12 text-center" style="min-height: 180px;vertical-align: central;">
+                <img style="height: 128px; width: 128px;" src="<%out.write(doctor.getImg());%>">
+            </div>
+            <div class="col-md-8 col-sm-12">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#Profile-<%out.write((Integer.toString(count)));%>">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#Summary-<%out.write((Integer.toString(count)));%>">Summary</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="Profile-<%out.write((Integer.toString(count)));%>">
+                        <p>Age:<%out.write(Integer.toString(doctor.getAge()));%></p>
+                        <p>Phone:<%out.write(Integer.toString(doctor.getContact()));%></p>
+                        <p>Gender:<%out.write(doctor.getGenderString());%></p>
+                    </div>
+                    <div class="tab-pane fade" id="Summary-<%out.write((Integer.toString(count)));%>">
+                        <p>Specialist of:</br><%out.write(doctor.getMidString());%></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="float:right">
+            <button type="button" class="btn btn-primary btn-sm" onclick="" >More Info</button>
+            <button type="button" class="btn btn-primary btn-sm" onclick="window.open('mailto:<%out.write(doctor.getEmail());%>')" >Email Me</button>
+            <button type="button" class="btn btn-primary btn-sm" onclick="" >Join IM</button>
+        </div>
+    </div>
+</div>
+<%count++;%>
+<%}
+    count = 0;%>

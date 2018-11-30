@@ -12,13 +12,14 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Your Personal Doctor</title>
         <jsp:include page="sub_elements/common_source.jsp"></jsp:include>
-    </head>
-    <body style="min-width:1300px">
+        </head>
+        <body style="min-width:1300px">
         <!--header start-->
         <jsp:include page="sub_elements/header.jsp"></jsp:include>
             <!--header end-->
             <div class="background">		
                 <div class="newsDisplay">
+                    <div class="row">
                     <div class="mainPicSlider">
                         <div class="scroll_pic">
                             <div class="arrows">
@@ -40,27 +41,27 @@
                         </div>
                     </div>
                     <div class="login-box">
-                        <%@include file = "WEB-INF/src/fragments/login_box.jspf" %>
-                    </div>
+                    <%@include file = "WEB-INF/src/fragments/login_box.jspf" %>
                 </div>
             </div>
-            <div class="info">
-                <div class="info_main">	
-                    <div class="intro_textbox" style="border-right:solid 3px #d8d8f8">
-                        <span class="intro_icon" style="margin-left: 40%; background: url(PIC/red-cross.png)"></span>
-                        <p>Text here</p>
-                    </div>
-                    <div class="intro_textbox" style="border-right:solid 3px #d8d8f8">
-                        <span class="intro_icon" style="; background: url(PIC/running.png)"></span>
-                        <p style="margin-left: 10px;">Text here</p>
-                    </div>
-                    <div class="intro_textbox">
-                        <span class="intro_icon" style="; background: url(PIC/link.png)"></span>
-                        <p style="margin-left: 10px;">Text here</p>
-                    </div>
-                </div>	
-            </div>
-            <!--footer start-->
+        </div>
+        <div class="info">
+            <div class="info_main">	
+                <div class="intro_textbox" style="border-right:solid 3px #d8d8f8">
+                    <span class="intro_icon" style="margin-left: 40%; background: url(PIC/red-cross.png)"></span>
+                    <p>Text here</p>
+                </div>
+                <div class="intro_textbox" style="border-right:solid 3px #d8d8f8">
+                    <span class="intro_icon" style="; background: url(PIC/running.png)"></span>
+                    <p style="margin-left: 10px;">Text here</p>
+                </div>
+                <div class="intro_textbox">
+                    <span class="intro_icon" style="; background: url(PIC/link.png)"></span>
+                    <p style="margin-left: 10px;">Text here</p>
+                </div>
+            </div>	
+        </div>
+        <!--footer start-->
         <jsp:include page="sub_elements/footer.jsp"></jsp:include>
         <!--footer end-->
         <script src="js/index_function.js"></script>

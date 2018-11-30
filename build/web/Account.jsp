@@ -3,17 +3,17 @@
     Created on : 2018-11-28, 16:28:40
     Author     : Yi Qiu
 --%>
-
+<%@include file = "WEB-INF/src/fragments/isLoggin.jspf" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <jsp:include page="sub_elements/common_source.jsp"></jsp:include>
+        <script src="js/Tips.js"></script>
             <title>Account Management</title>
         </head>
         <body>
-        <%@include file = "WEB-INF/src/fragments/isLoggin.jspf" %>
         <jsp:include page="sub_elements/header.jsp"></jsp:include>
             <div class="container">
                 <!--Left nav bar-->
@@ -41,10 +41,9 @@
                                             <form id="form-Image" action="UpdateController" method="Post" enctype="multipart/form-data">
                                                 Choose a picture to upload:</br>
                                                 <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" id="File" accept="image/bmp, image/png, imgage/jpg"/>
-                                                    <label class="custom-file-label" for="File">Choose file</label>
+                                                    <input type="file" class="custom-file-input" name="File" id="File" accept="image/bmp, image/png, imgage/jpg"/>
+                                                    <label id="FileTips" class="custom-file-label" for="File">Choose file</label>
                                                 </div>
-                                            <input type ="hidden" name="method" value="updateImg"/>
                                             </form>   
                                         </div>
                                     </div>

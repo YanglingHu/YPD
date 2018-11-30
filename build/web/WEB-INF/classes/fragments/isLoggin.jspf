@@ -6,26 +6,21 @@
 --%>
 
 <%@page import="Class.User"%>
-<%@page import="java.io.*"%>
 <%@ page pageEncoding="UTF-8" %>
 <%
     User user = new User();
-    String[] ml = new String[0];
-    String MID;
+    String[] MID = new String[0];
     Boolean result = (Boolean) session.getAttribute("result");
     //out.print(result);
     if (result != null) {
         if (!result) {
             response.sendRedirect("login.jsp");
+            return; 
         }else{
             if (session.getAttribute("C_User") != null) {
                 user = (User) session.getAttribute("C_User");
+                MID = user.getMidArray();
             }
         }
-    }
-    MID = user.getMID();
-    
-    if(MID != null){
-        ml = MID.split(",");
     }
 %>

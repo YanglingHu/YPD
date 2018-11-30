@@ -12,6 +12,8 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <center>
         <h1>Failed!</h1>
+        </center>
     </body>
 </html>

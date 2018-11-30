@@ -1,6 +1,5 @@
 <%@ page pageEncoding="UTF-8" %>
 <%
-    AccProc accproc = new AccProc();
     ArrayList<User> list = (ArrayList) session.getAttribute("UserSet");
     int count = 0;
     while (count < list.size()) {

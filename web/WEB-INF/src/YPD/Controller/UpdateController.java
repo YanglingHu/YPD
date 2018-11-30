@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 /**
  *
@@ -46,12 +47,13 @@ public class UpdateController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest _request, HttpServletResponse _response)
             throws ServletException, IOException {
-        String method = _request.getParameter("method");
+        String method;
+        if (ServletFileUpload.isMultipartContent(_request)) {
+            Update.updateImg(_request, _response);
+        }
+        method = _request.getParameter("method");
         if(method != null){
             switch(method){
-                case "updateImg":
-                    Update.updateImg(_request, _response);
-                    break;
                 case "updateInfo":
                     Update.updateInfo(_request, _response);
                     break;
