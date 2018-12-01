@@ -12,7 +12,7 @@
         <title>Login to YPD--</title>
         <link rel="stylesheet" href="CSS/login.css" type="text/css">
         <jsp:include page="sub_elements/common_source.jsp"></jsp:include>
-   
+        <script src="js/Tips.js"></script>
     </head>
     <body>        
         <jsp:include page="sub_elements/header.jsp"></jsp:include>
@@ -25,15 +25,16 @@
                             <label for="tab-radio-1" class="tab-handler tab-handler-1">SignIn</label>
                             <div class="tab-content tab-content-1">
                                 <td align="center">
-                                    <form action="AccController" method="Post">
+                                    <form action="AccController" method="Post" id="form-Login">
                                             <b>Username：</b></br>
-                                        <input name="username" type="text" /></br>
+                                        <input id="username_signIn" name="username" type="text" /></br>
                                             <b>Password：</b></br>
-                                        <input name="password" type="password" /><p>
+                                        <input id="password_signIn" name="password" type="password" /><p>
                                         <input type ="hidden" name="method" value="SignIn"/>
                                         <p align="center">
-                                            <button type="button" class="btn btn-sm btn-primary" onclick="this.form.submit()">SignIn</button>
+                                            <button id="button_signIn" type="button" class="btn btn-sm btn-primary">SignIn</button>
                                         </p>
+                                        <p id="Error_signIn" style="color: red"></p>
                                     </form>
                                 </td>
                             </div>

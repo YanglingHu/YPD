@@ -17,7 +17,7 @@
     </head>
     <body>
         <jsp:include page="sub_elements/header.jsp"></jsp:include>
-        <div class="container" style="margin:10px auto; height: -webkit-fill-available;;">
+        <div class="container" style="margin:10px auto;">
             <%@include file = "WEB-INF/src/fragments/list_doctor.jspf" %>
         </div>
         <jsp:include page="sub_elements/footer.jsp"></jsp:include>

@@ -343,30 +343,38 @@ public class AccProc {
      * @param _response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
-     * @return is signup success or failed.
+     * @return is 
+     * success or failed.
      */
-    public boolean signUp(HttpServletRequest _request, HttpServletResponse _response)
+    public String signUp(HttpServletRequest _request, HttpServletResponse _response)
             throws ServletException, IOException {
+        String s = "";
         try {
 
             if (_request.getParameter("NPI") != null || _request.getParameter("firstname") != null) {
-
+                s = " Verification Failed: Please make sure your name and NPI matches each other!";
                 Map<String, String> map = checkForDoctor(_request.getParameter("firstname"), _request.getParameter("NPI"));
 
                 if (map != null) {
                     User user = new User(this.getUID(), _request.getParameter("username"), _request.getParameter("password"), Dictionary.STATUS_CODE_DOCTOR, "Unknown");
                     user.setName(map.get("first_name"));
                     user.setImg(map.get("img"));
-                    return opr.newObjToDB(user, Dictionary.TABLE_1);
+                    if(opr.newObjToDB(user, Dictionary.TABLE_1)){
+                        return "Success";
+                    }
+                    
                 }
             } else {
+                s = " Provided infomation is invalid/ Username is already registered by others";
                 User user = new User(this.getUID(), _request.getParameter("username"), _request.getParameter("password"), Dictionary.STATUS_CODE_USER, "Unknown");
-                return opr.newObjToDB(user, Dictionary.TABLE_1);
+                    if(opr.newObjToDB(user, Dictionary.TABLE_1)){
+                        return "Success";
+                    }
             }
         } catch (JSONException | IllegalArgumentException | IllegalAccessException ex) {
-            return false;
+            return ex.toString();
         }
-        return false;
+        return s;
     }
 
     /**

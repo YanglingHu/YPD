@@ -64,7 +64,8 @@ public class AccController extends HttpServlet {
                         int temp = accProc.signIn(_request, _response);
                         
                         if (temp == Dictionary.ERROR_CODE_4 || temp == Dictionary.ERROR_CODE_3) {
-                            _response.sendRedirect("login.jsp");
+                            _request.setAttribute("Debug", " User is prohibited, or the Username/Password is not correct!");
+                            _request.getRequestDispatcher("Failed.jsp").forward(_request, _response);
                         } else if (temp == Dictionary.STATUS_CODE_DOCTOR || temp == Dictionary.STATUS_CODE_USER) {
                             _response.sendRedirect("index.jsp");
                         } else {
@@ -75,10 +76,12 @@ public class AccController extends HttpServlet {
 
                         break;
                     case "SignUp":
-                        if(accProc.signUp(_request, _response)){
+                        String s = accProc.signUp(_request, _response);
+                        if(s.equals("Success")){
                             _response.sendRedirect("Success.jsp");
                         }else{
-                            _response.sendRedirect("Failed.jsp");
+                            _request.setAttribute("Debug", s);
+                            _request.getRequestDispatcher("Failed.jsp").forward(_request, _response);
                         }
                         break;
                     case "Blacklist":

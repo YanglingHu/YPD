@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<div class="fUrl" style="margin-top: 10px">
-</div>
+<div class="blank"></div>
+<footer style="margin-top: 10px">
+</footer>
 

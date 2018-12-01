@@ -11,7 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <jsp:include page="sub_elements/common_source.jsp"></jsp:include>
         <script src="js/Tips.js"></script>
-            <title>Account Management</title>
+        <title>Account Management</title>
         </head>
         <body>
         <jsp:include page="sub_elements/header.jsp"></jsp:include>

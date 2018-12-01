@@ -6,56 +6,18 @@
     margin: 0px;
 }
 
-.mainMenu{
-    min-width: 1300px;
-    background-color: white;
-    width: auto;
-    height: 85px;
-    line-height: 50px;
-    list-style: none;	
-    box-shadow: 5px 5px 1px #888888;
-    z-index:999;
-    position: relative;
+html,body{
+    height: 100%
 }
 
-.mainMenu ul{
-    list-style: none;
-}
-.mainMenu li{
-    float: right;
-    width: 110px;
-    margin-left:1px;
-}
-.mainMenu a{
-    display: block;
-    height: 85px;
-    font-weight: bold;
-    font-family: Arial, Helvetica, sans-serif;
-    text-align: center;
-    color: #373737;
-    text-decoration: none;
-    line-height: 80px;
+.pagebody{
+    box-sizing: border-box;
+    min-height: 100%;
+    padding-bottom: 100px;
 }
 
-.mainMenu a:link{
-    font-weight: bold;
-    background: url(../PIC/play-button.png) white no-repeat 5px 32px; 
-}
-
-.mainMenu a:visited{
-    font-weight: bold;
-    background: url(../PIC/play-button.png) white no-repeat 5px 32px; 
-}
-
-.mainMenu a:hover{
-    color:#FFFFFF;
-    font-weight:bold;
-    background: url(../PIC/play-button-hover.png) black no-repeat 5px 32px;;
-}
-
-.fUrl{
+footer{
     background-color: #323030;
     width: 100%;
-    min-width: 1300px;
     height: 100px;
 }
