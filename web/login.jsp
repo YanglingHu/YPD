@@ -81,9 +81,9 @@
                                     <b>Check-pw：</b></br>
                                 <input id="repasswd_signUpD" type="password" /></br>
                                     <b>Your First Name：</b></br>
-                                <input name="firstname" type="text" onkeyup="this.value=this.value.replace(/[^a-zA-Z]/g,'')"/></br>
+                                <input id = "firstname_signUpD" name="firstname" type="text" onkeyup="this.value=this.value.replace(/[^a-zA-Z]/g,'')"/></br>
                                     <b>Your NPI license：</b></br>
-                                <input name="NPI" type="tel" onkeyup="this.value=this.value.replace(/\D/g,'')"/><p>
+                                <input id = "license_signUpD" name="NPI" type="tel" onkeyup="this.value=this.value.replace(/\D/g,'')"/><p>
                                 <input type ="hidden" name="method" value="SignUp"/>
                                  <p id="Error_signUpD" style="color: red"></p>
                             </form>
