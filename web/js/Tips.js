@@ -16,6 +16,8 @@ $(document).ready(function () {
     $("#username_signUpD").change(removeError);
     $("#password_signUpD").change(removeError);
     $("#repassword_signUpD").change(removeError);
+    $("#firstname_signUpD").change(removeError);
+    $("#license_signUpD").change(removeError);
 
     
     function checkmail(e){
@@ -69,6 +71,8 @@ $(document).ready(function () {
         var usernm = $("#username_signUpD").val();
         var passwd = $("#passwdD_signUpD").val();
         var repasswd= $("#repasswd_signUpD").val();
+        var firstname=$("#firstname_signUpD").val();
+        var NPIc = $("#license_signUpD").val();
         if(usernm.length ===0  && passwd.length === 0){
             $("#Error_signUpD").html("Can't be empty");
     }
@@ -77,10 +81,14 @@ $(document).ready(function () {
         }
         else if(passwd.length === 0){
            $("#Error_signUpD").html("Password can't be empty");
-    }else if(repasswd.length === 0){
+        }else if(repasswd.length === 0){
             $("#Error_signUpD").html("Re-check Password can't be empty");
         } else if(repasswd!== passwd){
             $("#Error_signUpD").html("The password is different");      
+        }else if(firstname.length === 0){
+            $("#Error_signUpD").html("The firstname is empty");
+        }else if(NPIc.length === 0){
+            $("#Error_signUpD").html("The password is different");
         }
         else{
             $("#form-signUpD").submit();
