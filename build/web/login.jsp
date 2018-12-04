@@ -1,8 +1,9 @@
 <%-- 
-    Document   : login_doctor
-    Created on : 2018-9-29, 15:26:56
-    Author     : Yi Qiu
+    Document   : login
+    Created on : 2018-12-1, 16:45:37
+    Author     : hylhy
 --%>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -32,7 +33,7 @@
                                         <input id="password_signIn" name="password" type="password" /><p>
                                         <input type ="hidden" name="method" value="SignIn"/>
                                         <p align="center">
-                                            <button id="button_signIn" type="button" class="btn btn-sm btn-primary">SignIn</button>
+                                            <button id="button_signIn" type="button" class="btn btn-sm btn-primary" >SignIn</button>
                                         </p>
                                         <p id="Error_signIn" style="color: red"></p>
                                     </form>
@@ -43,17 +44,18 @@
                             <label for="tab-radio-2" class="tab-handler tab-handler-2">SignUp</label>
                             <div class="tab-content tab-content-2">
                                 <td align="center">
-                                    <form action="AccController" method="Post">
+                                    <form action="AccController" method="Post" id="form-signUp">
                                             <b>Username：</b></br>
-                                        <input name="username" type="text" /></br>
+                                        <input id="username_signUp"  name="username" type="text" /></br>
                                             <b>Password：</b></br>
-                                        <input name="password" type="password"/></br>
+                                        <input id="passwd_signUp" name="password" type="password"/></br>
                                             <b>Check-pw：</b></br>
-                                        <input id="repasswd" type="password" /><p>
+                                        <input id="repassword_signUp" type="password" /><p>
                                         <input type ="hidden" name="method" value="SignUp"/>
                                         <p align="center">
-                                            <button type="button" class="btn btn-sm btn-primary" onclick="this.form.submit()">SignUp</button>
+                                            <button id="button_signUp" type="button" class="btn btn-sm btn-primary" >SignUp</button>
                                         </p>
+                                        <p id="Error_signUp" style="color: red"></p>
                                     </form>
                                 </td>
                                 <p class="" style="float: right"><a href="#" data-toggle="modal" data-target="#signUpDoctor">I'm a doctor</a></p>
@@ -71,23 +73,25 @@
                         </div>
                         <div class="modal-body">
                             <div class="col-8 mx-auto text-center">
-                            <form id="modal-form-doctor" action="AccController" method="Post">
+                                <form id="modal-form-doctor" action="AccController" method="Post">
                                     <b>Username：</b></br>
-                                <input name="username" type="text" /></br>
+                                <input id="username_signUpD" name="username" type="text" /></br>
                                     <b>Password：</b></br>
-                                <input name="password" type="password"/></br>
+                                <input id="passwdD_signUpD" name="password" type="password"/></br>
                                     <b>Check-pw：</b></br>
-                                <input id="repasswd" type="password"/></br>
+                                <input id="repasswd_signUpD" type="password" /></br>
                                     <b>Your First Name：</b></br>
-                                <input name="firstname" type="text" onkeyup="this.value=this.value.replace(/[^a-zA-Z]/g,'')"/></br>
+                                <input id = "firstname_signUpD" name="firstname" type="text" onkeyup="this.value=this.value.replace(/[^a-zA-Z]/g,'')"/></br>
                                     <b>Your NPI license：</b></br>
-                                <input name="NPI" type="tel" onkeyup="this.value=this.value.replace(/\D/g,'')"/><p>
+                                <input id = "license_signUpD" name="NPI" type="tel" onkeyup="this.value=this.value.replace(/\D/g,'')"/><p>
                                 <input type ="hidden" name="method" value="SignUp"/>
+                                 <p id="Error_signUpD" style="color: red"></p>
                             </form>
+                            
                             </div>
                         </div>
                         <div class="modal-footer">
-                        <button type="button" class="btn btn-sm btn-primary" onclick="document.getElementById('modal-form-doctor').submit();">SignUp</button>
+                            <button id="button_signUpD" type="button" class="btn btn-sm btn-primary">SignUp</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
                     </div>

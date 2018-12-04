@@ -1,0 +1,68 @@
+<%@ page pageEncoding="UTF-8" %>
+ <script>
+        var docname;
+        var linkName;
+        var websocket = null;
+        
+        linkName = "${param.uuid}";
+        docname = "${param.name}";
+            
+        if(linkName == "") {
+            alert("You must select someone to chat with.");
+            window.location.href = "./index.jsp";
+        }
+            
+        if ('WebSocket' in window) {
+            websocket = new WebSocket("ws://localhost:8080/Your-Personal-Doctor/websocket");
+        }
+        else {
+            alert('Not support websocket');
+            window.location.href = "./index.jsp";
+        }
+        
+        websocket.onerror = function () {
+            alert('connect to websocket server error.');
+            window.location.href = "./index.jsp";
+        };
+
+        websocket.onopen = function () {
+            send("connect:"+linkName+","+"myname")
+        }
+
+        websocket.onmessage = function (event) {
+            // todo: handle
+            console.log(event.data);
+            if(event.data.startsWith("error:")) {
+                var errorinfo = event.data.replace("error:", "");
+                alert(errorinfo);
+                window.location.href = "./index.jsp";
+            } else if(event.data.startsWith("message:")){
+                var messageinfo = event.data.replace("message:", "");
+                AddMsg(docname, messageinfo);
+            }
+        }
+
+    
+        websocket.onclose = function () {
+            //alert('websocket server connection lose.');
+            //window.location.href = "./index.jsp";
+        }
+
+        window.onbeforeunload = function () {
+            closeWebSocket();
+        }
+
+        function closeWebSocket() {
+            websocket.close();
+        }
+
+        function send(msg) {
+            //var message = document.getElementById('text').value;
+            websocket.send(msg);
+        }
+    
+        $(function(){
+            $("#pnl-strtitle").text("Chat with "+docname);
+          
+        });
+    </script>

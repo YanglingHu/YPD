@@ -1,0 +1,32 @@
+SMAP
+index_jsp.java
+JSP
+*S JSP
+*F
++ 0 index.jsp
+index.jsp
++ 1 prepare.jspf
+WEB-INF/src/fragments/prepare.jspf
++ 2 login_box.jspf
+WEB-INF/src/fragments/login_box.jspf
+*L
+5:52
+1#1,28:53
+28:81
+6#0,8:82
+14:90,3
+15,3:93
+18:96,3
+19,26:99
+1#2:125
+2:126,2
+3,16:128
+18:143,2
+19,8:145
+27,4:153,3
+31,13:165
+43:177,2
+44#0,21:179
+65:200,3
+66,5:203
+*E

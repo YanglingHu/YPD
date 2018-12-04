@@ -4,6 +4,7 @@
 <% 
     boolean log;
     boolean checked;
+    //If the user is already logged in.
     if(session.getAttribute("result")!= null && session.getAttribute("checked") != null){
         log = (Boolean)session.getAttribute("result");
         checked = (Boolean)session.getAttribute("checked");
@@ -12,15 +13,18 @@
         checked = false;
     }
     Cookie[] cookie = request.getCookies();
+    //If there is a cookie of user/doctor exist.
     if (cookie != null && !checked) {
         for (int i = 0; i < cookie.length; i++) {
             if (cookie[i].getName().compareTo("name") == 0) {
                 session.setAttribute("checked", true);
+                //Send a GET HttpRequest to AccController to get the user object.
                 response.sendRedirect("AccController?method=LogInInfo&name=" + cookie[i].getValue());
             }
         }
     }
     User user = new User();
+    //Load the user object.
     if(session.getAttribute("C_User") != null){
          user = (User) session.getAttribute("C_User");
     }

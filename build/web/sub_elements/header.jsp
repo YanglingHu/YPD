@@ -19,7 +19,7 @@
                 <a class="nav-link" href="index.jsp">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Service</a>
+                <a class="nav-link" href="choices.jsp">Service</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="Account.jsp">Account</a>

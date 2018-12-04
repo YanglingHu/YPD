@@ -1,0 +1,23 @@
+SMAP
+chat_005fuser_jsp.java
+JSP
+*S JSP
+*F
++ 0 chat_user.jsp
+chat_user.jsp
++ 1 prepare.jspf
+WEB-INF/src/fragments/prepare.jspf
++ 2 chat_user.jspf
+WEB-INF/src/fragments/chat_user.jspf
+*L
+5,2:52
+1#1,28:54
+28:82
+7#0,9:83
+16:92,3
+17,3:95
+1#2,6:98
+7,2:104,3
+9,60:110
+19#0,40:170
+*E

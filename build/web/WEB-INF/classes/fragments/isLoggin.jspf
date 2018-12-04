@@ -11,12 +11,14 @@
     User user = new User();
     String[] MID = new String[0];
     Boolean result = (Boolean) session.getAttribute("result");
-    //out.print(result);
+    //if the user/doctor haven't logged in.
     if (result != null) {
         if (!result) {
+            //send the user/doctor to the login page.
             response.sendRedirect("login.jsp");
             return; 
         }else{
+            //load the user object.
             if (session.getAttribute("C_User") != null) {
                 user = (User) session.getAttribute("C_User");
                 MID = user.getMidArray();
