@@ -64,7 +64,7 @@ public class AccController extends HttpServlet {
                     case "SignIn":
                         int temp = accProc.signIn(_request, _response);
                         //
-                        if (temp == Dictionary.ERROR_CODE_4 || temp == Dictionary.ERROR_CODE_1) {
+                        if (temp == Dictionary.ERROR_CODE_4 || temp == Dictionary.ERROR_CODE_3) {
                             _request.setAttribute("Debug", " User is prohibited, or the Username/Password is not correct!");
                             _request.getRequestDispatcher("Failed.jsp").forward(_request, _response);
                         } else if (temp == Dictionary.STATUS_CODE_DOCTOR || temp == Dictionary.STATUS_CODE_USER) {

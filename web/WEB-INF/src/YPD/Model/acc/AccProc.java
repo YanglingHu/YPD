@@ -402,13 +402,13 @@ public class AccProc {
         User user;
         String username = _request.getParameter("username");
         String password = _request.getParameter("password");
-        if (_request.getParameter("username").equals("") && _request.getParameter("password").equals("")) {
+        if (!_request.getParameter("username").equals("") && !_request.getParameter("password").equals("")) {
             user = new User();
             CachedRowSet result = opr.getTargetObj(user, username, Dictionary.TABLE_1);
             if (result != null && result.next()) {
                 String temp = result.getString("password");
-                if (!password.equals(temp) || result.getInt("banned") == Dictionary.ERROR_CODE_1) {
-                    return Dictionary.ERROR_CODE_1;
+                if (!password.equals(temp) || result.getInt("banned") != Dictionary.STATUS_CODE_PASS) {
+                    return Dictionary.ERROR_CODE_3;
                 }
                 _request.setAttribute("name", result.getString("username"));
 

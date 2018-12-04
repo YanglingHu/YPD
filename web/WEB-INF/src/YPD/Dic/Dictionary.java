@@ -23,8 +23,10 @@ public class Dictionary {
     public static final int STATUS_CODE_DOCTOR = 0;
     public static final int STATUS_CODE_USER = 1;
     public static final int STATUS_CODE_MANAGER = 2;
+    //Pass checker
+    public static final int STATUS_CODE_PASS = 0;
     //User is on blacklist
-    public static final int ERROR_CODE_1 = 1;
+    public static final int ERROR_CODE_3 = 3;
     //No such user in the database.
     public static final int ERROR_CODE_4 = 4;
     //Specialist
