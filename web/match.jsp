@@ -1,7 +1,7 @@
 <%-- 
     Document   : match
     Created on : 2018-11-26, 20:02:00
-    Author     : Administrator
+    Author     : Yi Qiu
 --%>
 <%@page import="Class.User"%>
 <%@page import="YPD.Model.acc.AccProc"%>

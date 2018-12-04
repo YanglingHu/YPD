@@ -3,66 +3,65 @@
         var docname;
         var linkName;
         var websocket = null;
-        
+        //Get linkName (doctor uuid ) and docname (doctor name) from query param.
         linkName = "${param.uuid}";
         docname = "${param.name}";
-            
+        //Check the linkName is empty or not.
         if(linkName == "") {
             alert("You must select someone to chat with.");
             window.location.href = "./index.jsp";
-        }
-            
+        }       
+        //Check if this system support websocket.
         if ('WebSocket' in window) {
             websocket = new WebSocket("ws://localhost:8080/Your-Personal-Doctor/websocket");
-        }
-        else {
+        } else {
             alert('Not support websocket');
             window.location.href = "./index.jsp";
         }
-        
+        When error happening, redirect to main page.
         websocket.onerror = function () {
             alert('connect to websocket server error.');
             window.location.href = "./index.jsp";
         };
-
+        //When websocket open, send a connecting message on chatting box.
         websocket.onopen = function () {
-            send("connect:"+linkName+","+"myname")
+            send("connect:"+linkName+","+"user");
         }
-
+        //reveive command from server.
         websocket.onmessage = function (event) {
             // todo: handle
             console.log(event.data);
+            //error happend when handle infos, and return to main page.
             if(event.data.startsWith("error:")) {
                 var errorinfo = event.data.replace("error:", "");
                 alert(errorinfo);
                 window.location.href = "./index.jsp";
-            } else if(event.data.startsWith("message:")){
+            
+            }
+            //new message received from doctor.
+            else if(event.data.startsWith("message:")) {
                 var messageinfo = event.data.replace("message:", "");
                 AddMsg(docname, messageinfo);
             }
         }
-
-    
+        //Websocket close event.
         websocket.onclose = function () {
-            //alert('websocket server connection lose.');
-            //window.location.href = "./index.jsp";
         }
-
+        //Use closeWebSocket function to close websocket when page close, or get some errors in server.
         window.onbeforeunload = function () {
             closeWebSocket();
         }
-
+        //Close websocket.
         function closeWebSocket() {
             websocket.close();
         }
-
+        //Send message to websocket server.
         function send(msg) {
             //var message = document.getElementById('text').value;
             websocket.send(msg);
         }
-    
-        $(function(){
-            $("#pnl-strtitle").text("Chat with "+docname);
-          
+        //Ui init function.
+        $(function() {
+            $("#pnl-strtitle").text("Chat with "+docname);     
         });
     </script>

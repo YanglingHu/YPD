@@ -1,8 +1,3 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 $(document).ready(function () {
     $("#username_signIn").change(removeError);
     $("#password_signIn").change(removeError);
@@ -23,8 +18,11 @@ $(document).ready(function () {
     function checkmail(e){
         if(!/(\S)+[@]{1}(\S)+[.]{1}(\w)+/.test(e)){
             $("#Error_mail").html("The eamil is not exict!");
+        }else{
+            $("#form-mail").submit();
         }
     }
+    
     
     function removeError(){
         $("#Error_signIn").html("");
@@ -57,7 +55,7 @@ $(document).ready(function () {
         }else if(passwd.length === 0){
            $("#Error_signUp").html("Password can't be empty");
         }else if(repasswd.length === 0){
-            $("#Error_signUp").html("Re-check Password can't be empty");
+            $("#Error_signUp").html("Re-check password can't be empty");
         }else if(repasswd!== passwd){
             $("#Error_signUp").html("The password is different");      
         }else{
@@ -79,7 +77,7 @@ $(document).ready(function () {
         else if(passwd.length === 0){
            $("#Error_signUpD").html("Password can't be empty");
         }else if(repasswd.length === 0){
-            $("#Error_signUpD").html("Re-check Password can't be empty");
+            $("#Error_signUpD").html("Re-check password can't be empty");
         } else if(repasswd!== passwd){
             $("#Error_signUpD").html("The password is different");      
         }else if(firstname.length === 0){

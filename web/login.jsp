@@ -1,10 +1,8 @@
 <%-- 
     Document   : login
     Created on : 2018-12-1, 16:45:37
-    Author     : hylhy
+    Author     : Yi Qiu, Ynagling Hu
 --%>
-
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

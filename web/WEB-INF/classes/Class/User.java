@@ -11,7 +11,7 @@ import java.util.UUID;
 /**
  *
  * @Update 2018/11/20
- * @author Yi Qiu
+ * @author Yi Qiu ,Yangling Hu, Ruifeng Zhu
  */
 public class User {
     private String uuid;

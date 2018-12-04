@@ -4,7 +4,7 @@
 	height:100%
 }
 body {
-	font-family:'Microsoft Yahei' , '微软雅黑' , 'Hiragino Sans GB' , Tahoma , Helvetica , Arial , '宋体' , nimbussansl , liberationsans , freesans , clean , sans-serif , 'Segoe UI Emoji' , 'Segoe UI Symbol';
+	font-family: Gotham, Helvetica Neue, Helvetica, Arial," sans-serif";
 	min-height:100%;
 	-webkit-box-sizing:border-box;
 	-moz-box-sizing:border-box;
@@ -22,7 +22,7 @@ div {
 	background-repeat:no-repeat
 }
 
-input[type=text],input[type=email],input[type=date],input[type=password],input[type=number],input[type=url],input[type=tel],textarea,select {
+input[type=text],input[type=url],textarea,select {
 	padding:.85em 1.2em;
 	line-height:1;
 	border:1px solid rgba(0,0,0,0.15);
@@ -452,14 +452,7 @@ a {
 	border-width:.4em 0 .4em .6em
 }
 
-@media screen and (min-width:900px) {
-	body {
-	text-align:center;
-	background-color:#caeaf7;
-	-webkit-background-size:cover;
-	-moz-background-size:cover;
-	background-size:cover
-}
+
 .contaniner {
 	margin:20px 0 50px
 }

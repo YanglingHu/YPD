@@ -17,7 +17,7 @@ import javax.servlet.http.*;
 /**
  *
  * @Update 2018/11/20
- * @author Yi Qiu
+ * @author Yi Qiu, Yangling Hu
  */
 @WebServlet(name = "AccController", urlPatterns = {"/AccController"})
 public class AccController extends HttpServlet {
@@ -56,14 +56,14 @@ public class AccController extends HttpServlet {
                 throw new IOException("Empty method parameter.");
             } else {
                 switch (cases) {
-                    //
+                    // Case Logoff
                     case "Logoff":
                         accProc.logOut(_request, _response);
                         break;
-                    //
+                    // Case SignIn
                     case "SignIn":
                         int temp = accProc.signIn(_request, _response);
-                        //
+                        // Different types of login methods
                         if (temp == Dictionary.ERROR_CODE_4 || temp == Dictionary.ERROR_CODE_3) {
                             _request.setAttribute("Debug", " User is prohibited, or the Username/Password is not correct!");
                             _request.getRequestDispatcher("Failed.jsp").forward(_request, _response);
@@ -76,7 +76,7 @@ public class AccController extends HttpServlet {
                         }
 
                         break;
-                    //
+                    //Case SignUp
                     case "SignUp":
                         String s = accProc.signUp(_request, _response);
                         
@@ -87,21 +87,21 @@ public class AccController extends HttpServlet {
                             _request.getRequestDispatcher("Failed.jsp").forward(_request, _response);
                         }
                         break;
-                    //
+                    //Case Blacklist
                     case "Blacklist":
                         
                         if (accProc.banUser(_request, _response)) {
                             _response.sendRedirect("Manager.jsp");
                         }
                         break;
-                    //
+                    //Case Activate
                     case "Activate":
                         
                         if (accProc.activateUser(_request, _response)) {
                             _response.sendRedirect("Manager.jsp");
                         }
                         break;
-                    //
+                    //Case Remove
                     case "Remove":
                         
                         if (accProc.deleteUser(_request, _response)) {
@@ -109,14 +109,14 @@ public class AccController extends HttpServlet {
                         }
 
                         break;
-                    //
+                    //Case LogInInfo
                     case "LogInInfo":
                         HttpSession session = _request.getSession();
                         session.setAttribute("result", true);
                         session.setAttribute("C_User", accProc.getTarget(_request.getParameter("name")));
                         _response.sendRedirect("index.jsp");
                         break;
-                    //
+                    //Case Match
                     case "Match":
                         accProc.match(_request, _response);
                 }

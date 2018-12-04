@@ -1,9 +1,8 @@
 <%-- 
     Document   : Manager
     Created on : 2018-10-20, 15:02:19
-    Author     : Administrator
+    Author     : Yi Qiu
 --%>
-
 <%@page import="Class.User"%>
 <%@page import="YPD.Model.acc.AccProc"%>
 <%@page import="java.util.*"%>

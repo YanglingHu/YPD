@@ -1,9 +1,8 @@
 <%-- 
     Document   : Success
     Created on : 2018-11-26, 16:12:52
-    Author     : Administrator
+    Author     : Yi Qiu
 --%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

@@ -1,43 +1,36 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package YPD.Controller;
-
 import java.io.IOException;
 import java.util.HashMap;
 import javax.websocket.*;
 import javax.websocket.Session;
 import javax.websocket.server.*;
-
-
 /**
  *
- * @author RuiFeng, MengMeng
+ * @author RuiFeng Zhu, MengMeng Liu
  */
 @ServerEndpoint("/websocket")
 public class ChatSocket {
-    
+
     class ChatRoom {
         ChatSocket doc;
         ChatSocket user;
         String username;
-        public ChatRoom(ChatSocket doc, ChatSocket user, String username) {
+    public ChatRoom(ChatSocket doc, ChatSocket user, String username) {
             this.doc = doc;
             this.user= user;
             this.username = username;
         }
     }
-    
+
     /**
-     *
+     *Chatroom store in a hashmap, the key is doctor's uuid.
      */
     public static HashMap<String, ChatRoom> chatRooms = new HashMap();
     private Session session;
 
     /**
-     *
+     *Websocket build up
+     * 
      * @param session
      */
     @OnOpen
@@ -46,7 +39,8 @@ public class ChatSocket {
     }
 
     /**
-     * 
+     * If this session is user,remove user from chatroom when socket close
+     * or if this session is doctor, remove the chatroom directly.
      * 
      * @throws IOException
      */
@@ -67,7 +61,10 @@ public class ChatSocket {
     }
 
     /**
-     * 
+     * Add a new chatroom to hashmap,to show the doctor is online,then user
+     *can join the chatroom.If the chatroom does not exist return a message 
+     * the doctor is not online.If someone alraedy in chatting, return a 
+     * message the doctor is busy.  
      * 
      * @param message 
      * @param session 
@@ -75,7 +72,6 @@ public class ChatSocket {
      */
     @OnMessage
     public void onMessage(String message, Session session) throws IOException {
-        
         if(message.startsWith("open:")) {
             String roomNum  = message.replace("open:", "");
             if(chatRooms.containsKey(roomNum)) {
@@ -83,8 +79,7 @@ public class ChatSocket {
             } else {
                 chatRooms.put(roomNum, new ChatRoom(this, null, ""));
             }
-        } else if(message.startsWith("connect:")) {
-            
+        } else if(message.startsWith("connect:")) {   
             String[] userInfo  = message.replace("connect:", "").split(",");
             if(userInfo.length!=2) return;
             String roomNum = userInfo[0];
@@ -97,13 +92,10 @@ public class ChatSocket {
                 } else {
                     chatRooms.get(roomNum).user = this;
                     chatRooms.get(roomNum).username = username;
-                
                     chatRooms.get(roomNum).doc.sendMessage("message:"+chatRooms.get(roomNum).username+",has connected to your chat.");
-                    chatRooms.get(roomNum).user.sendMessage("message:You have connected to the doctor.");
-                
+                    chatRooms.get(roomNum).user.sendMessage("message:You have connected to the doctor.");   
                 }
             }
-            
         } else if(message.startsWith("message:")) {
             String[] messageInfo  = message.replace("message:", "").split(",");
             if(messageInfo.length!=3) return;
@@ -121,21 +113,23 @@ public class ChatSocket {
     }
 
     /**
+     * when error happened.
+     * 
      * @param session
      * @param error
      */
     @OnError
-    public void onError(Session session, Throwable error){
-     
+    public void onError(Session session, Throwable error){ 
     }
 
     /**
+     * Send message to this session.
+     * 
      * @param message
      * @throws IOException
      */
     public void sendMessage(String message) throws IOException{
         this.session.getBasicRemote().sendText(message);
-        //this.session.getAsyncRemote().sendText(message);
     }
 
   

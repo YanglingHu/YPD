@@ -402,9 +402,11 @@ public class AccProc {
         User user;
         String username = _request.getParameter("username");
         String password = _request.getParameter("password");
+        //Check the input username and password is not empty.
         if (!_request.getParameter("username").equals("") && !_request.getParameter("password").equals("")) {
             user = new User();
             CachedRowSet result = opr.getTargetObj(user, username, Dictionary.TABLE_1);
+            //Fail login of the banned account
             if (result != null && result.next()) {
                 String temp = result.getString("password");
                 if (!password.equals(temp) || result.getInt("banned") != Dictionary.STATUS_CODE_PASS) {
@@ -435,7 +437,9 @@ public class AccProc {
             throws ServletException, IOException {
         String s = "";
         try {
+            //Check the user input of username and password is not empty
             if (_request.getParameter("username").equals("") && _request.getParameter("password").equals("")) {
+                //Doctor signUp methods
                 if (_request.getParameter("NPI") != null) {
                     s = " Verification Failed: Please make sure your name and NPI matches each other!";
                     Map<String, String> map = checkForDoctor(_request.getParameter("firstname"), _request.getParameter("NPI"));
@@ -451,6 +455,7 @@ public class AccProc {
                     }
                 }
             } else {
+                //User signUp methods
                 s = " Provided infomation is invalid/ Username is already registered by others";
                 User user = new User(this.getUID(), _request.getParameter("username"), _request.getParameter("password"), Dictionary.STATUS_CODE_USER, "Unknown");
                 if (opr.newObjToDB(user, Dictionary.TABLE_1)) {
