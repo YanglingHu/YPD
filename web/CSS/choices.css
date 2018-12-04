@@ -1,0 +1,77 @@
+/* 
+    Created on : 2018-9-29, 16:11:12
+    Author     : mengmeng liu
+*/
+
+*	{
+	background-size: 100%;
+	margin: 0px;
+	padding: 0px;
+	background-color: white;
+}
+
+.headslider{
+	background: none;
+	margin: 40px auto;
+	width: 800px;
+	height:800px;
+  
+}
+.head{
+	margin-left:25px;
+	margin-top:100px;
+
+	background: #F5F0ED ;
+	width: 224px;
+	height: 224px;
+	float: left;
+	text-align: center;
+	
+}
+.dropbtn {
+	font-family: Gotham, Helvetica Neue, Helvetica, Arial," sans-serif";
+    line-height: 50px;
+    background-color:rgba(0,0,0,0.1);
+	width: 224px;
+    color: black;
+    height: 50px;
+    font-size: 16px;
+    border: none;
+}
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.dropdown-content a {
+	font-family: Gotham, Helvetica Neue, Helvetica, Arial," sans-serif";
+    color: black;
+	height: auto;
+	width:224px;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+}
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.dropdown:hover .dropbtn {
+    background-color: rgba(204,203,203,1.00);
+}
+.img1 {
+	width: 64px;
+	height: 64px;
+	display:block;
+	margin: 55px 83px;	
+	
+}

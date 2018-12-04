@@ -1,18 +1,18 @@
 package YPD.Dic;
-
 /**
- *
+ * Dictionary class
+ * 
  * @Update 2018/11/20
- * @author Yi Qiu
+ * @author Yi Qiu, Yangling Hu
  */
 public class Dictionary {
     // JDBC Tpye = MySQL
     public static final String DRIVER_TYPE = "com.mysql.cj.jdbc.Driver";
     // DataBase URL.
-    public static final String URL = "jdbc:mysql://127.0.0.1:3306/ypd?serverTimezone=EST";
+    public static final String URL = "jdbc:mysql://127.0.0.1:3306/jsp?serverTimezone=EST";
     //Admin's Username & Password for database.
     public static final String USER = "root";
-    public static final String PASS = "Himeasan";
+    public static final String PASS = "12345678";
     //Destination
     public static final String TABLE_1 = "User";
     public static final String TABLE_2 = "Msg";
@@ -24,12 +24,9 @@ public class Dictionary {
     public static final int STATUS_CODE_USER = 1;
     public static final int STATUS_CODE_MANAGER = 2;
     //User is on blacklist
-    public static final int ERROR_CODE_3 = 3;
+    public static final int ERROR_CODE_1 = 1;
     //No such user in the database.
     public static final int ERROR_CODE_4 = 4;
-    //File operation
-    public static final int MEMORY_THRESHOLD = 1024*1024*2;
-    public static final int MAX_ALLOWED = 1024*1024*3;
     //Specialist
     public static final int SPEC_BRAIN = 1;
     public static final int SPEC_ENT = 2;

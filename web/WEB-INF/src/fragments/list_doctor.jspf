@@ -41,7 +41,7 @@
         <div style="float:right">
             <button type="button" class="btn btn-primary btn-sm" onclick="" >More Info</button>
             <button type="button" class="btn btn-primary btn-sm" onclick="window.open('mailto:<%out.write(doctor.getEmail());%>')" >Email Me</button>
-            <button type="button" class="btn btn-primary btn-sm" onclick="" >Join IM</button>
+            <button type="button" class="btn btn-primary btn-sm" onclick="imTo('<%out.write(doctor.getUuid());%>', '<%out.write(doctor.getName());%>')" >Join IM</button>
         </div>
     </div>
 </div>

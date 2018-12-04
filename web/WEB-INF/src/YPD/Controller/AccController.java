@@ -1,5 +1,4 @@
 package YPD.Controller;
-
 import Class.User;
 import YPD.Dic.Dictionary;
 import YPD.Model.acc.AccProc;
@@ -15,7 +14,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.*;
-
 /**
  *
  * @Update 2018/11/20
@@ -25,7 +23,7 @@ import javax.servlet.http.*;
 public class AccController extends HttpServlet {
 
     /**
-     * This is a empty method that do not do anything.
+     * If the type of HttpRequest is GET, treat it as POST.
      *
      * @param _request Http request.
      * @param _response Http response.
@@ -39,7 +37,7 @@ public class AccController extends HttpServlet {
     }
 
     /**
-     * Function for users to logoff their account.
+     * Call the appropriate method to Handle the HttpRequest.
      *
      * @param _request servlet request
      * @param _response servlet response
@@ -53,17 +51,20 @@ public class AccController extends HttpServlet {
         try {
             String cases = _request.getParameter("method");
             AccProc accProc = new AccProc();
+            //
             if (cases == null || cases.trim().isEmpty()) {
                 throw new IOException("Empty method parameter.");
             } else {
                 switch (cases) {
+                    //
                     case "Logoff":
                         accProc.logOut(_request, _response);
                         break;
+                    //
                     case "SignIn":
                         int temp = accProc.signIn(_request, _response);
-                        
-                        if (temp == Dictionary.ERROR_CODE_4 || temp == Dictionary.ERROR_CODE_3) {
+                        //
+                        if (temp == Dictionary.ERROR_CODE_4 || temp == Dictionary.ERROR_CODE_1) {
                             _request.setAttribute("Debug", " User is prohibited, or the Username/Password is not correct!");
                             _request.getRequestDispatcher("Failed.jsp").forward(_request, _response);
                         } else if (temp == Dictionary.STATUS_CODE_DOCTOR || temp == Dictionary.STATUS_CODE_USER) {
@@ -75,8 +76,10 @@ public class AccController extends HttpServlet {
                         }
 
                         break;
+                    //
                     case "SignUp":
                         String s = accProc.signUp(_request, _response);
+                        
                         if(s.equals("Success")){
                             _response.sendRedirect("Success.jsp");
                         }else{
@@ -84,18 +87,21 @@ public class AccController extends HttpServlet {
                             _request.getRequestDispatcher("Failed.jsp").forward(_request, _response);
                         }
                         break;
+                    //
                     case "Blacklist":
                         
                         if (accProc.banUser(_request, _response)) {
                             _response.sendRedirect("Manager.jsp");
                         }
                         break;
+                    //
                     case "Activate":
                         
                         if (accProc.activateUser(_request, _response)) {
                             _response.sendRedirect("Manager.jsp");
                         }
                         break;
+                    //
                     case "Remove":
                         
                         if (accProc.deleteUser(_request, _response)) {
@@ -103,12 +109,14 @@ public class AccController extends HttpServlet {
                         }
 
                         break;
+                    //
                     case "LogInInfo":
                         HttpSession session = _request.getSession();
                         session.setAttribute("result", true);
                         session.setAttribute("C_User", accProc.getTarget(_request.getParameter("name")));
                         _response.sendRedirect("index.jsp");
                         break;
+                    //
                     case "Match":
                         accProc.match(_request, _response);
                 }
@@ -125,19 +133,4 @@ public class AccController extends HttpServlet {
         }
 
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Logoff";
-    }
-
-    private void refreshAtr() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
 }

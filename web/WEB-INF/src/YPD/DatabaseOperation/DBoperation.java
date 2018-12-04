@@ -1,5 +1,4 @@
 package YPD.DatabaseOperation;
-
 import Class.User;
 import com.sun.rowset.CachedRowSetImpl;
 import YPD.Dic.Dictionary;
@@ -10,11 +9,11 @@ import java.lang.reflect.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sql.rowset.CachedRowSet;
-
 /**
+ * This class performs the basic operations of the SQL database.
  * 
  * @Update 2018/11/20
- * @author Yi Qiu
+ * @author Yi Qiu, Yangling Hu
  */
 public class DBoperation {
 
@@ -24,8 +23,8 @@ public class DBoperation {
     /**
      * Initializes the DBoperation class, generates a MySQLstmt.
      * 
-     * @throws SQLException
-     * @throws ClassNotFoundException
+     * @throws SQLException if a SQL error occurs.
+     * @throws ClassNotFoundException if a ClassNotFoundException occurs.
      */
     public DBoperation() throws SQLException, ClassNotFoundException {
         this.stmt = new MySQLstmt();
@@ -37,8 +36,8 @@ public class DBoperation {
      * @param _obj Any type of objects that is going to update.
      * @param _destination The table name in MySQL database.
      * @return success or not.
-     * @throws IllegalArgumentException
-     * @throws IllegalAccessException
+     * @throws IllegalArgumentException if an IllegalArgumentException occurs.
+     * @throws IllegalAccessException if the object is not accesible.
      */
     public boolean newObjToDB(Object _obj, String _destination) throws IllegalArgumentException, IllegalAccessException {
         stmt.load(objToMap(_obj));
@@ -52,8 +51,8 @@ public class DBoperation {
      * @param _uuid An uuid defines where to update.
      * @param _destination The table name in MySQL database.
      * @return success or not.
-     * @throws IllegalArgumentException
-     * @throws IllegalAccessException
+     * @throws IllegalArgumentException if an IllegalArgumentException occurs.
+     * @throws IllegalAccessException if the object is not accesible.
      */
     public boolean updataObj(Object _obj, String _uuid, String _destination) throws IllegalArgumentException, IllegalAccessException {
         stmt.load(objToMap(_obj));
@@ -66,8 +65,8 @@ public class DBoperation {
      * @param _obj Any type of objects that is going to update.
      * @param _destination The table name in MySQL database.
      * @return success or not.
-     * @throws IllegalArgumentException
-     * @throws IllegalAccessException
+     * @throws IllegalArgumentException if an IllegalArgumentException occurs.
+     * @throws IllegalAccessException if the object is not accesible.
      */
     public boolean updataObj(Object _obj, String _destination) throws IllegalArgumentException, IllegalAccessException{
         stmt.load(objToMap(_obj));
@@ -92,8 +91,8 @@ public class DBoperation {
      * @param _uuid uuid of the target object
      * @param _destination The table name in MySQL database.
      * @return a CachedRowSet that is containing the target.
-     * @throws IllegalArgumentException
-     * @throws IllegalAccessException
+     * @throws IllegalArgumentException if an IllegalArgumentException occurs.
+     * @throws IllegalAccessException if the object is not accesible.
      */
     public CachedRowSet getTargetObj(Object _dummyObject, String _uuid, String _destination) throws IllegalArgumentException, IllegalAccessException {
         CachedRowSet crs;
@@ -108,8 +107,8 @@ public class DBoperation {
      * @param _dummyObject A dummy object for MySQLstmt to analyze.
      * @param _destination The table name in MySQL database.
      * @return a CachedRowSet that is containing all objects that are from the database.
-     * @throws IllegalArgumentException
-     * @throws IllegalAccessException
+     * @throws IllegalArgumentException if an IllegalArgumentException occurs.
+     * @throws IllegalAccessException if the object is not accesible.
      */
     public CachedRowSet getAll(Object _dummyObject, String _destination) throws IllegalArgumentException, IllegalAccessException {
         stmt.load(objToMap(_dummyObject));
@@ -120,7 +119,7 @@ public class DBoperation {
     /**
      * Close the MySQLstmt to release memory.
      * 
-     * @throws SQLException
+     * @throws SQLException if a SQL error occurs.
      */
     public void close() throws SQLException {
         stmt.release();
@@ -131,8 +130,8 @@ public class DBoperation {
      * 
      * @param _obj Any type of objects.
      * @return A map file that is representing this object.
-     * @throws IllegalArgumentException
-     * @throws IllegalAccessException
+     * @throws IllegalArgumentException if an IllegalArgumentException occurs.
+     * @throws IllegalAccessException if the object is not accesible.
      */
     public Map<String, String> objToMap(Object _obj) throws IllegalArgumentException, IllegalAccessException {
         Map<String, String> map = new HashMap<>();
@@ -158,15 +157,14 @@ public class DBoperation {
      * @param _crs CachedRowSet
      * @param _dummyObj A dummy object for this method to analyze
      * @return An ArrayList of Objects
-     * @throws SQLException
-     * @throws NoSuchFieldException
-     * @throws IllegalArgumentException
-     * @throws IllegalAccessException
-     * @throws InstantiationException
+     * @throws SQLException if a SQL error occurs.
+     * @throws NoSuchFieldException if the attribute is not found in an object.
+     * @throws IllegalArgumentException if an IllegalArgumentException occurs.
+     * @throws IllegalAccessException if the object is not accesible.
+     * @throws InstantiationException if a InstantiationException occurs.
      */
     public ArrayList restoreToObj(CachedRowSet _crs, Object _dummyObj) throws SQLException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException, InstantiationException{
         ArrayList obj = new ArrayList<Object>();
-//        String[] name = stmt.getNAME();
         String cases; 
         Class c = _dummyObj.getClass();
         Field[] f = c.getDeclaredFields();

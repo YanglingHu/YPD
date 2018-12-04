@@ -1,40 +1,45 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package YPD;
-
-import Class.Msg;
 import Class.User;
 import YPD.DatabaseOperation.DBoperation;
 import YPD.Dic.Dictionary;
 import YPD.Model.acc.AccProc;
 import YPD.Model.acc.Verification;
-import static YPD.Model.acc.AccProc.getUID;
-import java.lang.reflect.*;
 import java.sql.*;
 import java.util.*;
 import javax.sql.rowset.CachedRowSet;
 import org.json.JSONException;
-
-
 /**
- *
+ * A class that is used for testing
+ * 
  * @author Yi Qiu
  */
 public class Test {    
     
+    /**
+     *
+     * @param arg
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     * @throws IllegalArgumentException
+     * @throws IllegalAccessException
+     * @throws NoSuchFieldException
+     * @throws InstantiationException
+     * @throws JSONException
+     */
     public static void main(String[] arg) throws SQLException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException, NoSuchFieldException, InstantiationException, JSONException {   
-        Verification.checkForDoctor("John","1912968298");
-        Verification.checkForDoctor("Jason","1912968298");
-        Verification.checkForDoctor("Jason","1234567890");
+//        Verification.checkForDoctor("John","1912968298");
+//        Verification.checkForDoctor("Jason","1912968298");
+//        Verification.checkForDoctor("Jason","1234567890");
 //        testCase1();
 //        testCase3();
 
     }
     
-    
+    /**
+     *
+     * @param _set
+     * @throws SQLException
+     */
     public static void printResult(CachedRowSet _set) throws SQLException{
         String s = "";
         while(_set.next()){
@@ -44,6 +49,13 @@ public class Test {
         }        
     }
     
+    /**
+     *
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     * @throws IllegalArgumentException
+     * @throws IllegalAccessException
+     */
     public static void testCase1() throws SQLException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException{
         User user = null;
         DBoperation db = new DBoperation();
@@ -53,18 +65,18 @@ public class Test {
         }
         CachedRowSet set = db.getAll(user,Dictionary.TABLE_1);
         printResult(set);
-//        user.setAge(18);
-//        db.updataObj(user,Dictionary.TABLE_1);
-//        set = db.getAll(user,Dictionary.TABLE_1);
-//        printResult(set); 
-//        set = db.getTargetObj(user,user.getUuid(),Dictionary.TABLE_1);
-//        printResult(set);         
-//        db.deleteObj(user.getUuid(),Dictionary.TABLE_1);
-//        set = db.getAll(user,Dictionary.TABLE_1);
-//        printResult(set); 
         db.close();        
     }
     
+    /**
+     *
+     * @throws NoSuchFieldException
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     * @throws IllegalArgumentException
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     */
     public static void testCase2() throws NoSuchFieldException, ClassNotFoundException, SQLException,
             IllegalArgumentException, IllegalAccessException, InstantiationException{
         User user = new User();
@@ -82,6 +94,11 @@ public class Test {
         db.close();
     }
     
+    /**
+     *
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public static void testCase3() throws SQLException, ClassNotFoundException{
         DBoperation db = new DBoperation();
         db.deleteObj("1da8e77a-7af5-4c23-83b0-69a3eb3dc724", Dictionary.TABLE_1);

@@ -1,5 +1,4 @@
 package YPD.Model.acc;
-
 import Class.User;
 import YPD.DatabaseOperation.DBoperation;
 import YPD.Dic.Dictionary;
@@ -14,15 +13,95 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.*;
 import org.apache.commons.fileupload.servlet.*;
-
 /**
- *
- * @author Administrator
+ * Process all new updates into SQL database.
+ * 
+ * @Update 2018/12/4
+ * @author Yi Qiu
  */
 public class Update {
+    
+    /**
+     * Stores the picture file into local disk.
+     *
+     * @param _request servlet request
+     * @param _response servlet response
+     * @return where did the picture file is stored.
+     * @throws ServletException if a servlet-specific error occurs.
+     * @throws IOException if an I/O error occurs.
+     */
+    public static String saveFile(HttpServletRequest _request, HttpServletResponse _response)
+            throws ServletException, IOException {
+        
+        try {
+            if (!ServletFileUpload.isMultipartContent(_request)) {
+                return null;
+            }
+            
+            DiskFileItemFactory factory = new DiskFileItemFactory();
+            ServletFileUpload upload = new ServletFileUpload(factory);
+            upload.setHeaderEncoding("UTF-8");
+            String uploadPath = _request.getServletContext().getRealPath("/") + "Avatar";
+            File uploadDir = new File(uploadPath);
+            User temp = (User) _request.getSession().getAttribute("C_User");
+            
+            if (!uploadDir.exists()) {
+                uploadDir.mkdir();
+            }
+            List<FileItem> FileItems = upload.parseRequest(_request);
+            
+            if (FileItems != null && FileItems.size() > 0) {
+                for (FileItem item : FileItems) {
+                    
+                    if (!item.isFormField()) {
+                        String fileName = new File(item.getName()).getName();
+                        fileName = fileName.substring(fileName.lastIndexOf("."));
+                        String filePath = uploadPath + File.separator + temp.getUuid() + "_Avatar" + fileName;
+                        File storeFile = new File(filePath);
+                        // Store the file into the local disk.
+                        item.write(storeFile);
+                        
+                        return filePath;
+                    }
+                }
+            }
+            
+            return null;
+        } catch (FileUploadException ex) {
+            System.out.println(ex);
+            return null;
+        } catch (Exception ex) {
+            System.out.println(ex);
+            return null;
+        }
+    }
+
 
     /**
-     * Update the new user-info to database.
+     * Geneter a string of tags.
+     *
+     * @param _request servlet request
+     * @param _response servlet response
+     * @return the string of tags.
+     * @throws ServletException if a servlet-specific error occurs.
+     * @throws IOException if an I/O error occurs.
+     */
+    public static String tagBuilder(HttpServletRequest _request, HttpServletResponse _response)
+            throws ServletException, IOException {
+        String tags = "";
+        String[] temp = _request.getParameterValues("chk[]");
+        if (temp != null) {
+            for (String s : temp) {
+                tags += s + ",";
+            }
+        }
+        
+        return tags;
+    }
+
+
+    /**
+     * Update the avatar of user/doctor into SQL database. 
      *
      * @param _request servlet request
      * @param _response servlet response
@@ -67,8 +146,9 @@ public class Update {
         }
     }
 
+
     /**
-     * Update the new user-info to database.
+     * Update the new user/doctor-info into SQL database.
      *
      * @param _request servlet request
      * @param _response servlet response
@@ -130,8 +210,9 @@ public class Update {
         }
     }
 
+
     /**
-     * Update the new user-info to database.
+     * Update the Tags for user/doctor into SQL database.
      *
      * @param _request servlet request
      * @param _response servlet response
@@ -170,64 +251,5 @@ public class Update {
             _request.setAttribute("Debug", ex.toString());
             _request.getRequestDispatcher("Failed.jsp").forward(_request, _response);
         }
-    }
-
-    public static String saveFile(HttpServletRequest _request, HttpServletResponse _response)
-            throws ServletException, IOException {
-
-        try {
-            if (!ServletFileUpload.isMultipartContent(_request)) {
-                return null;
-            }
-
-            DiskFileItemFactory factory = new DiskFileItemFactory();
-            ServletFileUpload upload = new ServletFileUpload(factory);
-            upload.setHeaderEncoding("UTF-8");
-            String uploadPath = _request.getServletContext().getRealPath("/") + "Avatar";
-            //String uploadPath = System.getProperty("user.dir") + "\\PIC";
-            File uploadDir = new File(uploadPath);
-            User temp = (User) _request.getSession().getAttribute("C_User");
-            if (!uploadDir.exists()) {
-                uploadDir.mkdir();
-            }
-            List<FileItem> FileItems = upload.parseRequest(_request);
-
-            if (FileItems != null && FileItems.size() > 0) {
-                for (FileItem item : FileItems) {
-
-                    if (!item.isFormField()) {
-                        String fileName = new File(item.getName()).getName();
-                        fileName = fileName.substring(fileName.lastIndexOf("."));
-                        String filePath = uploadPath + File.separator + temp.getUuid() + "_Avatar" + fileName;
-                        File storeFile = new File(filePath);
-                        // 保存文件到硬盘
-                        item.write(storeFile);
-
-                        return filePath;
-                    }
-                }
-            }
-
-            return null;
-        } catch (FileUploadException ex) {
-            System.out.println(ex);
-            return null;
-        } catch (Exception ex) {
-            System.out.println(ex);
-            return null;
-        }
-    }
-
-    public static String tagBuilder(HttpServletRequest _request, HttpServletResponse _response)
-            throws ServletException, IOException {
-        String tags = "";
-        String[] temp = _request.getParameterValues("chk[]");
-        if (temp != null) {
-            for (String s : temp) {
-                tags += s + ",";
-            }
-        }
-
-        return tags;
     }
 }

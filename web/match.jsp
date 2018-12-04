@@ -13,6 +13,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <jsp:include page="sub_elements/common_source.jsp"></jsp:include>
+        <script src="js/match_function.js"></script>
         <title>Match it</title>
     </head>
     <body>

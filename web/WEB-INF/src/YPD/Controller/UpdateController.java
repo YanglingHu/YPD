@@ -1,10 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package YPD.Controller;
-
 import YPD.Model.acc.Update;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,14 +11,15 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 /**
  *
- * @author Administrator
+ * @Update 2018/12/3
+ * @author Yi Qiu
  */
 @WebServlet(name = "UpdateController", urlPatterns = {"/UpdateController"})
 public class UpdateController extends HttpServlet {
 
 
     /**
-     * Handles the HTTP <code>GET</code> method.
+     * if the HttpRequest is GET, do nothing.
      *
      * @param _request servlet request
      * @param _response servlet response
@@ -37,7 +32,7 @@ public class UpdateController extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * Call the appropriate method to Handle the HttpRequest.
      *
      * @param _request servlet request
      * @param _response servlet response

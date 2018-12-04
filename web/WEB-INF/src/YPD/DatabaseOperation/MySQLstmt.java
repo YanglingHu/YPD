@@ -1,11 +1,4 @@
 package YPD.DatabaseOperation;
-/**
- * 
- * 
- * @Update 2018/11/20
- * @author Yi Qiu
- */
-
 import Class.User;
 import YPD.Dic.Dictionary;
 import com.sun.rowset.CachedRowSetImpl;
@@ -15,9 +8,10 @@ import java.lang.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sql.rowset.CachedRowSet;
-
 /**
- *
+ * Generate the necessary query for the SQL operations.
+ * 
+ * @Update 2018/12/3
  * @author Yi Qiu
  */
 public class MySQLstmt implements DatabaseInterface{
@@ -34,14 +28,15 @@ public class MySQLstmt implements DatabaseInterface{
     /**
      * Calls the setConnection() method to open a new SQL connection.
      * 
-     * @throws SQLException
-     * @throws java.lang.ClassNotFoundException
+     * @throws SQLException if a SQL error occurs.
+     * @throws ClassNotFoundException
      */
     public MySQLstmt() throws SQLException, ClassNotFoundException{
         this.setConnection();
     }
     
     /**
+     * load the key-value into memory.
      * 
      * @param _map A map that is presenting a object.
      */
@@ -156,7 +151,7 @@ public class MySQLstmt implements DatabaseInterface{
     /**
      * Open a new SQL connection and a SQL statement.
      * 
-     * @throws SQLException 
+     * @throws SQLException if a SQL error occurs.
      */
     private void setConnection() throws SQLException, ClassNotFoundException{
         Class.forName(Dictionary.DRIVER_TYPE);
@@ -167,7 +162,7 @@ public class MySQLstmt implements DatabaseInterface{
     /**
      * Close the SQL connection and SQL statement to release the memory.
      * 
-     * @throws SQLException
+     * @throws SQLException if a SQL error occurs.
      */
     protected void release() throws SQLException{
         if(this.CON != null){

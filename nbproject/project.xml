@@ -15,19 +15,19 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
-                    <file>${file.reference.mysql-connector-java-8.0.12.jar}</file>
+                    <file>${file.reference.org.json.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
-                    <file>${file.reference.org.json.jar}</file>
+                    <file>${file.reference.mysql-connector-java-8.0.13.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
             </web-module-libraries>
             <web-module-additional-libraries/>
             <source-roots>
-                <root id="src.dir"/>
                 <root id="src.classes.dir"/>
                 <root id="src.src.dir"/>
+                <root id="src.dir"/>
             </source-roots>
             <test-roots>
                 <root id="test.src.dir"/>

@@ -33,7 +33,7 @@
                                         <input id="password_signIn" name="password" type="password" /><p>
                                         <input type ="hidden" name="method" value="SignIn"/>
                                         <p align="center">
-                                            <button id="button_signIn" type="button" class="btn btn-sm btn-primary">SignIn</button>
+                                            <button id="button_signIn" type="button" class="btn btn-sm btn-primary" >SignIn</button>
                                         </p>
                                         <p id="Error_signIn" style="color: red"></p>
                                     </form>
@@ -48,7 +48,7 @@
                                             <b>Username：</b></br>
                                         <input id="username_signUp"  name="username" type="text" /></br>
                                             <b>Password：</b></br>
-                                        <input id="passwd_signUp" type="password"/></br>
+                                        <input id="passwd_signUp" name="password" type="password"/></br>
                                             <b>Check-pw：</b></br>
                                         <input id="repassword_signUp" type="password" /><p>
                                         <input type ="hidden" name="method" value="SignUp"/>
@@ -91,7 +91,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                        <button id="button_signUpD" type="button" class="btn btn-sm btn-primary" onclick="document.getElementById('modal-form-doctor');">SignUp</button>
+                            <button id="button_signUpD" type="button" class="btn btn-sm btn-primary">SignUp</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
                     </div>

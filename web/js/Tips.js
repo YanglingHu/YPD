@@ -52,18 +52,15 @@ $(document).ready(function () {
         var repasswd= $("#repassword_signUp").val();
         if(usernm.length === 0 && passwd.length === 0){
             $("#Error_signUp").html("Can't be empty");
-    }
-        else if(usernm.length === 0){
+        }else if(usernm.length === 0){
             $("#Error_signUp").html("Username can't be empty");
-        }
-        else if(passwd.length === 0){
+        }else if(passwd.length === 0){
            $("#Error_signUp").html("Password can't be empty");
-    }else if(repasswd.length === 0){
+        }else if(repasswd.length === 0){
             $("#Error_signUp").html("Re-check Password can't be empty");
-        } else if(repasswd!== passwd){
+        }else if(repasswd!== passwd){
             $("#Error_signUp").html("The password is different");      
-        }
-        else{
+        }else{
             $("#form-signUp").submit();
         }
     }
@@ -91,7 +88,7 @@ $(document).ready(function () {
             $("#Error_signUpD").html("The password is different");
         }
         else{
-            $("#form-signUpD").submit();
+            document.getElementById('modal-form-doctor').submit();
         }
     }
 
