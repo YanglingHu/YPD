@@ -23,9 +23,9 @@ import org.json.JSONException;
  * @author Yi Qiu, Yangling Hu
  */
 public class AccProc {
-    
+
     private DBoperation opr;
-    
+
     /**
      * Generate a uuid for the user.
      *
@@ -35,7 +35,6 @@ public class AccProc {
         String uuid = UUID.randomUUID().toString();
         return uuid;
     }
-
 
     /**
      * Set the age of all cookies that are in the cookie array to zero.
@@ -50,7 +49,6 @@ public class AccProc {
         }
         return _cookie;
     }
-
 
     /**
      * Logout the user taht is logged-in.
@@ -73,7 +71,6 @@ public class AccProc {
         //Return to the home page.
         _response.sendRedirect("index.jsp");
     }
-
 
     /**
      *
@@ -109,7 +106,6 @@ public class AccProc {
         }
     }
 
-
     /**
      * Get all doctors that have required MID and set them into HttpSession.
      *
@@ -141,7 +137,6 @@ public class AccProc {
         _response.sendRedirect("match.jsp");
     }
 
-
     /**
      * Prohibit a user from signing in this web server.
      *
@@ -168,7 +163,6 @@ public class AccProc {
             return false;
         }
     }
-
 
     /**
      * Release the DBoperation instance.
@@ -204,7 +198,6 @@ public class AccProc {
         }
     }
 
-
     /**
      * Generate cookie for user and url.
      *
@@ -220,7 +213,6 @@ public class AccProc {
         Cookie[] cookie = {uuid};
         return cookie;
     }
-
 
     /**
      * Get one target user from database on this web server.
@@ -255,7 +247,6 @@ public class AccProc {
         }
     }
 
-
     /**
      * Get one target user from database on this web server.
      *
@@ -287,7 +278,6 @@ public class AccProc {
             return null;
         }
     }
-
 
     /**
      * Get all users from database on this web server.
@@ -322,7 +312,6 @@ public class AccProc {
             return null;
         }
     }
-
 
     /**
      * Get all doctors that have required MID and set them into HttpSession.
@@ -368,7 +357,6 @@ public class AccProc {
         }
     }
 
-
     /**
      *
      *
@@ -384,7 +372,6 @@ public class AccProc {
             _response.addCookie(cookie);
         }
     }
-
 
     /**
      * User login to the web server.
@@ -423,7 +410,6 @@ public class AccProc {
         return Dictionary.ERROR_CODE_4;
     }
 
-
     /**
      * Add a new user to the web server.
      *
@@ -437,25 +423,21 @@ public class AccProc {
             throws ServletException, IOException {
         String s = "";
         try {
-            //Check the user input of username and password is not empty
-            if (_request.getParameter("username").equals("") && _request.getParameter("password").equals("")) {
-                //Doctor signUp methods
-                if (_request.getParameter("NPI") != null) {
-                    s = " Verification Failed: Please make sure your name and NPI matches each other!";
-                    Map<String, String> map = checkForDoctor(_request.getParameter("firstname"), _request.getParameter("NPI"));
 
-                    if (map != null) {
-                        User user = new User(this.getUID(), _request.getParameter("username"), _request.getParameter("password"), Dictionary.STATUS_CODE_DOCTOR, "Unknown");
-                        user.setName(map.get("first_name"));
-                        user.setImg(map.get("img"));
-                        if (opr.newObjToDB(user, Dictionary.TABLE_1)) {
-                            return "Success";
-                        }
+            if (_request.getParameter("NPI") != null || _request.getParameter("firstname") != null) {
+                s = " Verification Failed: Please make sure your name and NPI matches each other!";
+                Map<String, String> map = checkForDoctor(_request.getParameter("firstname"), _request.getParameter("NPI"));
 
+                if (map != null) {
+                    User user = new User(this.getUID(), _request.getParameter("username"), _request.getParameter("password"), Dictionary.STATUS_CODE_DOCTOR, "Unknown");
+                    user.setName(map.get("first_name"));
+                    user.setImg(map.get("img"));
+                    if (opr.newObjToDB(user, Dictionary.TABLE_1)) {
+                        return "Success";
                     }
+
                 }
             } else {
-                //User signUp methods
                 s = " Provided infomation is invalid/ Username is already registered by others";
                 User user = new User(this.getUID(), _request.getParameter("username"), _request.getParameter("password"), Dictionary.STATUS_CODE_USER, "Unknown");
                 if (opr.newObjToDB(user, Dictionary.TABLE_1)) {
@@ -467,5 +449,4 @@ public class AccProc {
         }
         return s;
     }
-
 }
